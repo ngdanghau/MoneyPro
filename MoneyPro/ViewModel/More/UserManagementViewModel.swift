@@ -12,7 +12,7 @@ import SwiftUI
 class UserManagementViewModel: ObservableObject {
     @Published var users: [User] = []
     
-    @Published var loading: Bool = false
+    @Published var loading: LoadingState = .invisible
     @Published var isEdit: Bool = true
     @Published var search: String = ""
     @Published var user: User = User.initial()
@@ -61,7 +61,7 @@ class UserManagementViewModel: ObservableObject {
     }
     
     private func fetchDataUser(){
-        loading = true
+        loading = .visible
         authAPI.getListUser( search: search, start: start, length: length, accessToken: state.getAccessToken())
             .receive(on: RunLoop.main)
             .map(resultMapper)
@@ -71,7 +71,7 @@ class UserManagementViewModel: ObservableObject {
     }
     
     func updateOrSaveUser (){
-        loading = true
+        loading = .visible
         authAPI.updateOrSaveUser(user: user, accessToken: state.getAccessToken())
             .receive(on: RunLoop.main)
             .map(resultMapper)
@@ -81,7 +81,7 @@ class UserManagementViewModel: ObservableObject {
     }
     
     func deleteUser (){
-        loading = true
+        loading = .visible
         authAPI.deleteUser(user: user, accessToken: state.getAccessToken())
             .receive(on: RunLoop.main)
             .map(resultMapper)
@@ -95,7 +95,7 @@ class UserManagementViewModel: ObservableObject {
 extension UserManagementViewModel {
     private func resultMapper(with resp: UserResponse?) -> StatusViewModel {
         showingAlert = true
-        loading = false
+        loading = .invisible
         if resp?.result == 0 {
             return StatusViewModel.init(title: "Error", message: resp?.msg ?? StatusViewModel.errorDefault, resultType: .error)
         } else if resp?.result == 1 {

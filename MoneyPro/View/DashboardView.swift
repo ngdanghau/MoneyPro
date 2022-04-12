@@ -49,7 +49,7 @@ struct DashboardView: View {
                     }
                     .tag(Tabs.home)
 
-                ReportView()
+                ReportView(state: state)
                     .tabItem {
                         Label("Report", systemImage: "chart.bar.xaxis")
                     }
@@ -69,8 +69,7 @@ struct DashboardView: View {
             }
             .accentColor(Color(UIConfiguration.tintColor))
             .navigationBarBackButtonHidden(true)
-            .navigationTitle("Money Pro")
-            
+            .navigationBarTitleDisplayMode(.inline)
         
     }
 }

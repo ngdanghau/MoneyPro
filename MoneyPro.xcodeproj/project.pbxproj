@@ -7,11 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0586A8178B0B250F0A174058 /* Pods_MoneyPro.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBBA40D2BF282042CBF471FC /* Pods_MoneyPro.framework */; };
-		882805419876EE070559EA8C /* Pods_MoneyPro_MoneyProUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88B4019A4597575669E2701F /* Pods_MoneyPro_MoneyProUITests.framework */; };
 		C809715D27F59CC000D46ACE /* AccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C809715C27F59CC000D46ACE /* AccountViewModel.swift */; };
 		C809715F27F59CC900D46ACE /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C809715E27F59CC900D46ACE /* CategoryViewModel.swift */; };
 		C809716127F5DBA400D46ACE /* ModalCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C809716027F5DBA400D46ACE /* ModalCategoryView.swift */; };
+		C832C89F2805BBF1006FA80A /* TransactionListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C832C89E2805BBF1006FA80A /* TransactionListViewModel.swift */; };
 		C83D08E127F6C0A3006CD28A /* ModalAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C83D08E027F6C0A3006CD28A /* ModalAccountView.swift */; };
 		C83D08E327F74084006CD28A /* BudgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C83D08E227F74084006CD28A /* BudgetView.swift */; };
 		C83D08E527F755E8006CD28A /* GoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C83D08E427F755E8006CD28A /* GoalView.swift */; };
@@ -25,6 +24,9 @@
 		C849789E27FFC06C00A77590 /* PieSliceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C849789D27FFC06C00A77590 /* PieSliceView.swift */; };
 		C84978A027FFCCD500A77590 /* PieChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C849789F27FFCCD500A77590 /* PieChartView.swift */; };
 		C84978A328028E0800A77590 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84978A228028E0800A77590 /* LoadingView.swift */; };
+		C84978A528029FE100A77590 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84978A428029FE100A77590 /* App.swift */; };
+		C84978AA28031E1300A77590 /* BarColumnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84978A928031E1300A77590 /* BarColumnView.swift */; };
+		C84978AC2803542A00A77590 /* BarChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84978AB2803542A00A77590 /* BarChartView.swift */; };
 		C865E34727ED8D3600332632 /* MoneyProApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C865E34627ED8D3600332632 /* MoneyProApp.swift */; };
 		C865E34927ED8D3600332632 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C865E34827ED8D3600332632 /* ContentView.swift */; };
 		C865E34B27ED8D3800332632 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C865E34A27ED8D3800332632 /* Assets.xcassets */; };
@@ -55,9 +57,12 @@
 		C874C60B27EF768700624143 /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C874C60A27EF768700624143 /* CategoryView.swift */; };
 		C874C60D27EF772F00624143 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C874C60C27EF772F00624143 /* AccountView.swift */; };
 		C874C61127EF7BAA00624143 /* MoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C874C61027EF7BAA00624143 /* MoreView.swift */; };
-		C874C61327F00D9900624143 /* ListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C874C61227F00D9900624143 /* ListItem.swift */; };
 		C874C61627F019A100624143 /* AccountDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = C874C61527F019A100624143 /* AccountDetails.swift */; };
 		C874C61827F019BD00624143 /* EmailSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C874C61727F019BD00624143 /* EmailSettingView.swift */; };
+		C87D38D228046FA300AC07B5 /* NumberExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87D38D128046FA300AC07B5 /* NumberExt.swift */; };
+		C87D38D52805185C00AC07B5 /* CategoryReportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87D38D42805185C00AC07B5 /* CategoryReportViewModel.swift */; };
+		C87D38D72805256E00AC07B5 /* TransactionReportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87D38D62805256E00AC07B5 /* TransactionReportViewModel.swift */; };
+		C87D38DA28052DC900AC07B5 /* TransactionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87D38D928052DC900AC07B5 /* TransactionListView.swift */; };
 		C88CA3C427FB061F000BB1CF /* BudgetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88CA3C327FB061F000BB1CF /* BudgetViewModel.swift */; };
 		C88CA3C627FD3A9C000BB1CF /* UserManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88CA3C527FD3A9C000BB1CF /* UserManagementView.swift */; };
 		C88CA3C827FD3B0D000BB1CF /* UserManagementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88CA3C727FD3B0D000BB1CF /* UserManagementViewModel.swift */; };
@@ -74,7 +79,7 @@
 		C8DEC2A027F0743000F2958C /* AccountDetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DEC29F27F0743000F2958C /* AccountDetailsModel.swift */; };
 		C8DEC2A227F08FAE00F2958C /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DEC2A127F08FAE00F2958C /* Response.swift */; };
 		C8DEC2A427F0B75000F2958C /* ChangePassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DEC2A327F0B75000F2958C /* ChangePassword.swift */; };
-		D0AADC778404565CBE11ACEA /* Pods_MoneyProTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E9349B887AED60D4E8586CD /* Pods_MoneyProTests.framework */; };
+		C8E6D1F42804583D005C8F0B /* ReportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E6D1F32804583D005C8F0B /* ReportViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,18 +100,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		16099EDFE4A8B141AC11ADA6 /* Pods-MoneyPro.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyPro.release.xcconfig"; path = "Target Support Files/Pods-MoneyPro/Pods-MoneyPro.release.xcconfig"; sourceTree = "<group>"; };
-		3E9349B887AED60D4E8586CD /* Pods_MoneyProTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoneyProTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		68072BCD308D9B1BBCEBF46A /* Pods-MoneyProTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyProTests.release.xcconfig"; path = "Target Support Files/Pods-MoneyProTests/Pods-MoneyProTests.release.xcconfig"; sourceTree = "<group>"; };
-		6AEDCAB94BE2F66545A76C22 /* Pods-MoneyProTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyProTests.debug.xcconfig"; path = "Target Support Files/Pods-MoneyProTests/Pods-MoneyProTests.debug.xcconfig"; sourceTree = "<group>"; };
-		6E86DC05FEFA8261048FDF03 /* Pods-MoneyPro.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyPro.debug.xcconfig"; path = "Target Support Files/Pods-MoneyPro/Pods-MoneyPro.debug.xcconfig"; sourceTree = "<group>"; };
-		6EFE40A61F8A7495F76A0F9E /* Pods-MoneyPro-MoneyProUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyPro-MoneyProUITests.release.xcconfig"; path = "Target Support Files/Pods-MoneyPro-MoneyProUITests/Pods-MoneyPro-MoneyProUITests.release.xcconfig"; sourceTree = "<group>"; };
-		88B4019A4597575669E2701F /* Pods_MoneyPro_MoneyProUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoneyPro_MoneyProUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		BBBA40D2BF282042CBF471FC /* Pods_MoneyPro.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoneyPro.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		BF507926F2DABD10BB90668B /* Pods-MoneyPro-MoneyProUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyPro-MoneyProUITests.debug.xcconfig"; path = "Target Support Files/Pods-MoneyPro-MoneyProUITests/Pods-MoneyPro-MoneyProUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		C809715C27F59CC000D46ACE /* AccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewModel.swift; sourceTree = "<group>"; };
 		C809715E27F59CC900D46ACE /* CategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModel.swift; sourceTree = "<group>"; };
 		C809716027F5DBA400D46ACE /* ModalCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalCategoryView.swift; sourceTree = "<group>"; };
+		C832C89E2805BBF1006FA80A /* TransactionListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionListViewModel.swift; sourceTree = "<group>"; };
 		C83D08E027F6C0A3006CD28A /* ModalAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalAccountView.swift; sourceTree = "<group>"; };
 		C83D08E227F74084006CD28A /* BudgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetView.swift; sourceTree = "<group>"; };
 		C83D08E427F755E8006CD28A /* GoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalView.swift; sourceTree = "<group>"; };
@@ -120,6 +117,9 @@
 		C849789D27FFC06C00A77590 /* PieSliceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieSliceView.swift; sourceTree = "<group>"; };
 		C849789F27FFCCD500A77590 /* PieChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartView.swift; sourceTree = "<group>"; };
 		C84978A228028E0800A77590 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		C84978A428029FE100A77590 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
+		C84978A928031E1300A77590 /* BarColumnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarColumnView.swift; sourceTree = "<group>"; };
+		C84978AB2803542A00A77590 /* BarChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartView.swift; sourceTree = "<group>"; };
 		C865E34327ED8D3600332632 /* MoneyPro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoneyPro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C865E34627ED8D3600332632 /* MoneyProApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyProApp.swift; sourceTree = "<group>"; };
 		C865E34827ED8D3600332632 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -153,9 +153,12 @@
 		C874C60A27EF768700624143 /* CategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
 		C874C60C27EF772F00624143 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		C874C61027EF7BAA00624143 /* MoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreView.swift; sourceTree = "<group>"; };
-		C874C61227F00D9900624143 /* ListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItem.swift; sourceTree = "<group>"; };
 		C874C61527F019A100624143 /* AccountDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetails.swift; sourceTree = "<group>"; };
 		C874C61727F019BD00624143 /* EmailSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailSettingView.swift; sourceTree = "<group>"; };
+		C87D38D128046FA300AC07B5 /* NumberExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberExt.swift; sourceTree = "<group>"; };
+		C87D38D42805185C00AC07B5 /* CategoryReportViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryReportViewModel.swift; sourceTree = "<group>"; };
+		C87D38D62805256E00AC07B5 /* TransactionReportViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionReportViewModel.swift; sourceTree = "<group>"; };
+		C87D38D928052DC900AC07B5 /* TransactionListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionListView.swift; sourceTree = "<group>"; };
 		C88CA3C327FB061F000BB1CF /* BudgetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetViewModel.swift; sourceTree = "<group>"; };
 		C88CA3C527FD3A9C000BB1CF /* UserManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManagementView.swift; sourceTree = "<group>"; };
 		C88CA3C727FD3B0D000BB1CF /* UserManagementViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManagementViewModel.swift; sourceTree = "<group>"; };
@@ -172,6 +175,7 @@
 		C8DEC29F27F0743000F2958C /* AccountDetailsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailsModel.swift; sourceTree = "<group>"; };
 		C8DEC2A127F08FAE00F2958C /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		C8DEC2A327F0B75000F2958C /* ChangePassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePassword.swift; sourceTree = "<group>"; };
+		C8E6D1F32804583D005C8F0B /* ReportViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -179,7 +183,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0586A8178B0B250F0A174058 /* Pods_MoneyPro.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -187,7 +190,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D0AADC778404565CBE11ACEA /* Pods_MoneyProTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -195,23 +197,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				882805419876EE070559EA8C /* Pods_MoneyPro_MoneyProUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0D7FB5EB34667DAE36560085 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				BBBA40D2BF282042CBF471FC /* Pods_MoneyPro.framework */,
-				88B4019A4597575669E2701F /* Pods_MoneyPro_MoneyProUITests.framework */,
-				3E9349B887AED60D4E8586CD /* Pods_MoneyProTests.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		C809715B27F59CB200D46ACE /* General */ = {
 			isa = PBXGroup;
 			children = (
@@ -225,6 +216,7 @@
 		C849789C27FFC00300A77590 /* Chart */ = {
 			isa = PBXGroup;
 			children = (
+				C84978A628031D9200A77590 /* BarChart */,
 				C84978A127FFEBED00A77590 /* PieChart */,
 			);
 			path = Chart;
@@ -239,6 +231,15 @@
 			path = PieChart;
 			sourceTree = "<group>";
 		};
+		C84978A628031D9200A77590 /* BarChart */ = {
+			isa = PBXGroup;
+			children = (
+				C84978A928031E1300A77590 /* BarColumnView.swift */,
+				C84978AB2803542A00A77590 /* BarChartView.swift */,
+			);
+			path = BarChart;
+			sourceTree = "<group>";
+		};
 		C865E33A27ED8D3600332632 = {
 			isa = PBXGroup;
 			children = (
@@ -246,8 +247,6 @@
 				C865E35627ED8D3800332632 /* MoneyProTests */,
 				C865E36027ED8D3800332632 /* MoneyProUITests */,
 				C865E34427ED8D3600332632 /* Products */,
-				EB12CB3E619A78E624D96794 /* Pods */,
-				0D7FB5EB34667DAE36560085 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -312,8 +311,8 @@
 			children = (
 				C8C2C9FA27F2AA2200921EAE /* Setting */,
 				C865E37B27EDBAF000332632 /* User.swift */,
-				C874C61227F00D9900624143 /* ListItem.swift */,
 				C8DEC2A127F08FAE00F2958C /* Response.swift */,
+				C84978A428029FE100A77590 /* App.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -321,6 +320,7 @@
 		C865E37327EDB93B00332632 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				C87D38D828052DBD00AC07B5 /* Report */,
 				C8D5D6D127FEE19500ED8A3B /* Budget */,
 				C874C60627EF43AC00624143 /* DashboardView.swift */,
 				C8C2CA0527F3119200921EAE /* General */,
@@ -345,6 +345,7 @@
 		C865E38127EDC76400332632 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				C87D38D32805183300AC07B5 /* Report */,
 				C88CA3C227FB0612000BB1CF /* App */,
 				C809715B27F59CB200D46ACE /* General */,
 				C8C2C9F727F2A99B00921EAE /* More */,
@@ -390,6 +391,7 @@
 				C86CFBF727F6A1BE00DDD493 /* ArrayExt.swift */,
 				C83D08EC27F9DC5C006CD28A /* UIApplicationExt.swift */,
 				C83D08EE27F9E258006CD28A /* DateExt.swift */,
+				C87D38D128046FA300AC07B5 /* NumberExt.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -401,6 +403,26 @@
 				C8DEC2A327F0B75000F2958C /* ChangePassword.swift */,
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		C87D38D32805183300AC07B5 /* Report */ = {
+			isa = PBXGroup;
+			children = (
+				C8E6D1F32804583D005C8F0B /* ReportViewModel.swift */,
+				C87D38D42805185C00AC07B5 /* CategoryReportViewModel.swift */,
+				C87D38D62805256E00AC07B5 /* TransactionReportViewModel.swift */,
+				C832C89E2805BBF1006FA80A /* TransactionListViewModel.swift */,
+			);
+			path = Report;
+			sourceTree = "<group>";
+		};
+		C87D38D828052DBD00AC07B5 /* Report */ = {
+			isa = PBXGroup;
+			children = (
+				C8C2CA0327F3111F00921EAE /* ReportView.swift */,
+				C87D38D928052DC900AC07B5 /* TransactionListView.swift */,
+			);
+			path = Report;
 			sourceTree = "<group>";
 		};
 		C88CA3C227FB0612000BB1CF /* App */ = {
@@ -482,7 +504,6 @@
 				C865E39427EE0D5A00332632 /* HomeView.swift */,
 				C874C60827EF441B00624143 /* TransactionView.swift */,
 				C874C61027EF7BAA00624143 /* MoreView.swift */,
-				C8C2CA0327F3111F00921EAE /* ReportView.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -496,19 +517,6 @@
 			path = Auth;
 			sourceTree = "<group>";
 		};
-		EB12CB3E619A78E624D96794 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				6E86DC05FEFA8261048FDF03 /* Pods-MoneyPro.debug.xcconfig */,
-				16099EDFE4A8B141AC11ADA6 /* Pods-MoneyPro.release.xcconfig */,
-				BF507926F2DABD10BB90668B /* Pods-MoneyPro-MoneyProUITests.debug.xcconfig */,
-				6EFE40A61F8A7495F76A0F9E /* Pods-MoneyPro-MoneyProUITests.release.xcconfig */,
-				6AEDCAB94BE2F66545A76C22 /* Pods-MoneyProTests.debug.xcconfig */,
-				68072BCD308D9B1BBCEBF46A /* Pods-MoneyProTests.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -516,11 +524,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C865E36727ED8D3800332632 /* Build configuration list for PBXNativeTarget "MoneyPro" */;
 			buildPhases = (
-				56DDB9C7E5453AE6BA994C66 /* [CP] Check Pods Manifest.lock */,
 				C865E33F27ED8D3600332632 /* Sources */,
 				C865E34027ED8D3600332632 /* Frameworks */,
 				C865E34127ED8D3600332632 /* Resources */,
-				488F76701320F03202BEB079 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -535,7 +541,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C865E36A27ED8D3800332632 /* Build configuration list for PBXNativeTarget "MoneyProTests" */;
 			buildPhases = (
-				B06FA77CAE2BE6F5275209C5 /* [CP] Check Pods Manifest.lock */,
 				C865E34F27ED8D3800332632 /* Sources */,
 				C865E35027ED8D3800332632 /* Frameworks */,
 				C865E35127ED8D3800332632 /* Resources */,
@@ -554,11 +559,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C865E36D27ED8D3800332632 /* Build configuration list for PBXNativeTarget "MoneyProUITests" */;
 			buildPhases = (
-				1AA9C27ADAC599E98BF43524 /* [CP] Check Pods Manifest.lock */,
 				C865E35927ED8D3800332632 /* Sources */,
 				C865E35A27ED8D3800332632 /* Frameworks */,
 				C865E35B27ED8D3800332632 /* Resources */,
-				F4D63354C48627375A9DB9CE /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -640,109 +643,6 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		1AA9C27ADAC599E98BF43524 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MoneyPro-MoneyProUITests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		488F76701320F03202BEB079 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MoneyPro/Pods-MoneyPro-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MoneyPro/Pods-MoneyPro-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MoneyPro/Pods-MoneyPro-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		56DDB9C7E5453AE6BA994C66 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MoneyPro-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B06FA77CAE2BE6F5275209C5 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MoneyProTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F4D63354C48627375A9DB9CE /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MoneyPro-MoneyProUITests/Pods-MoneyPro-MoneyProUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MoneyPro-MoneyProUITests/Pods-MoneyPro-MoneyProUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MoneyPro-MoneyProUITests/Pods-MoneyPro-MoneyProUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		C865E33F27ED8D3600332632 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -771,21 +671,25 @@
 				C865E3D927EEDE5200332632 /* CustomTextField.swift in Sources */,
 				C8C2C9E527F1FDFF00921EAE /* ApplicationSettingView.swift in Sources */,
 				C8C2C9F927F2A9BB00921EAE /* EmailSettingViewModel.swift in Sources */,
-				C874C61327F00D9900624143 /* ListItem.swift in Sources */,
 				C865E39527EE0D5A00332632 /* HomeView.swift in Sources */,
 				C865E37E27EDBE0500332632 /* UIConfiguration.swift in Sources */,
 				C865E37A27EDBAB900332632 /* AppState.swift in Sources */,
 				C83D08E527F755E8006CD28A /* GoalView.swift in Sources */,
+				C84978AC2803542A00A77590 /* BarChartView.swift in Sources */,
 				C8C2CA0427F3111F00921EAE /* ReportView.swift in Sources */,
+				C87D38D72805256E00AC07B5 /* TransactionReportViewModel.swift in Sources */,
+				C87D38D228046FA300AC07B5 /* NumberExt.swift in Sources */,
 				C88CA3CA27FD3C8D000BB1CF /* ModalUserManagementView.swift in Sources */,
 				C865E37C27EDBAF000332632 /* User.swift in Sources */,
 				C8C2C9E227F1FC9100921EAE /* MenuItem.swift in Sources */,
 				C8C2C9FE27F2AA6400921EAE /* EmailSetting.swift in Sources */,
+				C84978A528029FE100A77590 /* App.swift in Sources */,
 				C8C2C9EB27F2070D00921EAE /* CustomTextEditor.swift in Sources */,
 				C865E38327EDC77F00332632 /* SignInViewModel.swift in Sources */,
 				C83D08E727F7561E006CD28A /* GoalViewModel.swift in Sources */,
 				C84978A027FFCCD500A77590 /* PieChartView.swift in Sources */,
 				C874C60B27EF768700624143 /* CategoryView.swift in Sources */,
+				C87D38DA28052DC900AC07B5 /* TransactionListView.swift in Sources */,
 				C865E3DF27EEE23E00332632 /* SignUpViewModel.swift in Sources */,
 				C809715D27F59CC000D46ACE /* AccountViewModel.swift in Sources */,
 				C865E38527EDC7C600332632 /* StatusViewModel.swift in Sources */,
@@ -799,13 +703,17 @@
 				C849789E27FFC06C00A77590 /* PieSliceView.swift in Sources */,
 				C874C60727EF43AC00624143 /* DashboardView.swift in Sources */,
 				C849789B27FF4B8E00A77590 /* ModalBudgetGraphView.swift in Sources */,
+				C832C89F2805BBF1006FA80A /* TransactionListViewModel.swift in Sources */,
 				C83D08E927F75BAD006CD28A /* ModalGoalView.swift in Sources */,
+				C84978AA28031E1300A77590 /* BarColumnView.swift in Sources */,
 				C83D08EF27F9E258006CD28A /* DateExt.swift in Sources */,
 				C865E37727EDBA3B00332632 /* SignInView.swift in Sources */,
 				C865E34727ED8D3600332632 /* MoneyProApp.swift in Sources */,
 				C88CA3C627FD3A9C000BB1CF /* UserManagementView.swift in Sources */,
+				C8E6D1F42804583D005C8F0B /* ReportViewModel.swift in Sources */,
 				C86CFBF827F6A1BE00DDD493 /* ArrayExt.swift in Sources */,
 				C865E3D527EED74D00332632 /* NavigationUtil.swift in Sources */,
+				C87D38D52805185C00AC07B5 /* CategoryReportViewModel.swift in Sources */,
 				C8C2C9EF27F20F0200921EAE /* SiteSetting.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -959,7 +867,6 @@
 		};
 		C865E36827ED8D3800332632 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6E86DC05FEFA8261048FDF03 /* Pods-MoneyPro.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -974,6 +881,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -992,7 +900,6 @@
 		};
 		C865E36927ED8D3800332632 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 16099EDFE4A8B141AC11ADA6 /* Pods-MoneyPro.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1007,6 +914,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1025,7 +933,6 @@
 		};
 		C865E36B27ED8D3800332632 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6AEDCAB94BE2F66545A76C22 /* Pods-MoneyProTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1046,7 +953,6 @@
 		};
 		C865E36C27ED8D3800332632 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 68072BCD308D9B1BBCEBF46A /* Pods-MoneyProTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1067,7 +973,6 @@
 		};
 		C865E36E27ED8D3800332632 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BF507926F2DABD10BB90668B /* Pods-MoneyPro-MoneyProUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -1086,7 +991,6 @@
 		};
 		C865E36F27ED8D3800332632 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6EFE40A61F8A7495F76A0F9E /* Pods-MoneyPro-MoneyProUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

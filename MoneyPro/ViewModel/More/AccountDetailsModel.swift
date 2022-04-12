@@ -20,6 +20,8 @@ class AccountDetailsModel: ObservableObject {
     @Published var statusViewModel: StatusViewModel?
     @Published var state: AppState
     
+    @Published var loading: Bool = false
+    
     private var cancellableBag = Set<AnyCancellable>()
     private let authAPI: AuthAPI
     
@@ -29,6 +31,7 @@ class AccountDetailsModel: ObservableObject {
     }
     
     func updateProfile() {
+        loading = true
         authAPI.updateProfile(firstname: firstname, lastname: lastname, accessToken: state.getAccessToken())
             .receive(on: RunLoop.main)
             .map(resultMapper)
@@ -38,6 +41,7 @@ class AccountDetailsModel: ObservableObject {
     }
     
     func changePassword() {
+        loading = true
         authAPI.changePassword(current_password: current_password, password: password, password_confirm: password_confirm, accessToken: state.getAccessToken())
             .receive(on: RunLoop.main)
             .map(resultMapper)
@@ -50,6 +54,7 @@ class AccountDetailsModel: ObservableObject {
 // MARK: - Private helper function
 extension AccountDetailsModel {
     private func resultMapper(with resp: AuthResponse?) -> StatusViewModel {
+        loading = false
         if resp?.result == 0 {
             return StatusViewModel.init(title: "Error", message: resp?.msg ?? StatusViewModel.errorDefault, resultType: .error)
         } else if resp?.result == 1 {

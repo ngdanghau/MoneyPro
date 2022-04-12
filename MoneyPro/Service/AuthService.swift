@@ -1582,4 +1582,258 @@ class AuthService: AuthAPI {
     }
     
     
+    /**
+     Report
+     */
+    
+    func getDataIncomeVsExpense(type: String, date: BarChartDateType, accessToken: String?) -> Future<ReportTotalResponse?, Never>{
+        return Future<ReportTotalResponse?, Never> { promise in
+            let url = APIConfiguration.url + "/home/incomevsexpense"
+            let query = "type=\(type)&date=\(date.rawValue)"
+
+            guard let endpointUrl = URL(string: "\(url)?\(query)") else {
+                print("endpointUrl is invalid")
+                promise(.success(nil))
+                return
+            }
+            
+                        
+            guard let token = accessToken, !token.isEmpty else {
+                print("Token not found")
+                promise(.success(nil))
+                return
+            }
+            
+            var request = URLRequest(url: endpointUrl)
+            request.httpMethod = "GET"
+            request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+            request.addValue("JWT \(token)", forHTTPHeaderField: "Authorization")
+                        
+            URLSession.shared.dataTask(with: request) { (data, response, error) in
+                DispatchQueue.main.async {
+                    if error != nil || (response as! HTTPURLResponse).statusCode != 200 {
+                        print(error?.localizedDescription ?? "error http code")
+                        promise(.success(nil))
+                        return
+                    } else if let data = data {
+                        do {
+                            let resp = try JSONDecoder().decode(ReportTotalResponse.self, from: data)
+                            print(resp)
+                            promise(.success(resp))
+                            return;
+                        } catch DecodingError.keyNotFound(let key, let context) {
+                             print("could not find key \(key) in JSON: \(context.debugDescription)")
+                        } catch DecodingError.valueNotFound(let type, let context) {
+                             print("could not find type \(type) in JSON: \(context.debugDescription)")
+                        } catch DecodingError.typeMismatch(let type, let context) {
+                             print("type mismatch for type \(type) in JSON: \(context.debugDescription)")
+                        } catch DecodingError.dataCorrupted(let context) {
+                             print("data found to be corrupted in JSON: \(context.debugDescription)")
+                        } catch let error as NSError {
+                             NSLog("Error in read(from:ofType:) domain= \(error.domain), description= \(error.localizedDescription)")
+                        }
+                        
+                        promise(.success(nil))
+                        
+                        if let returnData = String(data: data, encoding: .utf8) {
+                            print(returnData)
+                        }
+                    }else{
+                        promise(.success(nil))
+                    }
+                }
+            }.resume()
+        }
+    }
+    
+    func getListCategoryInTime(type: String, date: BarChartDateType, accessToken: String?) -> Future<CategoryReportTotalResponse?, Never>{
+        return Future<CategoryReportTotalResponse?, Never> { promise in
+            let url = APIConfiguration.url + "/home/category/\(type)"
+            let query = "date=\(date.rawValue)"
+
+            guard let endpointUrl = URL(string: "\(url)?\(query)") else {
+                print("endpointUrl is invalid")
+                promise(.success(nil))
+                return
+            }
+            
+                        
+            guard let token = accessToken, !token.isEmpty else {
+                print("Token not found")
+                promise(.success(nil))
+                return
+            }
+            
+            var request = URLRequest(url: endpointUrl)
+            request.httpMethod = "GET"
+            request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+            request.addValue("JWT \(token)", forHTTPHeaderField: "Authorization")
+                        
+            URLSession.shared.dataTask(with: request) { (data, response, error) in
+                DispatchQueue.main.async {
+                    if error != nil || (response as! HTTPURLResponse).statusCode != 200 {
+                        print(error?.localizedDescription ?? "error http code")
+                        promise(.success(nil))
+                        return
+                    } else if let data = data {
+                        do {
+                            let resp = try JSONDecoder().decode(CategoryReportTotalResponse.self, from: data)
+                            print(resp)
+                            promise(.success(resp))
+                            return;
+                        } catch DecodingError.keyNotFound(let key, let context) {
+                             print("could not find key \(key) in JSON: \(context.debugDescription)")
+                        } catch DecodingError.valueNotFound(let type, let context) {
+                             print("could not find type \(type) in JSON: \(context.debugDescription)")
+                        } catch DecodingError.typeMismatch(let type, let context) {
+                             print("type mismatch for type \(type) in JSON: \(context.debugDescription)")
+                        } catch DecodingError.dataCorrupted(let context) {
+                             print("data found to be corrupted in JSON: \(context.debugDescription)")
+                        } catch let error as NSError {
+                             NSLog("Error in read(from:ofType:) domain= \(error.domain), description= \(error.localizedDescription)")
+                        }
+                        
+                        promise(.success(nil))
+                        
+                        if let returnData = String(data: data, encoding: .utf8) {
+                            print(returnData)
+                        }
+                    }else{
+                        promise(.success(nil))
+                    }
+                }
+            }.resume()
+        }
+    }
+    
+    
+    /**
+     Report Transaction
+     */
+    func getTotalTransaction(type: String, accessToken: String?) -> Future<TransactionReportTotalResponse?, Never>{
+        return Future<TransactionReportTotalResponse?, Never> { promise in
+            let url = APIConfiguration.url + "/transactions/\(type)/gettotal"
+
+            guard let endpointUrl = URL(string: url) else {
+                print("endpointUrl is invalid")
+                promise(.success(nil))
+                return
+            }
+            
+                        
+            guard let token = accessToken, !token.isEmpty else {
+                print("Token not found")
+                promise(.success(nil))
+                return
+            }
+            
+            var request = URLRequest(url: endpointUrl)
+            request.httpMethod = "GET"
+            request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+            request.addValue("JWT \(token)", forHTTPHeaderField: "Authorization")
+                        
+            URLSession.shared.dataTask(with: request) { (data, response, error) in
+                DispatchQueue.main.async {
+                    if error != nil || (response as! HTTPURLResponse).statusCode != 200 {
+                        print(error?.localizedDescription ?? "error http code")
+                        promise(.success(nil))
+                        return
+                    } else if let data = data {
+                        do {
+                            let resp = try JSONDecoder().decode(TransactionReportTotalResponse.self, from: data)
+                            print(resp)
+                            promise(.success(resp))
+                            return;
+                        } catch DecodingError.keyNotFound(let key, let context) {
+                             print("could not find key \(key) in JSON: \(context.debugDescription)")
+                        } catch DecodingError.valueNotFound(let type, let context) {
+                             print("could not find type \(type) in JSON: \(context.debugDescription)")
+                        } catch DecodingError.typeMismatch(let type, let context) {
+                             print("type mismatch for type \(type) in JSON: \(context.debugDescription)")
+                        } catch DecodingError.dataCorrupted(let context) {
+                             print("data found to be corrupted in JSON: \(context.debugDescription)")
+                        } catch let error as NSError {
+                             NSLog("Error in read(from:ofType:) domain= \(error.domain), description= \(error.localizedDescription)")
+                        }
+                        
+                        promise(.success(nil))
+                        
+                        if let returnData = String(data: data, encoding: .utf8) {
+                            print(returnData)
+                        }
+                    }else{
+                        promise(.success(nil))
+                    }
+                }
+            }.resume()
+        }
+    }
+    
+    
+    /**
+    Transaction
+     */
+    func getReportListTransaction(type: String, fromdate: Date, todate: Date, accessToken: String?) -> Future<TransactionResponse?, Never>{
+        return Future<TransactionResponse?, Never> { promise in
+            let url = APIConfiguration.url + "/report/transactions/\(type)"
+            
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd"
+            
+            let query = "fromdate=\(formatter.string(from: fromdate))&todate=\(formatter.string(from: todate))"
+
+            guard let endpointUrl = URL(string: "\(url)?\(query)") else {
+                print("endpointUrl is invalid")
+                promise(.success(nil))
+                return
+            }
+            
+                        
+            guard let token = accessToken, !token.isEmpty else {
+                print("Token not found")
+                promise(.success(nil))
+                return
+            }
+            
+            var request = URLRequest(url: endpointUrl)
+            request.httpMethod = "GET"
+            request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+            request.addValue("JWT \(token)", forHTTPHeaderField: "Authorization")
+                        
+            URLSession.shared.dataTask(with: request) { (data, response, error) in
+                DispatchQueue.main.async {
+                    if error != nil || (response as! HTTPURLResponse).statusCode != 200 {
+                        print(error?.localizedDescription ?? "error http code")
+                        promise(.success(nil))
+                        return
+                    } else if let data = data {
+                        do {
+                            let resp = try JSONDecoder().decode(TransactionResponse.self, from: data)
+                            print(resp)
+                            promise(.success(resp))
+                            return;
+                        } catch DecodingError.keyNotFound(let key, let context) {
+                             print("could not find key \(key) in JSON: \(context.debugDescription)")
+                        } catch DecodingError.valueNotFound(let type, let context) {
+                             print("could not find type \(type) in JSON: \(context.debugDescription)")
+                        } catch DecodingError.typeMismatch(let type, let context) {
+                             print("type mismatch for type \(type) in JSON: \(context.debugDescription)")
+                        } catch DecodingError.dataCorrupted(let context) {
+                             print("data found to be corrupted in JSON: \(context.debugDescription)")
+                        } catch let error as NSError {
+                             NSLog("Error in read(from:ofType:) domain= \(error.domain), description= \(error.localizedDescription)")
+                        }
+                        
+                        promise(.success(nil))
+                        
+                        if let returnData = String(data: data, encoding: .utf8) {
+                            print(returnData)
+                        }
+                    }else{
+                        promise(.success(nil))
+                    }
+                }
+            }.resume()
+        }
+    }
 }

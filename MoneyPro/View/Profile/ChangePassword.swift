@@ -9,7 +9,6 @@ import SwiftUI
 
 struct ChangePassword: View {
     @ObservedObject private var viewModel: AccountDetailsModel
-    @State private var loading: Bool = false
     @State private var save: Bool = false
     @Environment(\.presentationMode) var presentationMode
 
@@ -19,7 +18,7 @@ struct ChangePassword: View {
     }
     
     var body: some View {
-        LoadingView(isShowing: $loading){
+        LoadingView(isShowing: $viewModel.loading){
             List{
                 Section(header: Text("Information Security")){
                     HStack{
@@ -85,7 +84,6 @@ struct ChangePassword: View {
             .toolbar {
                 Button("Save") {
                     UIApplication.shared.closeKeyboard()
-                    self.loading = true
                     viewModel.changePassword()
                 }
             }
@@ -98,7 +96,6 @@ struct ChangePassword: View {
                 Alert(title: Text(status.title),
                       message: Text(status.message),
                       dismissButton: .default(Text("OK"), action: {
-                        self.loading = false
                         
                         if status.resultType == .success {
                             self.save = false

@@ -77,7 +77,7 @@ struct BudgetView: View {
             }
         }
         .overlay{
-            if viewModel.loading {
+            if viewModel.loading == .visible {
                 ProgressView("Please wait...")
                   .progressViewStyle(CircularProgressViewStyle())
             }

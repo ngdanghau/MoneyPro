@@ -83,7 +83,7 @@ struct ModalBudgetView: View {
             .navigationBarTitleDisplayMode(.inline)
         }
         .overlay{
-            if viewModel.loading {
+            if viewModel.loading == .visible {
                 ProgressView("Please wait...")
                   .progressViewStyle(CircularProgressViewStyle())
               }

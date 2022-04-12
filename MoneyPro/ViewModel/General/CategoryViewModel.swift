@@ -12,7 +12,7 @@ import SwiftUI
 class CategoryViewModel: ObservableObject {
     @Published var categories: [Category] = []
     
-    @Published var loading: Bool = false
+    @Published var loading: LoadingState = .invisible
     @Published var isEdit: Bool = true
     
     @Published var type: String = ""
@@ -67,7 +67,7 @@ class CategoryViewModel: ObservableObject {
     }
     
     private func getDataCategory(){
-        loading = true
+        loading = .visible
         authAPI.getListCategory(type: type, search: search, start: start, length: length, accessToken: state.getAccessToken())
             .receive(on: RunLoop.main)
             .map(resultMapper)
@@ -77,7 +77,7 @@ class CategoryViewModel: ObservableObject {
     }
     
     func updateOrSaveCategory (){
-        loading = true
+        loading = .visible
         category.color = UIColor(color).toHexString()
         authAPI.updateOrSaveCategory(type: type, category: category, accessToken: state.getAccessToken())
             .receive(on: RunLoop.main)
@@ -88,7 +88,7 @@ class CategoryViewModel: ObservableObject {
     }
     
     func deleteCategory (){
-        loading = true
+        loading = .visible
         category.color = UIColor(color).toHexString()
         authAPI.deleteCategory(type: type, category: category, accessToken: state.getAccessToken())
             .receive(on: RunLoop.main)
@@ -110,7 +110,7 @@ class CategoryViewModel: ObservableObject {
 extension CategoryViewModel {
     private func resultMapper(with resp: CategoryResponse?) -> StatusViewModel {
         showingAlert = true
-        loading = false
+        loading = .invisible
         if resp?.result == 0 {
             return StatusViewModel.init(title: "Error", message: resp?.msg ?? StatusViewModel.errorDefault, resultType: .error)
         } else if resp?.result == 1 {

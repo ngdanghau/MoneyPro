@@ -9,7 +9,6 @@ import SwiftUI
 
 struct AccountDetails: View {
     @ObservedObject private var viewModel: AccountDetailsModel
-    @State private var loading: Bool = false
     @Environment(\.presentationMode) var presentationMode
     
     init(state: AppState){
@@ -17,7 +16,7 @@ struct AccountDetails: View {
     }
     
     var body: some View {
-        LoadingView(isShowing: $loading){
+        LoadingView(isShowing: $viewModel.loading){
             List{
                 Section(header: Text("Public Profile")){
                     HStack{
@@ -53,7 +52,6 @@ struct AccountDetails: View {
             .toolbar {
                 Button("Save") {
                     UIApplication.shared.closeKeyboard()
-                    self.loading = true
                     viewModel.updateProfile()
                 }
             }
@@ -65,7 +63,6 @@ struct AccountDetails: View {
                 Alert(title: Text(status.title),
                       message: Text(status.message),
                       dismissButton: .default(Text("OK"), action: {
-                        self.loading = false
                         
                         if status.resultType == .success {
                             presentationMode.wrappedValue.dismiss()

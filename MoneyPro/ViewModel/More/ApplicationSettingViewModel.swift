@@ -18,7 +18,7 @@ class ApplicationSettingViewModel: ObservableObject {
     @Published var language: Language = .english
     @Published var currency: String = ""
     
-    @Published var loading: Bool = false
+    @Published var loading: LoadingState = .invisible
     @Published var isPresented: Bool = false
 
     
@@ -35,7 +35,7 @@ class ApplicationSettingViewModel: ObservableObject {
     }
     
     func updateAppSettings() {
-        loading = true
+        loading = .visible
         authAPI.updateAppSettings(
             site_name: site_name,
             site_slogan: site_slogan,
@@ -55,7 +55,7 @@ class ApplicationSettingViewModel: ObservableObject {
     }
     
     func getDataSetting (){
-        loading = true
+        loading = .visible
         authAPI.getAppSetting(accessToken: state.getAccessToken())
             .receive(on: RunLoop.main)
             .map(resultMapper)
@@ -70,7 +70,7 @@ class ApplicationSettingViewModel: ObservableObject {
 extension ApplicationSettingViewModel {
     private func resultMapper(with resp: SiteSettingResponse?) -> StatusViewModel {
         isPresented = true
-        loading = false
+        loading = .invisible
         if resp?.result == 0 {
             return StatusViewModel.init(title: "Error", message: resp?.msg ?? StatusViewModel.errorDefault, resultType: .error)
         } else if resp?.result == 1 {

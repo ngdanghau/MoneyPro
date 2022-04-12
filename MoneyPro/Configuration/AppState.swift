@@ -6,23 +6,21 @@
 //
 
 import SwiftUI
-import SwiftKeychainWrapper
-
 class AppState: ObservableObject{
     var authUser: User?
     var appSettings: SiteSetting?
     var emailSettings: EmailSetting?
     
     func setAccessToken(accessToken: String?) -> Void {
-        KeychainWrapper.standard.set(accessToken ?? "", forKey: "accessToken")
+        UserDefaults.standard.set(accessToken ?? "", forKey: "accessToken")
     }
     
     func getAccessToken() -> String? {
-        return KeychainWrapper.standard.string(forKey: "accessToken")
+        return UserDefaults.standard.string(forKey: "accessToken")
     }
     
     func removeAccessToken() -> Void {
-        KeychainWrapper.standard.removeObject(forKey: "accessToken")
+        UserDefaults.standard.removeObject(forKey: "accessToken")
     }
 }
 

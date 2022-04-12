@@ -12,7 +12,7 @@ import SwiftUI
 class AccountViewModel: ObservableObject {
     @Published var accounts: [Account] = []
     
-    @Published var loading: Bool = false
+    @Published var loading: LoadingState = .invisible
     @Published var isEdit: Bool = true
     @Published var search: String = ""
     @Published var account: Account = Account.initial()
@@ -61,7 +61,7 @@ class AccountViewModel: ObservableObject {
     }
     
     private func fetchDataAccount(){
-        loading = true
+        loading = .visible
         authAPI.getListAccount( search: search, start: start, length: length, accessToken: state.getAccessToken())
             .receive(on: RunLoop.main)
             .map(resultMapper)
@@ -71,7 +71,7 @@ class AccountViewModel: ObservableObject {
     }
     
     func updateOrSaveAccount (){
-        loading = true
+        loading = .visible
         authAPI.updateOrSaveAccount(account: account, accessToken: state.getAccessToken())
             .receive(on: RunLoop.main)
             .map(resultMapper)
@@ -81,7 +81,7 @@ class AccountViewModel: ObservableObject {
     }
     
     func deleteAccount (){
-        loading = true
+        loading = .visible
         authAPI.deleteAccount(account: account, accessToken: state.getAccessToken())
             .receive(on: RunLoop.main)
             .map(resultMapper)
@@ -95,7 +95,7 @@ class AccountViewModel: ObservableObject {
 extension AccountViewModel {
     private func resultMapper(with resp: AccountResponse?) -> StatusViewModel {
         showingAlert = true
-        loading = false
+        loading = .invisible
         if resp?.result == 0 {
             return StatusViewModel.init(title: "Error", message: resp?.msg ?? StatusViewModel.errorDefault, resultType: .error)
         } else if resp?.result == 1 {

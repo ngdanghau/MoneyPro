@@ -53,7 +53,6 @@ protocol AuthAPI {
     func getListGoal(status: Int, search: String, start: Int, length: Int, dateFrom: Date, dateTo: Date, accessToken: String?) -> Future<GoalResponse?, Never>
     func updateOrSaveGoal(goal: Goal, accessToken: String?) -> Future<GoalResponse?, Never>
     func deleteGoal(goal: Goal, accessToken: String?) -> Future<GoalResponse?, Never>
-    
     func addDeposit(goal: Goal, accessToken: String?) -> Future<GoalResponse?, Never>
     
     
@@ -72,5 +71,21 @@ protocol AuthAPI {
     func getListUser(search: String, start: Int, length: Int, accessToken: String?) -> Future<UserResponse?, Never>
     func updateOrSaveUser(user: User, accessToken: String?) -> Future<UserResponse?, Never>
     func deleteUser(user: User, accessToken: String?) -> Future<UserResponse?, Never>
+    
+    
+    /**
+     Report
+     */
+    func getDataIncomeVsExpense(type: String, date: BarChartDateType, accessToken: String?) -> Future<ReportTotalResponse?, Never>
+    func getListCategoryInTime(type: String, date: BarChartDateType, accessToken: String?) -> Future<CategoryReportTotalResponse?, Never>
+    
+    
+    func getTotalTransaction(type: String, accessToken: String?) -> Future<TransactionReportTotalResponse?, Never>
+
+    /**
+     Transaction
+     */
+    func getReportListTransaction(type: String, fromdate: Date, todate: Date, accessToken: String?) -> Future<TransactionResponse?, Never>
+
     
 }

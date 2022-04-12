@@ -17,6 +17,9 @@ class SignUpViewModel: ObservableObject {
     @Published var statusViewModel: StatusViewModel?
     @Published var state: AppState
     
+    @Published var loading: Bool = false
+
+    
     private var cancellableBag = Set<AnyCancellable>()
     private let authAPI: AuthAPI
     
@@ -26,6 +29,7 @@ class SignUpViewModel: ObservableObject {
     }
     
     func signUp() {
+        loading = true
         authAPI.signUp(email: email, firstname: firstname, lastname: lastname, password: password, password_confirm: password_confirm)
             .receive(on: RunLoop.main)
             .map(resultMapper)
@@ -38,10 +42,11 @@ class SignUpViewModel: ObservableObject {
 // MARK: - Private helper function
 extension SignUpViewModel {
     private func resultMapper(with authLogin: AuthResponse?) -> StatusViewModel {
+        loading = false
         if authLogin?.result == 0 {
             return StatusViewModel.init(title: "Error", message: authLogin?.msg ?? StatusViewModel.errorDefault, resultType: .error)
         } else if authLogin?.accessToken != nil {
-            state.setAccessToken(accessToken: authLogin?.accessToken)
+            state.setAccessToken(accessToken: authLogin?.accessToken ?? "")
             state.authUser = authLogin?.data
             return StatusViewModel.init(title: "Successful", message: authLogin?.msg ?? StatusViewModel.successDefault, resultType: .success)
         } else {

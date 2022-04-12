@@ -98,7 +98,8 @@ struct ContentView: View {
         }
         
         let accessToken = self.state.getAccessToken()
-        if accessToken == nil {
+        guard let token = accessToken, !token.isEmpty else {
+            print("Token not found")
             self.loading = false
             return
         }
@@ -106,7 +107,7 @@ struct ContentView: View {
         var request = URLRequest(url: endpointUrl)
         request.httpMethod = "GET"
         request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-        request.addValue("JWT \(accessToken ?? "")", forHTTPHeaderField: "Authorization")
+        request.addValue("JWT \(token)", forHTTPHeaderField: "Authorization")
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             DispatchQueue.main.async {
@@ -119,6 +120,12 @@ struct ContentView: View {
                         self.state.removeAccessToken()
                         return
                     }
+                    if resp == nil {
+                        if let returnData = String(data: data, encoding: .utf8) {
+                            print(returnData)
+                        }
+                    }
+                    
                     self.pushView = true
                     self.indexView = 3
                     self.state.authUser = resp?.data

@@ -12,7 +12,7 @@ import SwiftUI
 class BudgetViewModel: ObservableObject {
     @Published var budgets: [Budget] = []
     
-    @Published var loading: Bool = false
+    @Published var loading: LoadingState = .invisible
     @Published var isEdit: Bool = true
     @Published var search: String = ""
     @Published var month: MonthItem = .jan
@@ -70,7 +70,7 @@ class BudgetViewModel: ObservableObject {
     }
     
     private func fetchDataBudget(){
-        loading = true
+        loading = .visible
         authAPI.getListBudget( search: search, start: start, length: length, accessToken: state.getAccessToken())
             .receive(on: RunLoop.main)
             .map(resultMapper)
@@ -80,7 +80,7 @@ class BudgetViewModel: ObservableObject {
     }
     
     func updateOrSaveBudget (){
-        loading = true
+        loading = .visible
         authAPI.updateOrSaveBudget(budget: budget, month: month, year: year, accessToken: state.getAccessToken())
             .receive(on: RunLoop.main)
             .map(resultMapper)
@@ -90,7 +90,7 @@ class BudgetViewModel: ObservableObject {
     }
     
     func deleteBudget (){
-        loading = true
+        loading = .visible
         authAPI.deleteBudget(budget: budget, accessToken: state.getAccessToken())
             .receive(on: RunLoop.main)
             .map(resultMapper)
@@ -100,7 +100,7 @@ class BudgetViewModel: ObservableObject {
     }
     
     func getTransactionByDate (){
-        loading = true
+        loading = .visible
         authAPI.getTransactionByDate(budget: budget, accessToken: state.getAccessToken())
             .receive(on: RunLoop.main)
             .map(resultMapper)
@@ -114,7 +114,7 @@ class BudgetViewModel: ObservableObject {
 extension BudgetViewModel {
     private func resultMapper(with resp: BudgetResponse?) -> StatusViewModel {
         showingAlert = true
-        loading = false
+        loading = .invisible
         response = resp
         if resp?.result == 0 {
             return StatusViewModel.init(title: "Error", message: resp?.msg ?? StatusViewModel.errorDefault, resultType: .error)

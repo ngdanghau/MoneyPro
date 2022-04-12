@@ -12,7 +12,7 @@ import SwiftUI
 class GoalViewModel: ObservableObject {
     @Published var goals: [Goal] = []
     
-    @Published var loading: Bool = false
+    @Published var loading: LoadingState = .invisible
     @Published var isEdit: Bool = true
     
     @Published var type: String = ""
@@ -71,7 +71,7 @@ class GoalViewModel: ObservableObject {
     }
     
     private func fetchDataGoals(){
-        loading = true
+        loading = .visible
         authAPI.getListGoal( status: selectedTab, search: search, start: start, length: length, dateFrom: dateFrom, dateTo: dateTo, accessToken: state.getAccessToken())
             .receive(on: RunLoop.main)
             .map(resultMapper)
@@ -81,7 +81,7 @@ class GoalViewModel: ObservableObject {
     }
     
     func updateOrSaveGoal (){
-        loading = true
+        loading = .visible
         authAPI.updateOrSaveGoal(goal: goal, accessToken: state.getAccessToken())
             .receive(on: RunLoop.main)
             .map(resultMapper)
@@ -91,7 +91,7 @@ class GoalViewModel: ObservableObject {
     }
     
     func deleteGoal (){
-        loading = true
+        loading = .visible
         authAPI.deleteGoal(goal: goal, accessToken: state.getAccessToken())
             .receive(on: RunLoop.main)
             .map(resultMapper)
@@ -101,7 +101,7 @@ class GoalViewModel: ObservableObject {
     }
     
     func addDeposit (){
-        loading = true
+        loading = .visible
         authAPI.addDeposit(goal: goal, accessToken: state.getAccessToken())
             .receive(on: RunLoop.main)
             .map(resultMapper)
@@ -115,7 +115,7 @@ class GoalViewModel: ObservableObject {
 extension GoalViewModel {
     private func resultMapper(with resp: GoalResponse?) -> StatusViewModel {
         showingAlert = true
-        loading = false
+        loading = .invisible
         if resp?.result == 0 {
             return StatusViewModel.init(title: "Error", message: resp?.msg ?? StatusViewModel.errorDefault, resultType: .error)
         } else if resp?.result == 1 {

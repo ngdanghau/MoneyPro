@@ -9,7 +9,6 @@ import SwiftUI
 
 struct SignUpView: View {
     @State var pushView = false
-    @State var loading: Bool = false
     @ObservedObject private var viewModel: SignUpViewModel
     
     init(state: AppState) {
@@ -17,7 +16,7 @@ struct SignUpView: View {
     }
     
     var body: some View {
-        LoadingView(isShowing: $loading) {
+        LoadingView(isShowing: $viewModel.loading) {
             VStack{
                 NavigationLink(destination: DashboardView(state: viewModel.state),
                                isActive: self.$pushView) {
@@ -76,18 +75,16 @@ struct SignUpView: View {
                                 backgroundColor: UIColor(hexString: "#334D92"),
                                 action: {
                                     viewModel.signUp()
-                                    self.loading = true
                                 }
                             )
                         }
                     }
                 }
                 Spacer()
-            }.alert(item: self.$viewModel.statusViewModel) { status in
+            }.alert(item: $viewModel.statusViewModel) { status in
                 Alert(title: Text(status.title),
                       message: Text(status.message),
                       dismissButton: .default(Text("OK"), action: {
-                        self.loading = false
                         if status.resultType == .success {
                             self.pushView = true
                         }

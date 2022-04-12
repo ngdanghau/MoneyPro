@@ -17,7 +17,7 @@ class EmailSettingViewModel: ObservableObject {
     @Published var password: String = ""
     @Published var from: String = ""
     
-    @Published var loading: Bool = false
+    @Published var loading: LoadingState = .invisible
     @Published var isPresented: Bool = false
 
 
@@ -33,7 +33,7 @@ class EmailSettingViewModel: ObservableObject {
     }
 
     func updateEmailSettings() {
-        loading = true
+        loading = .visible
         authAPI.updateEmailSettings(
             host: host,
             port: port,
@@ -52,7 +52,7 @@ class EmailSettingViewModel: ObservableObject {
     }
     
     func getEmailSetting(){
-        loading = true
+        loading = .visible
         authAPI.getEmailSetting(accessToken: state.getAccessToken())
         .receive(on: RunLoop.main)
         .map(resultMapper)
@@ -67,7 +67,7 @@ class EmailSettingViewModel: ObservableObject {
 extension EmailSettingViewModel {
 private func resultMapper(with resp: EmailSettingResponse?) -> StatusViewModel {
     isPresented = true
-    loading = false
+    loading = .invisible
     if resp?.result == 0 {
         return StatusViewModel.init(title: "Error", message: resp?.msg ?? StatusViewModel.errorDefault, resultType: .error)
     } else if resp?.result == 1 {

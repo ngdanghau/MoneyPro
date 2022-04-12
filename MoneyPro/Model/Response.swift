@@ -18,6 +18,7 @@ struct Response: Codable {
 struct AuthResponse: Codable {
     let result: Int
     let msg: String?
+    let method: String
     let accessToken: String?
     let data: User?
 }
@@ -206,6 +207,119 @@ struct UserResponse: Codable {
 }
 
 
+
+struct ReportDate: Codable {
+    let from: Date
+    let to: Date
+    
+    enum CodingKeys: CodingKey {
+        case from
+        case to
+   }
+}
+/**
+ Report
+ */
+struct ReportTotal: Identifiable, Codable {
+    let id: Int
+    let date: Date
+    let name: String
+    let value: Double
+}
+
+struct ReportTotalResponse: Codable {
+    let result: Int
+    let msg: String?
+    let method: String
+    let currency: String
+    let income: [ReportTotal]?
+    let expense: [ReportTotal]?
+    let date: ReportDate?
+}
+
+/**
+ Category Report
+ */
+struct CategoryReportTotal: Identifiable, Codable {
+    let id: Int
+    let name: String
+    let color: String
+    let amount: Double
+    let total: Int
+}
+
+struct CategoryReportTotalResponse: Codable {
+    let result: Int
+    let msg: String?
+    let method: String
+    let currency: String
+    let date: ReportDate?
+    let data: [CategoryReportTotal]?
+}
+
+/**
+ Transaction Report
+ */
+struct TransactionReportTotal: Codable {
+    let day: Double
+    let week: Double
+    let month: Double
+    let year: Double
+    let totalbalance: Double
+}
+
+struct TransactionReportTotalResponse: Codable {
+    let result: Int
+    let msg: String?
+    let method: String
+    let currency: String
+    let data: TransactionReportTotal?
+}
+
+
+/**
+ Transaction Model
+ */
+struct Transaction: Identifiable, Codable {
+    let amount: String
+    let description: String
+    let name: String
+    let reference : String
+    let transactiondate: Date
+    let id: Int
+    let type: Int
+    
+    let account: Account
+    let category: Category
+    let user: UserTiny
+    
+    enum CodingKeys: CodingKey {
+        case amount
+        case description
+        case name
+        case reference
+        case transactiondate
+        case id
+        case type
+        case account
+        case category
+        case user
+   }
+}
+
+struct TransactionResponse: Codable {
+    let result: Int
+    let msg: String?
+    let method: String
+    let currency: String?
+    let summary: Summary?
+    let data: [Transaction]?
+    let transaction: Transaction?
+}
+
+
+
+
 /**
  Extension
  thêm các hàm init để json decode về đúng format khi lấy từ api
@@ -247,6 +361,27 @@ extension Account {
     }
 }
 
+extension ReportTotal {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(Int.self, forKey: .id)
+        name = try container.decode(String.self, forKey: .name)
+        value = try container.decode(Double.self, forKey: .value)
+        
+        let dateString = try container.decode(String.self, forKey: .date)
+        let formatter = DateFormatter()
+        formatter.timeZone = NSTimeZone.system
+        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.timeZone = TimeZone(abbreviation: "UTC")
+          
+        if let date = formatter.date(from: dateString) {
+            self.date = date
+        } else {
+            throw DecodingError.dataCorruptedError(forKey: .date,
+                  in: container,debugDescription: "Date string does not match format expected by formatter.")
+        }
+    }
+}
 
 extension Budget {
     init(from decoder: Decoder) throws {
@@ -280,3 +415,61 @@ extension Budget {
         }
     }
 }
+
+extension Transaction {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(Int.self, forKey: .id)
+        name = try container.decode(String.self, forKey: .name)
+        description = try container.decode(String.self, forKey: .description)
+        reference = try container.decode(String.self, forKey: .reference)
+        
+        amount = String(try container.decode(Double.self, forKey: .amount))
+        
+        type = try container.decode(Int.self, forKey: .type)
+        account = try container.decode(Account.self, forKey: .account)
+        category = try container.decode(Category.self, forKey: .category)
+        user = try container.decode(UserTiny.self, forKey: .user)
+
+        let dateString = try container.decode(String.self, forKey: .transactiondate)
+        let formatter = DateFormatter()
+        formatter.timeZone = NSTimeZone.system
+        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.timeZone = TimeZone(abbreviation: "UTC")
+          
+        if let date = formatter.date(from: dateString) {
+            transactiondate = date
+        } else {
+            throw DecodingError.dataCorruptedError(forKey: .transactiondate,
+                  in: container,debugDescription: "Date string does not match format expected by formatter.")
+    }
+  }
+}
+
+extension ReportDate {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.timeZone = TimeZone(abbreviation: "UTC")
+        
+        let fromdateString = try container.decode(String.self, forKey: .from)
+        if let date = formatter.date(from: fromdateString) {
+            from = date
+        } else {
+            throw DecodingError.dataCorruptedError(forKey: .from,
+                  in: container,debugDescription: "Date string does not match format expected by formatter.")
+        }
+        
+        
+        
+        let todateString = try container.decode(String.self, forKey: .to)
+        if let date = formatter.date(from: todateString) {
+            to = date
+        } else {
+            throw DecodingError.dataCorruptedError(forKey: .to,
+                  in: container,debugDescription: "Date string does not match format expected by formatter.")
+        }
+    }
+}
+

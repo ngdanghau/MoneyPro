@@ -7,7 +7,6 @@
 
 import Foundation
 import Combine
-import SwiftKeychainWrapper
 
 class SignInViewModel: ObservableObject {
     @Published var email: String = "00xshen00@gmail.com"
@@ -39,7 +38,7 @@ extension SignInViewModel {
         if authLogin?.result == 0 {
             return StatusViewModel.init(title: "Error", message: authLogin?.msg ?? StatusViewModel.errorDefault, resultType: .error)
         } else if authLogin?.accessToken != nil {
-            state.setAccessToken(accessToken: authLogin?.accessToken)
+            state.setAccessToken(accessToken: authLogin?.accessToken ?? "")
             state.authUser = authLogin?.data
             return StatusViewModel.init(title: "Successful", message: authLogin?.msg ?? StatusViewModel.successDefault, resultType: .success)
         } else {
