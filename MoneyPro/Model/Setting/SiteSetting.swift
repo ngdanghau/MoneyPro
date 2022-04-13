@@ -22,7 +22,7 @@ struct SiteSetting: Codable {
 struct SiteSettingResponse: Codable {
     let result: Int
     let msg: String?
-    let method: Int?
+    let method: String?
     let data: SiteSetting?
 }
 

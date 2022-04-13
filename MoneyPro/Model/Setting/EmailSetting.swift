@@ -20,7 +20,7 @@ struct EmailSetting: Codable {
 struct EmailSettingResponse: Codable {
     let result: Int
     let msg: String?
-    let method: Int?
+    let method: String?
     let data: EmailSetting?
 }
 

@@ -26,7 +26,7 @@ enum AccountType: String, CaseIterable, Identifiable, Codable  {
 }
 
 struct User: Codable, Identifiable, Equatable {
-    let id: Int
+    var id: Int
     var account_type: AccountType
     var email: String
     var firstname: String

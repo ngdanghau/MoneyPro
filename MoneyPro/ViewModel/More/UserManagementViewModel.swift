@@ -117,27 +117,23 @@ extension UserManagementViewModel {
                 
             }
             
-            // nếu không thì kiểm tra có user không => là put || post || DELETE mới có cái properties này
-            else if resp?.user != nil{
-                guard let entry = resp?.user else{
-                    return StatusViewModel.errorStatus
-                }
-                
-                if let row = users.firstIndex(where: { $0.id == entry.id }){
-                    // nếu là delete thì xoá
-                    if method == "DELETE" {
-                        users.remove(at: row)
-                    }
-                    // nếu là PUT là sửa
-                    else {
-                        users.replace(users[row], with: entry)
-                    }
-                }else{
-                    recordsTotal += 1
-                    users.append(entry)
-                }
-               
-                user = entry
+            if let id = resp?.user {
+                user.id = id
+                // nếu không thì kiểm tra có account không => là put || post || DELETE mới có cái properties này
+                if let row = users.firstIndex(where: { $0.id == user.id }){
+                   // nếu là delete thì xoá
+                   if method == "DELETE" {
+                       recordsTotal -= 1
+                       users.remove(at: row)
+                   }
+                   // nếu là PUT là sửa
+                   else {
+                       users.replace(users[row], with: user)
+                   }
+               }else{
+                   recordsTotal += 1
+                   users.append(user)
+               }
             }
             
             // cho hiện alert hay không, chỉ có GET là không, còn lại PUT, POST, DELETE là có hiện

@@ -11,6 +11,7 @@
 		C809715F27F59CC900D46ACE /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C809715E27F59CC900D46ACE /* CategoryViewModel.swift */; };
 		C809716127F5DBA400D46ACE /* ModalCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C809716027F5DBA400D46ACE /* ModalCategoryView.swift */; };
 		C832C89F2805BBF1006FA80A /* TransactionListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C832C89E2805BBF1006FA80A /* TransactionListViewModel.swift */; };
+		C832C8A32805D70D006FA80A /* TransactionDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C832C8A22805D70D006FA80A /* TransactionDetailView.swift */; };
 		C83D08E127F6C0A3006CD28A /* ModalAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C83D08E027F6C0A3006CD28A /* ModalAccountView.swift */; };
 		C83D08E327F74084006CD28A /* BudgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C83D08E227F74084006CD28A /* BudgetView.swift */; };
 		C83D08E527F755E8006CD28A /* GoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C83D08E427F755E8006CD28A /* GoalView.swift */; };
@@ -51,6 +52,7 @@
 		C865E3D927EEDE5200332632 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C865E3D827EEDE5200332632 /* CustomTextField.swift */; };
 		C865E3DB27EEDE7900332632 /* CustomModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C865E3DA27EEDE7900332632 /* CustomModifier.swift */; };
 		C865E3DF27EEE23E00332632 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C865E3DE27EEE23E00332632 /* SignUpViewModel.swift */; };
+		C86ABDE1280659CA0057E53B /* PickerAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86ABDE0280659CA0057E53B /* PickerAccountView.swift */; };
 		C86CFBF827F6A1BE00DDD493 /* ArrayExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86CFBF727F6A1BE00DDD493 /* ArrayExt.swift */; };
 		C874C60727EF43AC00624143 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C874C60627EF43AC00624143 /* DashboardView.swift */; };
 		C874C60927EF441B00624143 /* TransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C874C60827EF441B00624143 /* TransactionView.swift */; };
@@ -104,6 +106,7 @@
 		C809715E27F59CC900D46ACE /* CategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModel.swift; sourceTree = "<group>"; };
 		C809716027F5DBA400D46ACE /* ModalCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalCategoryView.swift; sourceTree = "<group>"; };
 		C832C89E2805BBF1006FA80A /* TransactionListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionListViewModel.swift; sourceTree = "<group>"; };
+		C832C8A22805D70D006FA80A /* TransactionDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailView.swift; sourceTree = "<group>"; };
 		C83D08E027F6C0A3006CD28A /* ModalAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalAccountView.swift; sourceTree = "<group>"; };
 		C83D08E227F74084006CD28A /* BudgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetView.swift; sourceTree = "<group>"; };
 		C83D08E427F755E8006CD28A /* GoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalView.swift; sourceTree = "<group>"; };
@@ -147,6 +150,7 @@
 		C865E3D827EEDE5200332632 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		C865E3DA27EEDE7900332632 /* CustomModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomModifier.swift; sourceTree = "<group>"; };
 		C865E3DE27EEE23E00332632 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
+		C86ABDE0280659CA0057E53B /* PickerAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerAccountView.swift; sourceTree = "<group>"; };
 		C86CFBF727F6A1BE00DDD493 /* ArrayExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExt.swift; sourceTree = "<group>"; };
 		C874C60627EF43AC00624143 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		C874C60827EF441B00624143 /* TransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionView.swift; sourceTree = "<group>"; };
@@ -412,6 +416,7 @@
 				C87D38D42805185C00AC07B5 /* CategoryReportViewModel.swift */,
 				C87D38D62805256E00AC07B5 /* TransactionReportViewModel.swift */,
 				C832C89E2805BBF1006FA80A /* TransactionListViewModel.swift */,
+				C86ABDE0280659CA0057E53B /* PickerAccountView.swift */,
 			);
 			path = Report;
 			sourceTree = "<group>";
@@ -421,6 +426,7 @@
 			children = (
 				C8C2CA0327F3111F00921EAE /* ReportView.swift */,
 				C87D38D928052DC900AC07B5 /* TransactionListView.swift */,
+				C832C8A22805D70D006FA80A /* TransactionDetailView.swift */,
 			);
 			path = Report;
 			sourceTree = "<group>";
@@ -694,11 +700,13 @@
 				C809715D27F59CC000D46ACE /* AccountViewModel.swift in Sources */,
 				C865E38527EDC7C600332632 /* StatusViewModel.swift in Sources */,
 				C83D08E127F6C0A3006CD28A /* ModalAccountView.swift in Sources */,
+				C832C8A32805D70D006FA80A /* TransactionDetailView.swift in Sources */,
 				C865E38C27EDD3D000332632 /* APIConfiguration.swift in Sources */,
 				C874C61127EF7BAA00624143 /* MoreView.swift in Sources */,
 				C865E37527EDBA3300332632 /* SignUpView.swift in Sources */,
 				C8DEC2A027F0743000F2958C /* AccountDetailsModel.swift in Sources */,
 				C874C60D27EF772F00624143 /* AccountView.swift in Sources */,
+				C86ABDE1280659CA0057E53B /* PickerAccountView.swift in Sources */,
 				C874C61827F019BD00624143 /* EmailSettingView.swift in Sources */,
 				C849789E27FFC06C00A77590 /* PieSliceView.swift in Sources */,
 				C874C60727EF43AC00624143 /* DashboardView.swift in Sources */,

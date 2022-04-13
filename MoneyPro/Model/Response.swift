@@ -33,9 +33,33 @@ struct Summary: Codable {
     let total_count: Int
 }
 
-struct UserTiny: Codable, Identifiable, Equatable {
-    let id: Int
-    let fullname: String
+enum MoneyType: String, CaseIterable, Identifiable, Codable{
+    case income = "1"
+    case expense = "2"
+    
+    var id: String { self.rawValue }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        let label = try? container.decode(String.self)
+        
+        switch label {
+            case "1": self = .income
+            case "2": self = .expense
+            default: self = .income
+        }
+   }
+    
+    var description: String {
+        get {
+            switch self {
+                case .income:
+                    return "Income"
+                case .expense:
+                    return "Expense"
+            }
+        }
+    }
 }
 
 
@@ -61,7 +85,7 @@ struct CategoryResponse: Codable {
     let method: String
     let summary: Summary?
     let data: [Category]?
-    let category: Category?
+    let category: Int?
 }
 
 
@@ -96,7 +120,7 @@ struct AccountResponse: Codable {
     let currency: String?
     let summary: Summary?
     let data: [Account]?
-    let account: Account?
+    let account: Int?
 }
 
 
@@ -136,7 +160,7 @@ struct GoalResponse: Codable {
     let currency: String?
     let summary: Summary?
     let data: [Goal]?
-    let goal: Goal?
+    let goal: Int?
 }
 
 
@@ -160,7 +184,6 @@ struct Budget: Codable, Identifiable, Equatable {
     var todate: Date
     var description: String
     var category: Category
-    var user: UserTiny
     
     enum CodingKeys: CodingKey {
         case id
@@ -169,14 +192,12 @@ struct Budget: Codable, Identifiable, Equatable {
         case todate
         case description
         case category
-        case user
    }
     
     static func initial() -> Budget{
         return Budget(
             id: 0, amount: "", fromdate: Date(), todate: Date(), description: "",
-            category: Category(id: 0, name: "", description: "", color: "", type: 1),
-            user: UserTiny(id: 0, fullname: "")
+            category: Category(id: 0, name: "", description: "", color: "", type: 1)
         )
     }
 }
@@ -188,7 +209,7 @@ struct BudgetResponse: Codable {
     let currency: String?
     let summary: Summary?
     let data: [Budget]?
-    let budget: Budget?
+    let budget: Int?
     let totalamount: Double?
 }
 
@@ -203,7 +224,7 @@ struct UserResponse: Codable {
     let method: String
     let summary: Summary?
     let data: [User]?
-    let user: User?
+    let user: Int?
 }
 
 
@@ -280,18 +301,17 @@ struct TransactionReportTotalResponse: Codable {
 /**
  Transaction Model
  */
-struct Transaction: Identifiable, Codable {
-    let amount: String
-    let description: String
-    let name: String
-    let reference : String
-    let transactiondate: Date
-    let id: Int
-    let type: Int
+struct Transaction: Identifiable, Codable, Equatable {
+    var amount: String
+    var description: String
+    var name: String
+    var reference : String
+    var transactiondate: Date
+    var id: Int
+    var type: Int
     
-    let account: Account
-    let category: Category
-    let user: UserTiny
+    var account: Account
+    var category: Category
     
     enum CodingKeys: CodingKey {
         case amount
@@ -303,8 +323,15 @@ struct Transaction: Identifiable, Codable {
         case type
         case account
         case category
-        case user
    }
+    
+    static func initial() -> Transaction{
+        return Transaction(
+            amount: "", description: "", name: "", reference: "", transactiondate: Date(), id: 0, type: 1,
+            account: Account.initial(),
+            category: Category.initial(type: 1)
+        )
+    }
 }
 
 struct TransactionResponse: Codable {
@@ -314,7 +341,7 @@ struct TransactionResponse: Codable {
     let currency: String?
     let summary: Summary?
     let data: [Transaction]?
-    let transaction: Transaction?
+    let transaction: Int?
 }
 
 
@@ -390,7 +417,6 @@ extension Budget {
         amount = String(try container.decode(Double.self, forKey: .amount))
         description = try container.decode(String.self, forKey: .description)
         category = try container.decode(Category.self, forKey: .category)
-        user = try container.decode(UserTiny.self, forKey: .user)
         
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
@@ -429,7 +455,6 @@ extension Transaction {
         type = try container.decode(Int.self, forKey: .type)
         account = try container.decode(Account.self, forKey: .account)
         category = try container.decode(Category.self, forKey: .category)
-        user = try container.decode(UserTiny.self, forKey: .user)
 
         let dateString = try container.decode(String.self, forKey: .transactiondate)
         let formatter = DateFormatter()

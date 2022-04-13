@@ -1,33 +1,32 @@
 //
-//  PickerCategoryView.swift
+//  PickerAccountView.swift
 //  MoneyPro
 //
-//  Created by Hau Nguyen Dang on 07/04/2022.
+//  Created by Hau Nguyen Dang on 13/04/2022.
 //
 
 import SwiftUI
 
-
-struct PickerCategoryView: View {
+struct PickerAccountView: View {
     @Environment(\.presentationMode) var presentationMode
-    @ObservedObject var viewModel: CategoryViewModel
+    @ObservedObject var viewModel: AccountViewModel
     
     @State private var showingModalView = false
-    @Binding var category: Category
-    
-    @State var selectedTab: MoneyType = .income
+    @Binding var account: Account
+
     var body: some View {
+
         List {
             Section{
-                ForEach(viewModel.categories) { item in
+                ForEach(viewModel.accounts) { item in
                     Button(action: {
-                        category = item
+                        account = item
                         presentationMode.wrappedValue.dismiss()
                     }){
                         HStack{
                             Text(item.name)
                             Spacer()
-                            if category.id == item.id {
+                            if account.id == item.id {
                                 Image(systemName: "checkmark")
                             }
                         }
@@ -42,40 +41,20 @@ struct PickerCategoryView: View {
                   .progressViewStyle(CircularProgressViewStyle())
               }
         }
-        .toolbar {
-            ToolbarItem(placement: .principal) {
-                HStack{
-                    Picker(
-                        selection: $selectedTab,
-                        label: Text("Picker"),
-                        content: {
-                            ForEach(MoneyType.allCases) { moneyType in
-                                Text(moneyType.description).tag(moneyType)
-                            }
-                    })
-                    .onChange (of: selectedTab, perform: { (value) in
-                        viewModel.selectedType = selectedTab
-                        viewModel.getListCategory()
-                    })
-                    .pickerStyle(SegmentedPickerStyle())
-                }
-                .frame(width: 150)
-            }
-        }
         .navigationBarItems(trailing:
             Button(action: {
-                viewModel.newCategory()
+                viewModel.newAccount()
                 showingModalView = true
             }){
                 Image(systemName: "plus")
         })
         .onAppear(){
-            viewModel.getListCategory()
+            viewModel.getListAccount()
         }
         .searchable(text: $viewModel.search)
         .onSubmit(of: .search) {
-            print("refetch Data category")
-            viewModel.getListCategory()
+            print("refetch Data account")
+            viewModel.getListAccount()
         }
         .alert(
             isPresented: $viewModel.showingAlert
@@ -85,11 +64,8 @@ struct PickerCategoryView: View {
             )
         }
         .fullScreenCover(isPresented: $showingModalView) {
-            ModalCategoryView( viewModel: viewModel)
+            ModalAccountView( viewModel: viewModel)
         }
     }
 
 }
-
-
-

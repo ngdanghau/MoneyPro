@@ -136,27 +136,23 @@ extension BudgetViewModel {
                 }
             }
             
-            // nếu không thì kiểm tra có account không => là put || post || DELETE mới có cái properties này
-            else if resp?.budget != nil{
-                guard let item = resp?.budget else{
-                    return StatusViewModel.errorStatus
-                }
-                
-                if let row = budgets.firstIndex(where: { $0.id == item.id }){
-                    // nếu là delete thì xoá
-                    if method == "DELETE" {
-                        budgets.remove(at: row)
-                    }
-                    // nếu là PUT là sửa
-                    else {
-                        budgets.replace(budgets[row], with: item)
-                    }
-                }else{
-                    recordsTotal += 1
-                    budgets.append(item)
-                }
-               
-                budget = item
+            if let id = resp?.budget {
+                budget.id = id
+                // nếu không thì kiểm tra có account không => là put || post || DELETE mới có cái properties này
+                if let row = budgets.firstIndex(where: { $0.id == budget.id }){
+                   // nếu là delete thì xoá
+                   if method == "DELETE" {
+                       recordsTotal -= 1
+                       budgets.remove(at: row)
+                   }
+                   // nếu là PUT là sửa
+                   else {
+                       budgets.replace(budgets[row], with: budget)
+                   }
+               }else{
+                   recordsTotal += 1
+                   budgets.append(budget)
+               }
             }
             
             // cho hiện alert hay không, chỉ có GET là không, còn lại PUT, POST, DELETE là có hiện

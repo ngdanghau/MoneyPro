@@ -10,9 +10,11 @@ import SwiftUI
 struct TransactionListView: View {
     @ObservedObject private var viewModel: TransactionListViewModel
 
+    @State private var showingModalView: Bool = false
     private var category: CategoryReportTotal
     private var date: ReportDate
     private var currency: String
+    private var type: String = "income"
     let formatter = DateFormatter()
     
     init(state: AppState, category: CategoryReportTotal, date: ReportDate, currency: String){
@@ -29,18 +31,43 @@ struct TransactionListView: View {
         VStack{
             ScrollView{
                 ForEach(viewModel.transactions, id: \.id){ transaction in
-                    HStack{
-                        Text(formatter.string(from: transaction.transactiondate))
-                        Spacer()
-                        Text("\(currency)\(transaction.amount)")
+                    Button(action: {
+                        showingModalView = true
+                        viewModel.transaction = transaction
+                    }){
+                        HStack{
+                            Text(formatter.string(from: transaction.transactiondate))
+                                .foregroundColor(.gray)
+                            Spacer()
+                            Text("\(currency)\((Double(transaction.amount) ?? 0).withCommas())")
+                        }
                     }
+                    .foregroundColor(.black)
                     Divider()
+                }
+                if viewModel.recordsTotal != viewModel.transactions.count  {
+                    Section{
+                        Button(action: {
+                            print("fetch Data transaction load more")
+                            viewModel.getNextReportListTransaction(type: type, date: date, category: category)
+                        }){
+                            Text("Load More")
+                                .foregroundColor(.black)
+                                .padding(8)
+                                .background(
+                                    ZStack{
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .stroke(.gray, lineWidth: 1)
+                                    }
+                                )
+                        }
+                    }
                 }
             }
             Spacer()
         }
         .padding()
-        .navigationTitle("\(category.name) - \(currency)\(category.amount)")
+        .navigationTitle("\(category.name) - \(currency)\(category.amount.withCommas())")
         .overlay{
             if viewModel.loading == .visible {
                 ProgressView("Loading...")
@@ -48,7 +75,10 @@ struct TransactionListView: View {
             }
         }
         .onAppear(){
-            viewModel.getReportListTransaction(type: "income", date: date);
+            viewModel.getReportListTransaction(type: type, date: date, category: category);
+        }
+        .fullScreenCover(isPresented: $showingModalView) {
+            TransactionDetailView(viewModel: viewModel)
         }
     }
 }

@@ -11,7 +11,10 @@ extension Int {
     func withCommas() -> String {
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .decimal
-        return numberFormatter.string(from: NSNumber(value:self))!
+        numberFormatter.usesGroupingSeparator = true
+        numberFormatter.groupingSize = 3
+//        numberFormatter.groupingSeparator = ","
+        return numberFormatter.string(for: self) ?? ""
     }
 }
 
@@ -19,6 +22,14 @@ extension Double {
     func withCommas() -> String {
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .decimal
-        return numberFormatter.string(from: NSNumber(value:self))!
+        numberFormatter.usesGroupingSeparator = true
+        numberFormatter.groupingSize = 3
+//        numberFormatter.groupingSeparator = ","
+        return numberFormatter.string(for: self) ?? ""
+    }
+    
+    func roundToDecimal(_ fractionDigits: Int) -> Double {
+        let multiplier = pow(10, Double(fractionDigits))
+        return Darwin.round(self * multiplier) / multiplier
     }
 }

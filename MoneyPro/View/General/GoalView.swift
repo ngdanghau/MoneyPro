@@ -54,12 +54,7 @@ struct GoalView: View {
                 }
                 
                 ForEach(viewModel.goals) { item in
-                    GoalRow(
-                        goal: item,
-                        editMode: $editMode,
-                        confirmationShown: $confirmationShown
-                    )
-                    .onTapGesture {
+                    Button(action: {
                         if editMode {
                             viewModel.setGoal(goal: item)
                             confirmationShown = true
@@ -68,7 +63,13 @@ struct GoalView: View {
                             viewModel.setGoalDeposit(goal: item)
                             showingModalView = true
                         }
+                    }){
+                        GoalRow(
+                            goal: item,
+                            editMode: $editMode
+                        )
                     }
+                    .foregroundColor(.black)
                     .swipeActions(allowsFullSwipe: false){
                         if editMode {
                             EmptyView()
@@ -203,7 +204,6 @@ struct GoalView_Previews: PreviewProvider {
 
 struct GoalRow: View {
     @Binding var editMode: Bool
-    @Binding var confirmationShown: Bool
     
     private var balance: Double = 0
     private var amount: Double = 0
@@ -217,10 +217,9 @@ struct GoalRow: View {
     private let displayFormatter = DateFormatter()
     
     
-    init(goal: Goal, editMode: Binding<Bool>, confirmationShown: Binding<Bool>){
+    init(goal: Goal, editMode: Binding<Bool>){
         self.goal = goal
         _editMode = editMode
-        _confirmationShown = confirmationShown
         balance = Double(goal.balance) ?? 0
         amount = Double(goal.amount) ?? 0
         deposit = Double(goal.deposit) ?? 0
@@ -255,7 +254,7 @@ struct GoalRow: View {
                 if isDone {
                     Text("Done")
                 }else{
-                    Text("\(totaldeposit, specifier: "%.2f") of \(amount, specifier: "%.2f") (\(percentage, specifier: "%.2f")%)")
+                    Text("\(totaldeposit.withCommas()) of \(amount.withCommas()) (\(percentage, specifier: "%.2f")%)")
                 }
             }
             .accentColor(isDone ? .green : .blue)

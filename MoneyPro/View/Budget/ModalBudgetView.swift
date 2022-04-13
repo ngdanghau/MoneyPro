@@ -11,11 +11,7 @@ struct ModalBudgetView: View {
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var viewModel: BudgetViewModel
     @ObservedObject var viewModelCategory: CategoryViewModel
-    
-    private let categoryTitle: [Int: String] = [
-        1: "Income",
-        2: "Expense"
-    ]
+
     
     @State var selectedTab: Int = 1
     var body: some View {
@@ -46,6 +42,7 @@ struct ModalBudgetView: View {
                         Text("Category")
                         Spacer()
                         Text(viewModel.budget.category.name)
+                            .foregroundColor(.gray)
                     }
                     .disabled(viewModel.isEdit)
 

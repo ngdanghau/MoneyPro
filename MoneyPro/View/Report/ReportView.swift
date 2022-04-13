@@ -15,11 +15,13 @@ struct ReportView: View {
     @State private var currentTab: BarChartDateType = .week
     @Namespace private var animation
     
+    @State private var selection: Int = -1
     @State private var isShowListTransaction: Bool = false
     @State private var type: String = "income"
     @State private var state: AppState = AppState()
     @State private var categoryInfo: CategoryReportTotal = CategoryReportTotal(id: 0, name: "", color: "", amount: 0, total: 0)
-    
+    private let formatter = DateFormatter()
+
     init(state: AppState){
         self.state = state
         self.viewModelReport = ReportViewModel(authAPI: AuthService(), state: state)
@@ -27,18 +29,27 @@ struct ReportView: View {
         self.viewModelTransactionReport = TransactionReportViewModel(authAPI: AuthService(), state: state)
     }
     
-    
-    
     var body: some View {
         VStack{
             BarChartView(
                 values: viewModelReport.values,
-                selection: -1,
-                isActive: 0,
-                dateType: $currentTab,
-                stringFormat: "\(viewModelReport.response?.currency ?? "") %.2f",
-                dateFormat: getDateFormat(),
-                total: getTotalTransaction()
+                selection: $selection,
+                title: {
+                    if selection > -1 && viewModelReport.values.count < selection {
+                        return "\(viewModelReport.response?.currency ?? "")\(viewModelReport.values[selection].value.withCommas())"
+                    }
+                    else {
+                        return "\(viewModelReport.response?.currency ?? "")\(getTotalTransaction().withCommas())"
+                    }
+                },
+                subTitle: {
+                    if selection > -1 {
+                        return "Spent on \(getDateString(date: viewModelReport.values[selection].date))"
+                    }
+                    else {
+                        return "Total spent this \(currentTab.rawValue)"
+                    }
+                }
             )
                 .frame(height: 200)
             
@@ -47,8 +58,7 @@ struct ReportView: View {
                     TabButton(currentType: barChartDateType, animation: animation, currentTab: $currentTab)
                 }
             }
-            .padding(.horizontal)
-            .padding(.vertical)
+            .padding(.all)
             Divider()
             
             VStack{
@@ -87,19 +97,24 @@ struct ReportView: View {
             }
         }
         .onChange(of: currentTab) { newValue in
+            selection = -1
             viewModelReport.getData(type: type, date: currentTab)
             viewModelCategoryReport.getData(type: type, date: currentTab)
         }
     }
     
-    private func getDateFormat() -> String {
+    private func getDateString(date: Date) -> String {
+        
         switch currentTab {
         case .week:
-            return "ccc, LLL d"
+            formatter.dateFormat = "ccc, LLL d"
+            return formatter.string(from: date)
         case .month:
-            return "MMMM, YYYY"
+            formatter.dateFormat = "MMMM, YYYY"
+            return formatter.string(from: date)
         case .year:
-            return "YYYY"
+            formatter.dateFormat = "YYYY"
+            return formatter.string(from: date)
         }
     }
     
@@ -167,12 +182,12 @@ struct CategoryRowReport: View {
             Text(category.name)
                 .fontWeight(.medium)
             
-            Text(String(format: "x%d", category.total))
+            Text("x\(category.total.withCommas())")
                 .foregroundColor(.gray)
             
             Spacer()
             
-            Text(String(format: "\(currency)%.2f", category.amount))
+            Text("\(currency)\(category.amount.withCommas())")
         }
         Divider()
     }

@@ -15,7 +15,7 @@ class CategoryViewModel: ObservableObject {
     @Published var loading: LoadingState = .invisible
     @Published var isEdit: Bool = true
     
-    @Published var type: String = ""
+    @Published var selectedType: MoneyType = .income
     @Published var category: Category = Category.initial(type: 1)
     @Published var color: Color = .red
     @Published var search: String = ""
@@ -39,11 +39,10 @@ class CategoryViewModel: ObservableObject {
     }
     
     
-    func newCategory(type: Int) -> Void {
+    func newCategory() -> Void {
         isEdit = false
-        self.type = getRawType(type: type)
         color = .red
-        category = Category.initial(type: type)
+        category = Category.initial(type: Int(selectedType.id) ?? 1)
     }
     
     func setCategory(category: Category) -> Void{
@@ -52,23 +51,21 @@ class CategoryViewModel: ObservableObject {
         color = Color(UIColor(hexString: category.color))
     }
     
-    func getListCategory(type: Int) {
+    func getListCategory() {
         categories = []
         recordsTotal = 0
         start = 0
-        self.type = getRawType(type: type)
         getDataCategory();
     }
     
-    func getNextListCategory(type: Int) {
+    func getNextListCategory() {
         start += length
-        self.type = getRawType(type: type)
         getDataCategory();
     }
     
     private func getDataCategory(){
         loading = .visible
-        authAPI.getListCategory(type: type, search: search, start: start, length: length, accessToken: state.getAccessToken())
+        authAPI.getListCategory(type: getRawType(), search: search, start: start, length: length, accessToken: state.getAccessToken())
             .receive(on: RunLoop.main)
             .map(resultMapper)
             .replaceError(with: StatusViewModel.errorStatus)
@@ -79,7 +76,7 @@ class CategoryViewModel: ObservableObject {
     func updateOrSaveCategory (){
         loading = .visible
         category.color = UIColor(color).toHexString()
-        authAPI.updateOrSaveCategory(type: type, category: category, accessToken: state.getAccessToken())
+        authAPI.updateOrSaveCategory(type: getRawType(), category: category, accessToken: state.getAccessToken())
             .receive(on: RunLoop.main)
             .map(resultMapper)
             .replaceError(with: StatusViewModel.errorStatus)
@@ -90,7 +87,7 @@ class CategoryViewModel: ObservableObject {
     func deleteCategory (){
         loading = .visible
         category.color = UIColor(color).toHexString()
-        authAPI.deleteCategory(type: type, category: category, accessToken: state.getAccessToken())
+        authAPI.deleteCategory(type: getRawType(), category: category, accessToken: state.getAccessToken())
             .receive(on: RunLoop.main)
             .map(resultMapper)
             .replaceError(with: StatusViewModel.errorStatus)
@@ -98,10 +95,10 @@ class CategoryViewModel: ObservableObject {
             .store(in: &cancellableBag)
     }
     
-    private func getRawType(type: Int) -> String{
-        switch type {
-        case 1: return "incomecategories"
-        default: return "expensecategories"
+    private func getRawType() -> String{
+        switch selectedType {
+        case .income: return "incomecategories"
+        case .expense: return "expensecategories"
         }
     }
 }
@@ -131,27 +128,23 @@ extension CategoryViewModel {
                 }
             }
             
-            // nếu không thì kiểm tra có category không => là put || post || DELETE mới có cái properties này
-            else if resp?.category != nil{
-                guard let entry = resp?.category else{
-                    return StatusViewModel.errorStatus
-                }
-                
-                if let row = categories.firstIndex(where: { $0.id == entry.id }){
-                    // nếu là delete thì xoá
-                    if method == "DELETE" {
-                        categories.remove(at: row)
-                    }
-                    // nếu là PUT là sửa
-                    else {
-                        categories.replace(categories[row], with: entry)
-                    }
-                }else{
-                    recordsTotal += 1
-                    categories.append(entry)
-                }
-               
-                category = entry
+            if let id = resp?.category {
+                category.id = id
+                // nếu không thì kiểm tra có account không => là put || post || DELETE mới có cái properties này
+                if let row = categories.firstIndex(where: { $0.id == category.id }){
+                   // nếu là delete thì xoá
+                   if method == "DELETE" {
+                       recordsTotal -= 1
+                       categories.remove(at: row)
+                   }
+                   // nếu là PUT là sửa
+                   else {
+                       categories.replace(categories[row], with: category)
+                   }
+               }else{
+                   recordsTotal += 1
+                   categories.append(category)
+               }
             }
             
             // cho hiện alert hay không, chỉ có GET là không, còn lại PUT, POST, DELETE là có hiện

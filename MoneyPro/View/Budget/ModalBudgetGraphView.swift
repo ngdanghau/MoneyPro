@@ -21,13 +21,13 @@ struct ModalBudgetGraphView: View {
                 Text("Budget Remaining")
                     .font(.title)
                     .bold()
-                Text(String(format: "\(viewModel.response?.currency ?? "$") %.2f", getValueFromText(text: viewModel.budget.amount) - getValueFromOptinal(num: viewModel.response?.totalamount)))
+                Text("\(viewModel.response?.currency ?? "$")\((getValueFromText(text: viewModel.budget.amount) - getValueFromOptinal(num: viewModel.response?.totalamount)).withCommas())")
                     .font(.system(size: 25))
                 Spacer()
                 PieChartView(
                     values: [getValueFromText(text: viewModel.budget.amount), getValueFromOptinal(num: viewModel.response?.totalamount)],
                     names: ["Planned", "Actual"],
-                    formatter: {value in String(format: "\(viewModel.response?.currency ?? "$") %.2f", value)},
+                    formatter: {value in "\(viewModel.response?.currency ?? "$")\(value.withCommas())"},
                     widthFraction: 0.8
                 )
             }

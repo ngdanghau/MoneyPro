@@ -21,35 +21,35 @@ enum BarChartDateType: String, Identifiable, CaseIterable {
 
 struct BarChartView: View {
     private var values: [ReportTotal]
-    @State private var selection: Int = -1
+    @Binding private var selection: Int
     @State private var isActive: Int = 0
-    @Binding private var dateType: BarChartDateType
-    private var total: Double
-    private var stringFormat: String
+    public let title: () -> String
+    public let subTitle: () -> String
+
     var maxValue: Double = 0
-    let formatter = DateFormatter()
     
     
-    init(values: [ReportTotal], selection: Int, isActive: Int, dateType: Binding<BarChartDateType>, stringFormat: String, dateFormat: String, total: Double){
+    init(
+        values: [ReportTotal],
+        selection: Binding<Int>,
+        title: @escaping () -> String,
+        subTitle: @escaping () -> String
+    ){
         self.values = values
-        self.selection = selection
-        self.isActive = isActive
-        self._dateType = dateType
-        self.stringFormat = stringFormat
-        self.total = total
-        
         if values.count > 0 {
             maxValue = values.map { $0.value }.max()!
         }
-        formatter.dateFormat = dateFormat
+        self.title = title
+        self.subTitle = subTitle
+        self._selection = selection
     }
     
     var body: some View {
         VStack(alignment: .leading){
-            Text(String(format: stringFormat, selection > -1 ? values[selection].value : total))
+            Text(title())
                 .bold()
                 .font(.largeTitle)
-            Text(selection > -1 ? "Spent on \(formatter.string(from: values[selection].date))" : "Total spent this \(dateType.rawValue)")
+            Text(subTitle())
                 .font(.body)
             
             GeometryReader { geometry in
@@ -77,7 +77,7 @@ struct BarChartView: View {
                             }
 
                             VStack(alignment: .leading){
-                                Text(String(format: "%.2f", maxValue))
+                                Text(maxValue.withCommas())
                                     .font(.system(size: 15))
                                     .foregroundColor(.gray)
                                 Spacer()
@@ -107,6 +107,14 @@ struct BarChartView_Previews: PreviewProvider {
             ReportTotal(id: 7, date: Date(), name: "Sat", value: 60),
             ReportTotal(id: 8, date: Date(), name: "Sun", value: 100),
         ]
-        BarChartView(values: data, selection: -1, isActive: 0, dateType: .constant(BarChartDateType.week), stringFormat: "%.2f", dateFormat: "ccc, LLL d", total: 120)
+        BarChartView(
+            values: data, selection: .constant(Int(0)),
+            title: {
+                return String("100")
+            },
+            subTitle: {
+                return String("")
+            }
+        )
     }
 }

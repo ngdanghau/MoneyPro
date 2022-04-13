@@ -117,27 +117,23 @@ extension AccountViewModel {
                 
             }
             
-            // nếu không thì kiểm tra có account không => là put || post || DELETE mới có cái properties này
-            else if resp?.account != nil{
-                guard let entry = resp?.account else{
-                    return StatusViewModel.errorStatus
-                }
-                
-                if let row = accounts.firstIndex(where: { $0.id == entry.id }){
-                    // nếu là delete thì xoá
-                    if method == "DELETE" {
-                        accounts.remove(at: row)
-                    }
-                    // nếu là PUT là sửa
-                    else {
-                        accounts.replace(accounts[row], with: entry)
-                    }
-                }else{
-                    recordsTotal += 1
-                    accounts.append(entry)
-                }
-               
-                account = entry
+            if let id = resp?.account {
+                account.id = id
+                // nếu không thì kiểm tra có account không => là put || post || DELETE mới có cái properties này
+                if let row = accounts.firstIndex(where: { $0.id == account.id }){
+                   // nếu là delete thì xoá
+                   if method == "DELETE" {
+                       recordsTotal -= 1
+                       accounts.remove(at: row)
+                   }
+                   // nếu là PUT là sửa
+                   else {
+                       accounts.replace(accounts[row], with: account)
+                   }
+               }else{
+                   recordsTotal += 1
+                   accounts.append(account)
+               }
             }
             
             // cho hiện alert hay không, chỉ có GET là không, còn lại PUT, POST, DELETE là có hiện

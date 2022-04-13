@@ -15,14 +15,7 @@ struct CategoryView: View {
     @State private var showingModalView = false
     
     @State var confirmationShown: Bool = false
-    @State var selectedTab: Int = 1
-    
-    private let categoryTitle: [Int: String] = [
-        1: "Income",
-        2: "Expense"
-    ]
-    
-    
+    @State var selectedTab: MoneyType = .income
     
     init(state: AppState){
         viewModel = CategoryViewModel(authAPI: AuthService(), state: state)
@@ -30,21 +23,19 @@ struct CategoryView: View {
 
     var body: some View {
         List {
-            Section(header: Text(categoryTitle[selectedTab] ?? "")){
+            Section(header: Text(selectedTab.description.capitalized)){
                 ForEach(viewModel.categories) { item in
-                    CategoryRow(
-                        category: item,
-                        editMode: $editMode,
-                        confirmationShown: $confirmationShown
-                    )
-                    .onTapGesture {
+                    Button(action: {
                         viewModel.setCategory(category: item)
                         if editMode {
                             confirmationShown = true
                         } else {
                             showingModalView = true
                         }
+                    }){
+                        CategoryRow(category: item, editMode: $editMode)
                     }
+                    .foregroundColor(.black)
                     .swipeActions{
                         if editMode {
                             EmptyView()
@@ -64,7 +55,7 @@ struct CategoryView: View {
                 
                 if !editMode {
                     Button(action: {
-                        viewModel.newCategory(type: selectedTab)
+                        viewModel.newCategory()
                         showingModalView = true
                     }){
                         CategoryRowAdd()
@@ -76,7 +67,7 @@ struct CategoryView: View {
                     Section{
                         Button(action: {
                             print("fetch Data category load more")
-                            viewModel.getNextListCategory(type: selectedTab)
+                            viewModel.getNextListCategory()
                         }){
                             Text("Load More")
                                 .foregroundColor(.blue)
@@ -103,12 +94,13 @@ struct CategoryView: View {
                         selection: $selectedTab,
                         label: Text("Picker"),
                         content: {
-                            ForEach(1...2, id: \.self) { index in
-                                Text(categoryTitle[index] ?? "").tag(index)
+                            ForEach(MoneyType.allCases) { moneyType in
+                                Text(moneyType.description).tag(moneyType)
                             }
                     })
                     .onChange (of: selectedTab, perform: { (value) in
-                        viewModel.getListCategory(type: value)
+                        viewModel.selectedType = selectedTab
+                        viewModel.getListCategory()
                     })
                     .pickerStyle(SegmentedPickerStyle())
                 }
@@ -121,12 +113,12 @@ struct CategoryView: View {
         })
         .onAppear{
             print("refetch Data category")
-            viewModel.getListCategory(type: selectedTab)
+            viewModel.getListCategory()
         }
         .searchable(text: $viewModel.search)
         .onSubmit(of: .search) {
             print("refetch Data category")
-            viewModel.getListCategory(type: selectedTab)
+            viewModel.getListCategory()
         }
         .alert(
             isPresented: $viewModel.showingAlert
@@ -165,7 +157,6 @@ struct CategoryView_Previews: PreviewProvider {
 struct CategoryRow: View {
     let category: Category
     @Binding var editMode: Bool
-    @Binding var confirmationShown: Bool
     var body: some View {
         HStack{
             if editMode {

@@ -22,19 +22,17 @@ struct AccountView: View {
     var body: some View {
         List {
             ForEach(viewModel.accounts) { item in
-                AccountRow(
-                    account: item,
-                    editMode: $editMode,
-                    confirmationShown: $confirmationShown
-                )
-                .onTapGesture {
+                Button(action: {
                     viewModel.setAccount(account: item)
                     if editMode {
                         confirmationShown = true
                     } else {
                         showingModalView = true
                     }
+                }){
+                    AccountRow(account: item, editMode: $editMode)
                 }
+                .foregroundColor(.black)
                 .swipeActions{
                     if editMode {
                         EmptyView()
@@ -142,7 +140,6 @@ struct AccountView_Previews: PreviewProvider {
 struct AccountRow: View {
     let account: Account
     @Binding var editMode: Bool
-    @Binding var confirmationShown: Bool
     var body: some View {
         HStack{
             if editMode {
@@ -152,7 +149,6 @@ struct AccountRow: View {
             Text(account.name)
             Spacer()
         }
-        
     }
 }
 

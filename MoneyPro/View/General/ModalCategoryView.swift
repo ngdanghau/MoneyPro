@@ -37,7 +37,7 @@ struct ModalCategoryView: View {
                 VStack(alignment: .leading) {
                     ColorPicker("Color", selection: $viewModel.color)
                 }
-                .navigationTitle(viewModel.isEdit ? "Edit Category" : "New \(viewModel.type == "incomecategories" ? "Income" : "Expense") Category" )
+                .navigationTitle(viewModel.isEdit ? "Edit Category" : "New \(viewModel.selectedType.description.capitalized) Category" )
                 .navigationBarItems(
                     leading: Button("Cancel") {
                         presentationMode.wrappedValue.dismiss()

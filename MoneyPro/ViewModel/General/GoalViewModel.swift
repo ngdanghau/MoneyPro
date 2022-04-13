@@ -136,27 +136,23 @@ extension GoalViewModel {
                 }
             }
             
-            // nếu không thì kiểm tra có goal không => là put || post || DELETE mới có cái properties này
-            else if resp?.goal != nil{
-                guard let goal = resp?.goal else{
-                    return StatusViewModel.errorStatus
-                }
-                
+            if let id = resp?.goal {
+                goal.id = id
+                // nếu không thì kiểm tra có account không => là put || post || DELETE mới có cái properties này
                 if let row = goals.firstIndex(where: { $0.id == goal.id }){
-                    // nếu là delete thì xoá
-                    if method == "DELETE" {
-                        goals.remove(at: row)
-                    }
-                    // nếu là PUT là sửa
-                    else {
-                        goals.replace(goals[row], with: goal)
-                    }
-                }else{
-                    recordsTotal += 1
-                    goals.append(goal)
-                }
-               
-                self.goal = goal
+                   // nếu là delete thì xoá
+                   if method == "DELETE" {
+                       recordsTotal -= 1
+                       goals.remove(at: row)
+                   }
+                   // nếu là PUT là sửa
+                   else {
+                       goals.replace(goals[row], with: goal)
+                   }
+               }else{
+                   recordsTotal += 1
+                   goals.append(goal)
+               }
             }
             
             // cho hiện alert hay không, chỉ có GET là không, còn lại PUT, POST, DELETE là có hiện
