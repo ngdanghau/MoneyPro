@@ -35,15 +35,13 @@ struct SignInView: View {
                             CustomTextField(
                                 placeHolderText: "E-mail",
                                 text: $viewModel.email,
-                                isPasswordType: false,
-                                defaultStyle: false
+                                isPasswordType: false
                             )
                             
                             CustomTextField(
                                 placeHolderText: "Password",
                                 text: $viewModel.password,
-                                isPasswordType: true,
-                                defaultStyle: false
+                                isPasswordType: true
                             )
                             
                         }.padding(.horizontal, 25)

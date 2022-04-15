@@ -21,23 +21,22 @@ struct EmailSettingView: View {
     var body: some View {
         Form{
             Section(header: Text("Application")){
-                VStack(alignment: .leading) {
+                HStack{
                     Text("Host")
-                    CustomTextField(
-                        placeHolderText: "Host",
-                        text: $viewModel.host,
-                        isPasswordType: false,
-                        defaultStyle: true
+                    TextField(
+                        "Host",
+                        text: $viewModel.host
                     )
+                    .multilineTextAlignment(.trailing)
                 }
-                VStack(alignment: .leading) {
+                
+                HStack{
                     Text("Port")
-                    CustomTextField(
-                        placeHolderText: "Port",
-                        text: $viewModel.port,
-                        isPasswordType: false,
-                        defaultStyle: true
+                    TextField(
+                        "Port",
+                        text: $viewModel.port
                     )
+                    .multilineTextAlignment(.trailing)
                 }
 
                 VStack(alignment: .leading) {
@@ -49,15 +48,15 @@ struct EmailSettingView: View {
                 }
 
                 
-                VStack(alignment: .leading) {
+                HStack{
                     Text("From")
-                    CustomTextField(
-                        placeHolderText: "From",
-                        text: $viewModel.from,
-                        isPasswordType: false,
-                        defaultStyle: true
+                    TextField(
+                        "From",
+                        text: $viewModel.from
                     )
+                    .multilineTextAlignment(.trailing)
                 }
+                
                 
                 VStack(alignment: .leading) {
                     Toggle("Auth", isOn: $viewModel.auth)
@@ -68,23 +67,21 @@ struct EmailSettingView: View {
             
             if viewModel.auth {
                 Section(header: Text("Auth")){
-                    VStack(alignment: .leading){
-                        Text("Auth. username")
-                        CustomTextField(
-                            placeHolderText: "Auth. username",
-                            text: $viewModel.username,
-                            isPasswordType: false,
-                            defaultStyle: true
+                    HStack{
+                        Text("Username")
+                        TextField(
+                            "Username",
+                            text: $viewModel.username
                         )
+                        .multilineTextAlignment(.trailing)
                     }
-                    VStack(alignment: .leading) {
-                        Text("Auth. password")
-                        CustomTextField(
-                            placeHolderText: "Auth. password",
-                            text: $viewModel.password,
-                            isPasswordType: true,
-                            defaultStyle: true
+                    HStack{
+                        Text("Password")
+                        SecureField(
+                            "Password",
+                            text: $viewModel.password
                         )
+                        .multilineTextAlignment(.trailing)
                     }
                 }
             }

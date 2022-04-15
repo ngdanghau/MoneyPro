@@ -32,38 +32,33 @@ struct SignUpView: View {
                             CustomTextField(
                                 placeHolderText: "Fisrt Name",
                                 text: $viewModel.firstname,
-                                isPasswordType: false,
-                                defaultStyle: false
+                                isPasswordType: false
                             )
                             
                             CustomTextField(
                                 placeHolderText: "Last Name",
                                 text: $viewModel.lastname,
-                                isPasswordType: false,
-                                defaultStyle: false
+                                isPasswordType: false
                             )
                             
                             CustomTextField(
                                 placeHolderText: "E-mail Address",
                                 text: $viewModel.email,
-                                isPasswordType: false,
-                                defaultStyle: false
+                                isPasswordType: false
                             )
                             .autocapitalization(.none)
                             
                             CustomTextField(
                                 placeHolderText: "Password",
                                 text: $viewModel.password,
-                                isPasswordType: true,
-                                defaultStyle: false
+                                isPasswordType: true
                             )
                             .autocapitalization(.none)
                             
                             CustomTextField(
                                 placeHolderText: "Password Confirm",
                                 text: $viewModel.password_confirm,
-                                isPasswordType: true,
-                                defaultStyle: false
+                                isPasswordType: true
                             )
                             .autocapitalization(.none)
                             

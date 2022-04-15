@@ -22,15 +22,15 @@ struct ApplicationSettingView: View {
     var body: some View {
         Form{
             Section(header: Text("Application")){
-                VStack(alignment: .leading) {
+                HStack{
                     Text("Site Name")
-                    CustomTextField(
-                        placeHolderText: "Site Name",
-                        text: $viewModel.site_name,
-                        isPasswordType: false,
-                        defaultStyle: true
+                    TextField(
+                        "Site Name",
+                        text: $viewModel.site_name
                     )
+                    .multilineTextAlignment(.trailing)
                 }
+                
                 VStack(alignment: .leading) {
                     Text("Site Slogan")
                     CustomTextEditor(
@@ -54,36 +54,33 @@ struct ApplicationSettingView: View {
             }
             
             Section (header: Text("Logo")){
-                VStack(alignment: .leading) {
+                HStack{
                     Text("Logotype")
-                    CustomTextField(
-                        placeHolderText: "Logotype",
-                        text: $viewModel.logotype,
-                        isPasswordType: false,
-                        defaultStyle: true
+                    TextField(
+                        "Logotype",
+                        text: $viewModel.logotype
                     )
+                    .multilineTextAlignment(.trailing)
                 }
-
-                VStack(alignment: .leading) {
+                
+                HStack{
                     Text("Logomark")
-                    CustomTextField(
-                        placeHolderText: "Logomark",
-                        text: $viewModel.logomark,
-                        isPasswordType: false,
-                        defaultStyle: true
+                    TextField(
+                        "Logomark",
+                        text: $viewModel.logomark
                     )
+                    .multilineTextAlignment(.trailing)
                 }
             }
             
             Section (header: Text("Other")){
-                VStack(alignment: .leading) {
+                HStack{
                     Text("Currency")
-                    CustomTextField(
-                        placeHolderText: "Currency",
-                        text: $viewModel.currency,
-                        isPasswordType: false,
-                        defaultStyle: true
+                    TextField(
+                        "Currency",
+                        text: $viewModel.currency
                     )
+                    .multilineTextAlignment(.trailing)
                 }
 
 
