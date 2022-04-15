@@ -1644,9 +1644,9 @@ class AuthService: AuthAPI {
         }
     }
     
-    func getListCategoryInTime(type: String, date: BarChartDateType, accessToken: String?) -> Future<CategoryReportTotalResponse?, Never>{
+    func getListCategoryInTime(type: MoneyType, date: BarChartDateType, accessToken: String?) -> Future<CategoryReportTotalResponse?, Never>{
         return Future<CategoryReportTotalResponse?, Never> { promise in
-            let url = APIConfiguration.url + "/home/category/\(type)"
+            let url = APIConfiguration.url + "/home/category/\(type.value)"
             let query = "date=\(date.rawValue)"
 
             guard let endpointUrl = URL(string: "\(url)?\(query)") else {
@@ -1708,9 +1708,9 @@ class AuthService: AuthAPI {
     /**
      Report Transaction
      */
-    func getTotalTransaction(type: String, accessToken: String?) -> Future<TransactionReportTotalResponse?, Never>{
+    func getTotalTransaction(type: MoneyType, accessToken: String?) -> Future<TransactionReportTotalResponse?, Never>{
         return Future<TransactionReportTotalResponse?, Never> { promise in
-            let url = APIConfiguration.url + "/transactions/\(type)/gettotal"
+            let url = APIConfiguration.url + "/transactions/\(type.value)/gettotal"
 
             guard let endpointUrl = URL(string: url) else {
                 print("endpointUrl is invalid")
@@ -1771,9 +1771,9 @@ class AuthService: AuthAPI {
     /**
     Transaction
      */
-    func getReportListTransaction(type: String, fromdate: Date, todate: Date, category: Int, start: Int, length: Int, accessToken: String?) -> Future<TransactionResponse?, Never>{
+    func getReportListTransaction(type: MoneyType, fromdate: Date, todate: Date, category: Int, start: Int, length: Int, accessToken: String?) -> Future<TransactionResponse?, Never>{
         return Future<TransactionResponse?, Never> { promise in
-            let url = APIConfiguration.url + "/report/transactions/\(type)"
+            let url = APIConfiguration.url + "/report/transactions/\(type.value)"
             
             let formatter = DateFormatter()
             formatter.dateFormat = "yyyy-MM-dd"
@@ -1836,9 +1836,71 @@ class AuthService: AuthAPI {
         }
     }
     
-    func updateOrSaveTransaction(transaction: Transaction, accessToken: String?) -> Future<TransactionResponse?, Never> {
+    func getLatestListTransaction(type: MoneyType, start: Int, length: Int, accessToken: String?) -> Future<TransactionResponse?, Never>{
         return Future<TransactionResponse?, Never> { promise in
-            var url = APIConfiguration.url + "/transactions"
+            let url = APIConfiguration.url + "/home/latest/\(type.value)"
+            
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd"
+            let query = "start=\(start)&length=\(length)"
+            guard let endpointUrl = URL(string: "\(url)?\(query)") else {
+                print("endpointUrl is invalid")
+                promise(.success(nil))
+                return
+            }
+                        
+            guard let token = accessToken, !token.isEmpty else {
+                print("Token not found")
+                promise(.success(nil))
+                return
+            }
+            
+            print(endpointUrl)
+            var request = URLRequest(url: endpointUrl)
+            request.httpMethod = "GET"
+            request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+            request.addValue("JWT \(token)", forHTTPHeaderField: "Authorization")
+                        
+            URLSession.shared.dataTask(with: request) { (data, response, error) in
+                DispatchQueue.main.async {
+                    if error != nil || (response as! HTTPURLResponse).statusCode != 200 {
+                        print(error?.localizedDescription ?? "error http code")
+                        promise(.success(nil))
+                        return
+                    } else if let data = data {
+                        do {
+                            let resp = try JSONDecoder().decode(TransactionResponse.self, from: data)
+                            print(resp)
+                            promise(.success(resp))
+                            return;
+                        } catch DecodingError.keyNotFound(let key, let context) {
+                             print("could not find key \(key) in JSON: \(context.debugDescription)")
+                        } catch DecodingError.valueNotFound(let type, let context) {
+                             print("could not find type \(type) in JSON: \(context.debugDescription)")
+                        } catch DecodingError.typeMismatch(let type, let context) {
+                             print("type mismatch for type \(type) in JSON: \(context.debugDescription)")
+                        } catch DecodingError.dataCorrupted(let context) {
+                             print("data found to be corrupted in JSON: \(context.debugDescription)")
+                        } catch let error as NSError {
+                             NSLog("Error in read(from:ofType:) domain= \(error.domain), description= \(error.localizedDescription)")
+                        }
+                        
+                        promise(.success(nil))
+                        
+                        if let returnData = String(data: data, encoding: .utf8) {
+                            print(returnData)
+                        }
+                    }else{
+                        promise(.success(nil))
+                    }
+                }
+            }.resume()
+        }
+    }
+    
+    func updateOrSaveTransaction(type: MoneyType, transaction: Transaction, accessToken: String?) -> Future<TransactionResponse?, Never> {
+        return Future<TransactionResponse?, Never> { promise in
+            var url = APIConfiguration.url + "/transactions/\(type.value)"
             var method = "POST"
             if transaction.id > 0 {
                 url += "/\(transaction.id)"
@@ -1868,6 +1930,8 @@ class AuthService: AuthAPI {
                     params.append("account_id=\(account.id)")
                 }else if let date = value as? Date {
                     params.append("\(label)=\(displayFormatter.string(from: date))")
+                }else if let type = value as? MoneyType {
+                    params.append("\(label)=\(type.id)")
                 }else {
                     params.append("\(label)=\(value)")
                 }

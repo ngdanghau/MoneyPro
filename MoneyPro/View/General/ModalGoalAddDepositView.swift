@@ -16,14 +16,14 @@ struct ModalGoalAddDepositView: View {
     var body: some View {
         NavigationView{
             Form {
-                VStack(alignment: .leading) {
+                HStack{
                     Text("Deposit")
-                    CustomTextField(
-                        placeHolderText: "Deposit",
-                        text: $viewModel.goal.deposit,
-                        isPasswordType: false,
-                        defaultStyle: true
+                    TextField(
+                        "Deposit",
+                        value: $viewModel.goal.deposit,
+                        formatter: CustomNumberField.numberFormater
                     )
+                    .multilineTextAlignment(.trailing)
                     .keyboardType(.decimalPad)
                 }
             }

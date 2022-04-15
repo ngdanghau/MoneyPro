@@ -14,34 +14,33 @@ struct ModalGoalView: View {
     var body: some View {
         NavigationView{
             List {
-                VStack(alignment: .leading) {
+                HStack{
                     Text("Name")
-                    CustomTextField(
-                        placeHolderText: "Name",
-                        text: $viewModel.goal.name,
-                        isPasswordType: false,
-                        defaultStyle: true
+                    TextField(
+                        "Name",
+                        text: $viewModel.goal.name
                     )
+                    .multilineTextAlignment(.trailing)
+                    .keyboardType(.decimalPad)
                 }
-                VStack(alignment: .leading) {
+                HStack{
                     Text("Amount")
-                    CustomTextField(
-                        placeHolderText: "Amount",
-                        text: $viewModel.goal.amount,
-                        isPasswordType: false,
-                        defaultStyle: true
-                    ).keyboardType(.decimalPad)
-                }
-                
-                
-                VStack(alignment: .leading) {
-                    Text("Balance")
-                    CustomTextField(
-                        placeHolderText: "Balance",
-                        text: $viewModel.goal.balance,
-                        isPasswordType: false,
-                        defaultStyle: true
+                    TextField(
+                        "Amount",
+                        value: $viewModel.goal.amount,
+                        formatter: CustomNumberField.numberFormater
                     )
+                    .multilineTextAlignment(.trailing)
+                    .keyboardType(.decimalPad)
+                }
+                HStack{
+                    Text("Balance")
+                    TextField(
+                        "Balance",
+                        value: $viewModel.goal.balance,
+                        formatter: CustomNumberField.numberFormater
+                    )
+                    .multilineTextAlignment(.trailing)
                     .keyboardType(.decimalPad)
                 }
                 

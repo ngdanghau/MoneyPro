@@ -9,4 +9,5 @@ import Foundation
 
 class APIConfiguration {
     static let url: String = "https://timeswriter.xyz/api";
+    static let currency: String = "$";
 }

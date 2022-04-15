@@ -25,16 +25,17 @@ struct TransactionDetailView: View {
     var body: some View {
         NavigationView{
             Form {
-                VStack(alignment: .leading) {
+                
+                HStack{
                     Text("Name")
-                    CustomTextField(
-                        placeHolderText: "Name",
-                        text: $viewModel.transaction.name,
-                        isPasswordType: false,
-                        defaultStyle: true
+                    TextField(
+                        "Name",
+                        text: $viewModel.transaction.name
                     )
+                        .multilineTextAlignment(.trailing)
                 }
-
+                
+                
                 HStack {
                     NavigationLink(destination:  PickerCategoryView(viewModel: viewModelCategory, category: $viewModel.transaction.category)) {
                         Text("Category")
@@ -52,33 +53,33 @@ struct TransactionDetailView: View {
                             .foregroundColor(.gray)
                     }
                 }
-
-                VStack(alignment: .leading) {
+                
+                HStack{
                     Text("Reference")
-                    CustomTextField(
-                        placeHolderText: "Reference",
-                        text: $viewModel.transaction.reference,
-                        isPasswordType: false,
-                        defaultStyle: true
+                    TextField(
+                        "Reference",
+                        text: $viewModel.transaction.reference
                     )
+                        .multilineTextAlignment(.trailing)
                 }
 
-                VStack(alignment: .leading) {
+                HStack{
                     Text("Amount")
-                    CustomTextField(
-                        placeHolderText: "Amount",
-                        text: $viewModel.transaction.amount,
-                        isPasswordType: false,
-                        defaultStyle: true
+                    TextField(
+                        "Amount",
+                        value: $viewModel.transaction.amount,
+                        formatter: CustomNumberField.numberFormater
                     )
+                    .multilineTextAlignment(.trailing)
                     .keyboardType(.decimalPad)
                 }
 
-                VStack(alignment: .leading) {
+                HStack{
                     Text("Description")
-                    CustomTextEditor(
+                    TextEditor(
                         text: $viewModel.transaction.description
                     )
+                        .multilineTextAlignment(.trailing)
                 }
 
                 VStack(alignment: .leading)  {
@@ -87,7 +88,7 @@ struct TransactionDetailView: View {
                    }
                 }
                 
-                if viewModel.isEdit {
+                if viewModel.transaction.id > 0 {
                     Section{
                         Button(action: {
                             confirmationShown = true
@@ -100,7 +101,7 @@ struct TransactionDetailView: View {
                 }
                 
             }
-            .navigationTitle(viewModel.isEdit ? "Edit Transaction" : "New Transaction" )
+            .navigationTitle(viewModel.transaction.id > 0 ? "Edit Transaction" : "New Transaction" )
             .navigationBarItems(
                 leading: Button("Cancel") {
                     presentationMode.wrappedValue.dismiss()

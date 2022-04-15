@@ -10,6 +10,8 @@
 		C809715D27F59CC000D46ACE /* AccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C809715C27F59CC000D46ACE /* AccountViewModel.swift */; };
 		C809715F27F59CC900D46ACE /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C809715E27F59CC900D46ACE /* CategoryViewModel.swift */; };
 		C809716127F5DBA400D46ACE /* ModalCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C809716027F5DBA400D46ACE /* ModalCategoryView.swift */; };
+		C82D526A2807C2CD00148821 /* CustomNumberField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82D52692807C2CD00148821 /* CustomNumberField.swift */; };
+		C82D526D2808789B00148821 /* TransactionModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82D526C2808789B00148821 /* TransactionModalView.swift */; };
 		C832C89F2805BBF1006FA80A /* TransactionListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C832C89E2805BBF1006FA80A /* TransactionListViewModel.swift */; };
 		C832C8A32805D70D006FA80A /* TransactionDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C832C8A22805D70D006FA80A /* TransactionDetailView.swift */; };
 		C83D08E127F6C0A3006CD28A /* ModalAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C83D08E027F6C0A3006CD28A /* ModalAccountView.swift */; };
@@ -48,14 +50,13 @@
 		C865E38A27EDD32A00332632 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C865E38927EDD32A00332632 /* AuthService.swift */; };
 		C865E38C27EDD3D000332632 /* APIConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C865E38B27EDD3D000332632 /* APIConfiguration.swift */; };
 		C865E39527EE0D5A00332632 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C865E39427EE0D5A00332632 /* HomeView.swift */; };
-		C865E3D527EED74D00332632 /* NavigationUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = C865E3D427EED74D00332632 /* NavigationUtil.swift */; };
+		C865E3D527EED74D00332632 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C865E3D427EED74D00332632 /* Utils.swift */; };
 		C865E3D927EEDE5200332632 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C865E3D827EEDE5200332632 /* CustomTextField.swift */; };
 		C865E3DB27EEDE7900332632 /* CustomModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C865E3DA27EEDE7900332632 /* CustomModifier.swift */; };
 		C865E3DF27EEE23E00332632 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C865E3DE27EEE23E00332632 /* SignUpViewModel.swift */; };
 		C86ABDE1280659CA0057E53B /* PickerAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86ABDE0280659CA0057E53B /* PickerAccountView.swift */; };
 		C86CFBF827F6A1BE00DDD493 /* ArrayExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86CFBF727F6A1BE00DDD493 /* ArrayExt.swift */; };
 		C874C60727EF43AC00624143 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C874C60627EF43AC00624143 /* DashboardView.swift */; };
-		C874C60927EF441B00624143 /* TransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C874C60827EF441B00624143 /* TransactionView.swift */; };
 		C874C60B27EF768700624143 /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C874C60A27EF768700624143 /* CategoryView.swift */; };
 		C874C60D27EF772F00624143 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C874C60C27EF772F00624143 /* AccountView.swift */; };
 		C874C61127EF7BAA00624143 /* MoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C874C61027EF7BAA00624143 /* MoreView.swift */; };
@@ -105,6 +106,8 @@
 		C809715C27F59CC000D46ACE /* AccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewModel.swift; sourceTree = "<group>"; };
 		C809715E27F59CC900D46ACE /* CategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModel.swift; sourceTree = "<group>"; };
 		C809716027F5DBA400D46ACE /* ModalCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalCategoryView.swift; sourceTree = "<group>"; };
+		C82D52692807C2CD00148821 /* CustomNumberField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNumberField.swift; sourceTree = "<group>"; };
+		C82D526C2808789B00148821 /* TransactionModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionModalView.swift; sourceTree = "<group>"; };
 		C832C89E2805BBF1006FA80A /* TransactionListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionListViewModel.swift; sourceTree = "<group>"; };
 		C832C8A22805D70D006FA80A /* TransactionDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailView.swift; sourceTree = "<group>"; };
 		C83D08E027F6C0A3006CD28A /* ModalAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalAccountView.swift; sourceTree = "<group>"; };
@@ -146,14 +149,13 @@
 		C865E38927EDD32A00332632 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		C865E38B27EDD3D000332632 /* APIConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConfiguration.swift; sourceTree = "<group>"; };
 		C865E39427EE0D5A00332632 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
-		C865E3D427EED74D00332632 /* NavigationUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationUtil.swift; sourceTree = "<group>"; };
+		C865E3D427EED74D00332632 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		C865E3D827EEDE5200332632 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		C865E3DA27EEDE7900332632 /* CustomModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomModifier.swift; sourceTree = "<group>"; };
 		C865E3DE27EEE23E00332632 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		C86ABDE0280659CA0057E53B /* PickerAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerAccountView.swift; sourceTree = "<group>"; };
 		C86CFBF727F6A1BE00DDD493 /* ArrayExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExt.swift; sourceTree = "<group>"; };
 		C874C60627EF43AC00624143 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
-		C874C60827EF441B00624143 /* TransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionView.swift; sourceTree = "<group>"; };
 		C874C60A27EF768700624143 /* CategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
 		C874C60C27EF772F00624143 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		C874C61027EF7BAA00624143 /* MoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreView.swift; sourceTree = "<group>"; };
@@ -217,6 +219,15 @@
 			path = General;
 			sourceTree = "<group>";
 		};
+		C82D526B2808787F00148821 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				C865E39427EE0D5A00332632 /* HomeView.swift */,
+				C82D526C2808789B00148821 /* TransactionModalView.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
 		C849789C27FFC00300A77590 /* Chart */ = {
 			isa = PBXGroup;
 			children = (
@@ -270,7 +281,7 @@
 				C849789C27FFC00300A77590 /* Chart */,
 				C86CFBF627F6A1A400DDD493 /* Extension */,
 				C865E3D727EEDE2A00332632 /* Components */,
-				C865E3D627EED76000332632 /* Util */,
+				C865E3D627EED76000332632 /* Helpers */,
 				C865E38627EDD20000332632 /* Service */,
 				C865E38127EDC76400332632 /* ViewModel */,
 				C865E37827EDBA8B00332632 /* Configuration */,
@@ -324,6 +335,7 @@
 		C865E37327EDB93B00332632 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				C82D526B2808787F00148821 /* Home */,
 				C87D38D828052DBD00AC07B5 /* Report */,
 				C8D5D6D127FEE19500ED8A3B /* Budget */,
 				C874C60627EF43AC00624143 /* DashboardView.swift */,
@@ -368,12 +380,12 @@
 			path = Service;
 			sourceTree = "<group>";
 		};
-		C865E3D627EED76000332632 /* Util */ = {
+		C865E3D627EED76000332632 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				C865E3D427EED74D00332632 /* NavigationUtil.swift */,
+				C865E3D427EED74D00332632 /* Utils.swift */,
 			);
-			path = Util;
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		C865E3D727EEDE2A00332632 /* Components */ = {
@@ -384,6 +396,7 @@
 				C8C2C9E127F1FC9100921EAE /* MenuItem.swift */,
 				C8C2C9EA27F2070D00921EAE /* CustomTextEditor.swift */,
 				C84978A228028E0800A77590 /* LoadingView.swift */,
+				C82D52692807C2CD00148821 /* CustomNumberField.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -507,8 +520,6 @@
 		C8DEC29D27F05F9C00F2958C /* App */ = {
 			isa = PBXGroup;
 			children = (
-				C865E39427EE0D5A00332632 /* HomeView.swift */,
-				C874C60827EF441B00624143 /* TransactionView.swift */,
 				C874C61027EF7BAA00624143 /* MoreView.swift */,
 			);
 			path = App;
@@ -659,7 +670,7 @@
 				C874C61627F019A100624143 /* AccountDetails.swift in Sources */,
 				C8D5D6D327FEE1A700ED8A3B /* ModalBudgetView.swift in Sources */,
 				C83D08ED27F9DC5C006CD28A /* UIApplicationExt.swift in Sources */,
-				C874C60927EF441B00624143 /* TransactionView.swift in Sources */,
+				C82D526D2808789B00148821 /* TransactionModalView.swift in Sources */,
 				C865E38027EDBE1700332632 /* UIColorExt.swift in Sources */,
 				C865E38827EDD31E00332632 /* AuthAPI.swift in Sources */,
 				C84978A328028E0800A77590 /* LoadingView.swift in Sources */,
@@ -710,6 +721,7 @@
 				C874C61827F019BD00624143 /* EmailSettingView.swift in Sources */,
 				C849789E27FFC06C00A77590 /* PieSliceView.swift in Sources */,
 				C874C60727EF43AC00624143 /* DashboardView.swift in Sources */,
+				C82D526A2807C2CD00148821 /* CustomNumberField.swift in Sources */,
 				C849789B27FF4B8E00A77590 /* ModalBudgetGraphView.swift in Sources */,
 				C832C89F2805BBF1006FA80A /* TransactionListViewModel.swift in Sources */,
 				C83D08E927F75BAD006CD28A /* ModalGoalView.swift in Sources */,
@@ -720,7 +732,7 @@
 				C88CA3C627FD3A9C000BB1CF /* UserManagementView.swift in Sources */,
 				C8E6D1F42804583D005C8F0B /* ReportViewModel.swift in Sources */,
 				C86CFBF827F6A1BE00DDD493 /* ArrayExt.swift in Sources */,
-				C865E3D527EED74D00332632 /* NavigationUtil.swift in Sources */,
+				C865E3D527EED74D00332632 /* Utils.swift in Sources */,
 				C87D38D52805185C00AC07B5 /* CategoryReportViewModel.swift in Sources */,
 				C8C2C9EF27F20F0200921EAE /* SiteSetting.swift in Sources */,
 			);

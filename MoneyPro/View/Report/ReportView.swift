@@ -17,7 +17,7 @@ struct ReportView: View {
     
     @State private var selection: Int = -1
     @State private var isShowListTransaction: Bool = false
-    @State private var type: String = "income"
+    @State private var currentType: MoneyType = .income
     @State private var state: AppState = AppState()
     @State private var categoryInfo: CategoryReportTotal = CategoryReportTotal(id: 0, name: "", color: "", amount: 0, total: 0)
     private let formatter = DateFormatter()
@@ -31,27 +31,56 @@ struct ReportView: View {
     
     var body: some View {
         VStack{
+            HStack{
+                Spacer()
+                Menu {
+                    ForEach(MoneyType.allCases) { moneyType in
+                        Button(action: {
+                            currentType.toggle()
+                        }, label: {
+                            if currentType == moneyType {
+                                Label(moneyType.description, systemImage: "checkmark")
+                            }else{
+                                Text(moneyType.description)
+                            }
+                        }).tag(moneyType)
+                    }
+                    
+                } label: {
+                    Image(systemName: "ellipsis.circle")
+                }
+                .font(.system(size: 25))
+                .foregroundColor(.black)
+            }
+            .padding(.horizontal)
             BarChartView(
                 values: viewModelReport.values,
                 selection: $selection,
                 title: {
                     if selection > -1 && viewModelReport.values.count < selection {
-                        return "\(viewModelReport.response?.currency ?? "")\(viewModelReport.values[selection].value.withCommas())"
+                        return "\(state.appSettings?.currency ?? APIConfiguration.currency)\(viewModelReport.values[selection].value.withCommas())"
                     }
                     else {
-                        return "\(viewModelReport.response?.currency ?? "")\(getTotalTransaction().withCommas())"
+                        return "\(state.appSettings?.currency ?? APIConfiguration.currency)\(getTotalTransaction().withCommas())"
                     }
                 },
                 subTitle: {
                     if selection > -1 {
-                        return "Spent on \(getDateString(date: viewModelReport.values[selection].date))"
+                        return "\(currentType == .income ? "Earned" : "Spent") on \(getDateString(date: viewModelReport.values[selection].date))"
                     }
                     else {
-                        return "Total spent this \(currentTab.rawValue)"
+                        return "Total \(currentType == .income ? "earned" : "spent") this \(currentTab.rawValue)"
+                    }
+                },
+                color: currentType == .income ? .green : .blue
+            )
+                .frame(height: 230)
+                .overlay{
+                    if viewModelReport.loading == .visible || viewModelTransactionReport.loading == .visible {
+                        ProgressView("Loading...")
+                            .progressViewStyle(CircularProgressViewStyle())
                     }
                 }
-            )
-                .frame(height: 200)
             
             HStack(spacing: 0){
                 ForEach(BarChartDateType.allCases){ barChartDateType in
@@ -67,13 +96,13 @@ struct ReportView: View {
                                 state: state,
                                 category: categoryInfo,
                                 date: viewModelCategoryReport.response?.date ?? ReportDate(from: Date(), to: Date()),
-                                currency: viewModelCategoryReport.response?.currency ?? ""
+                                currency: state.appSettings?.currency ?? APIConfiguration.currency
                                ),
                                isActive: $isShowListTransaction
                 )
                 ScrollView(.vertical){
                     ForEach(viewModelCategoryReport.values, id: \.id){ category in
-                        CategoryRowReport(category: category, currency: viewModelCategoryReport.response?.currency ?? "")
+                        CategoryRowReport(category: category, currency: state.appSettings?.currency ?? APIConfiguration.currency)
                             .onTapGesture {
                                 categoryInfo = category
                                 isShowListTransaction = true
@@ -82,25 +111,30 @@ struct ReportView: View {
                 }
             }
             .padding(.horizontal)
-            
+            .overlay{
+                if  viewModelCategoryReport.loading == .visible {
+                    ProgressView("Loading...")
+                        .progressViewStyle(CircularProgressViewStyle())
+                }
+            }
             Spacer()
         }
         .onAppear(){
-            viewModelReport.getData(type: type, date: currentTab)
-            viewModelTransactionReport.getData(type: type, date: currentTab)
-            viewModelCategoryReport.getData(type: type, date: currentTab)
-        }
-        .overlay{
-            if viewModelReport.loading == .visible || viewModelCategoryReport.loading == .visible || viewModelTransactionReport.loading == .visible {
-                ProgressView("Loading...")
-                    .progressViewStyle(CircularProgressViewStyle())
-            }
+            loadData()
         }
         .onChange(of: currentTab) { newValue in
-            selection = -1
-            viewModelReport.getData(type: type, date: currentTab)
-            viewModelCategoryReport.getData(type: type, date: currentTab)
+            loadData()
         }
+        .onChange(of: currentType) { newValue in
+            loadData()
+        }
+    }
+    
+    private func loadData() -> Void {
+        selection = -1
+        viewModelReport.getData(type: currentType, date: currentTab)
+        viewModelTransactionReport.getData(type: currentType, date: currentTab)
+        viewModelCategoryReport.getData(type: currentType, date: currentTab)
     }
     
     private func getDateString(date: Date) -> String {
@@ -175,20 +209,30 @@ struct CategoryRowReport: View {
     
     var body: some View {
         HStack{
-            Rectangle()
-                .foregroundColor(Color(UIColor(hexString: category.color)))
-                .frame(width: 25, height: 25)
-                .cornerRadius(7)
-            Text(category.name)
-                .fontWeight(.medium)
+            VStack {
+                RoundedRectangle(cornerRadius: 5)
+                    .foregroundColor(Color(UIColor(hexString: category.color)))
+                    .frame(width: 25, height: 25)
+            }
+            .padding(.bottom, 15)
             
-            Text("x\(category.total.withCommas())")
-                .foregroundColor(.gray)
-            
-            Spacer()
-            
-            Text("\(currency)\(category.amount.withCommas())")
+            VStack{
+                HStack{
+                    Text(category.name)
+                        .fontWeight(.medium)
+                    
+                    Text("x\(category.total.withCommas())")
+                        .foregroundColor(.gray)
+                    
+                    Spacer()
+                    
+                    Text("\(currency)\(category.amount.withCommas())")
+                    
+                }
+                Divider()
+            }
         }
-        Divider()
     }
 }
+
+

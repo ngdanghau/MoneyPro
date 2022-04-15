@@ -15,11 +15,9 @@ class TransactionReportViewModel: ObservableObject {
     @Published var statusViewModel: StatusViewModel?
     @Published var state: AppState
     @Published var showingAlert: Bool = false
-    @Published var response: TransactionReportTotalResponse?
 
     private var cancellableBag = Set<AnyCancellable>()
     private let authAPI: AuthAPI
-    
     
     
     init(authAPI: AuthAPI, state: AppState) {
@@ -28,7 +26,7 @@ class TransactionReportViewModel: ObservableObject {
     }
     
     
-    func getData(type: String, date: BarChartDateType){
+    func getData(type: MoneyType, date: BarChartDateType){
         loading = .visible
         authAPI.getTotalTransaction( type: type, accessToken: state.getAccessToken())
             .receive(on: RunLoop.main)
@@ -47,7 +45,6 @@ extension TransactionReportViewModel {
         if resp?.result == 0 {
             return StatusViewModel.init(title: "Error", message: resp?.msg ?? StatusViewModel.errorDefault, resultType: .error)
         } else if resp?.result == 1 {
-            response = resp
             if let data = resp?.data{
                 values = data
             }

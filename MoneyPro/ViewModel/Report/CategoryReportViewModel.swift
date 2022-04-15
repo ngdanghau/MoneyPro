@@ -29,7 +29,7 @@ class CategoryReportViewModel: ObservableObject {
     }
     
     
-    func getData(type: String, date: BarChartDateType){
+    func getData(type: MoneyType, date: BarChartDateType){
         loading = .visible
         authAPI.getListCategoryInTime( type: type, date: date, accessToken: state.getAccessToken())
             .receive(on: RunLoop.main)

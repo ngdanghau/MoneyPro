@@ -27,13 +27,14 @@ struct BarChartView: View {
     public let subTitle: () -> String
 
     var maxValue: Double = 0
-    
+    var color: Color
     
     init(
         values: [ReportTotal],
         selection: Binding<Int>,
         title: @escaping () -> String,
-        subTitle: @escaping () -> String
+        subTitle: @escaping () -> String,
+        color: Color = .blue
     ){
         self.values = values
         if values.count > 0 {
@@ -42,6 +43,7 @@ struct BarChartView: View {
         self.title = title
         self.subTitle = subTitle
         self._selection = selection
+        self.color = color
     }
     
     var body: some View {
@@ -54,12 +56,12 @@ struct BarChartView: View {
             
             GeometryReader { geometry in
                 let fullBarHeight = geometry.size.height
-                let width = geometry.size.width * 0.065
+                let width = geometry.size.width * 0.055
                 ScrollView(.horizontal){
                     VStack{
                         HStack(alignment: .top){
                             ForEach(0..<self.values.count, id: \.self){ i in
-                                BarColumnView(data: values[i], maxValue: maxValue, fullBarHeight: fullBarHeight, width: width, isActive: $isActive)
+                                BarColumnView(data: values[i], maxValue: maxValue, fullBarHeight: fullBarHeight, width: width, isActive: $isActive, color: color)
                                     .onTapGesture {
                                         if(selection == i) {
                                             if isActive == 0 {
@@ -77,7 +79,7 @@ struct BarChartView: View {
                             }
 
                             VStack(alignment: .leading){
-                                Text(maxValue.withCommas())
+                                Text(Helpers.readableFileSize(number: Int(maxValue)))
                                     .font(.system(size: 15))
                                     .foregroundColor(.gray)
                                 Spacer()

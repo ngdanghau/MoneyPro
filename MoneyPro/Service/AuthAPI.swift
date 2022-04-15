@@ -77,16 +77,17 @@ protocol AuthAPI {
      Report
      */
     func getDataIncomeVsExpense(type: String, date: BarChartDateType, accessToken: String?) -> Future<ReportTotalResponse?, Never>
-    func getListCategoryInTime(type: String, date: BarChartDateType, accessToken: String?) -> Future<CategoryReportTotalResponse?, Never>
+    func getListCategoryInTime(type: MoneyType, date: BarChartDateType, accessToken: String?) -> Future<CategoryReportTotalResponse?, Never>
     
     
-    func getTotalTransaction(type: String, accessToken: String?) -> Future<TransactionReportTotalResponse?, Never>
+    func getTotalTransaction(type: MoneyType, accessToken: String?) -> Future<TransactionReportTotalResponse?, Never>
 
     /**
      Transaction
      */
-    func getReportListTransaction(type: String, fromdate: Date, todate: Date, category: Int, start: Int, length: Int, accessToken: String?) -> Future<TransactionResponse?, Never>
-    func updateOrSaveTransaction(transaction: Transaction, accessToken: String?) -> Future<TransactionResponse?, Never>
+    func getReportListTransaction(type: MoneyType, fromdate: Date, todate: Date, category: Int, start: Int, length: Int, accessToken: String?) -> Future<TransactionResponse?, Never>
+    func getLatestListTransaction(type: MoneyType, start: Int, length: Int, accessToken: String?) -> Future<TransactionResponse?, Never>
+    func updateOrSaveTransaction(type: MoneyType, transaction: Transaction, accessToken: String?) -> Future<TransactionResponse?, Never>
     func deleteTransaction(transaction: Transaction, accessToken: String?) -> Future<TransactionResponse?, Never>
 
     

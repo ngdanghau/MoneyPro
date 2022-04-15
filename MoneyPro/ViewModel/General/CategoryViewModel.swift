@@ -16,7 +16,7 @@ class CategoryViewModel: ObservableObject {
     @Published var isEdit: Bool = true
     
     @Published var selectedType: MoneyType = .income
-    @Published var category: Category = Category.initial(type: 1)
+    @Published var category: Category = Category.initial(type: .income)
     @Published var color: Color = .red
     @Published var search: String = ""
     
@@ -42,7 +42,7 @@ class CategoryViewModel: ObservableObject {
     func newCategory() -> Void {
         isEdit = false
         color = .red
-        category = Category.initial(type: Int(selectedType.id) ?? 1)
+        category = Category.initial(type: selectedType)
     }
     
     func setCategory(category: Category) -> Void{

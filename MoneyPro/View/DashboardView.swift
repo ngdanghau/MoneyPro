@@ -40,37 +40,36 @@ struct DashboardView: View {
         self.state = state
     }
     
-    
     var body: some View {
-            TabView(selection: $selectedTab) {
-                HomeView()
-                    .tabItem {
-                        Label("Home", systemImage: "house")
-                    }
-                    .tag(Tabs.home)
+        TabView(selection: $selectedTab) {
+            HomeView(state: state)
+                .tabItem {
+                    Label("Home", systemImage: "house")
+                }
+                .tag(Tabs.home)
 
-                ReportView(state: state)
-                    .tabItem {
-                        Label("Report", systemImage: "chart.bar.xaxis")
-                    }
-                    .tag(Tabs.report)
-                
-                BudgetView(state: state)
-                    .tabItem {
-                        Label("Budget", systemImage: "shippingbox")
-                    }
-                    .tag(Tabs.budget)
-        
-                MoreView(state: state)
-                    .tabItem {
-                        Label("More", systemImage: "ellipsis")
-                    }
-                    .tag(Tabs.more)
-            }
-            .accentColor(Color(UIConfiguration.tintColor))
-            .navigationBarBackButtonHidden(true)
-            .navigationBarTitleDisplayMode(.inline)
-        
+            ReportView(state: state)
+                .tabItem {
+                    Label("Report", systemImage: "chart.bar.xaxis")
+                }
+                .tag(Tabs.report)
+            
+            BudgetView(state: state)
+                .tabItem {
+                    Label("Budget", systemImage: "shippingbox")
+                }
+                .tag(Tabs.budget)
+    
+            MoreView(state: state)
+                .tabItem {
+                    Label("More", systemImage: "ellipsis")
+                }
+                .tag(Tabs.more)
+        }
+        .accentColor(Color(UIConfiguration.tintColor))
+        .navigationBarBackButtonHidden(true)
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationTitle(state.appSettings?.site_name ?? "")
     }
 }
 

@@ -15,29 +15,27 @@ struct ModalCategoryView: View {
     var body: some View {
         NavigationView{
             Form {
-                VStack(alignment: .leading) {
+                HStack{
                     Text("Name")
-                    CustomTextField(
-                        placeHolderText: "Name",
-                        text: $viewModel.category.name,
-                        isPasswordType: false,
-                        defaultStyle: true
+                    TextField(
+                        "Name",
+                        text: $viewModel.category.name
                     )
+                    .multilineTextAlignment(.trailing)
                 }
-                VStack(alignment: .leading) {
+                HStack{
                     Text("Description")
-                    CustomTextField(
-                        placeHolderText: "Description",
-                        text: $viewModel.category.description,
-                        isPasswordType: false,
-                        defaultStyle: true
+                    TextEditor(
+                        text: $viewModel.category.description
                     )
+                    .multilineTextAlignment(.trailing)
+                    
                 }
 
                 VStack(alignment: .leading) {
                     ColorPicker("Color", selection: $viewModel.color)
                 }
-                .navigationTitle(viewModel.isEdit ? "Edit Category" : "New \(viewModel.selectedType.description.capitalized) Category" )
+                .navigationTitle(viewModel.isEdit ? "Edit Category" : "New \(viewModel.selectedType.description) Category" )
                 .navigationBarItems(
                     leading: Button("Cancel") {
                         presentationMode.wrappedValue.dismiss()

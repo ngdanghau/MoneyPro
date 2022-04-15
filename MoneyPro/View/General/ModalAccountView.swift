@@ -14,48 +14,44 @@ struct ModalAccountView: View {
     var body: some View {
         NavigationView{
             Form {
-                VStack(alignment: .leading) {
+                HStack{
                     Text("Name")
-                    CustomTextField(
-                        placeHolderText: "Name",
-                        text: $viewModel.account.name,
-                        isPasswordType: false,
-                        defaultStyle: true
+                    TextField(
+                        "Name",
+                        text: $viewModel.account.name
                     )
+                    .multilineTextAlignment(.trailing)
+                    
                 }
-                VStack(alignment: .leading) {
+                HStack{
                     Text("Description")
-                    CustomTextField(
-                        placeHolderText: "Description",
-                        text: $viewModel.account.description,
-                        isPasswordType: false,
-                        defaultStyle: true
+                    TextEditor(
+                        text: $viewModel.account.description
                     )
+                    .multilineTextAlignment(.trailing)
+                    
                 }
                 
                 
-                VStack(alignment: .leading) {
+                HStack{
                     Text("Balance")
-                    CustomTextField(
-                        placeHolderText: "Balance",
-                        text: $viewModel.account.balance,
-                        isPasswordType: false,
-                        defaultStyle: true
+                    TextField(
+                        "Balance",
+                        value: $viewModel.account.balance,
+                        formatter: CustomNumberField.numberFormater
                     )
+                    .multilineTextAlignment(.trailing)
                     .keyboardType(.decimalPad)
                 }
                 
-                VStack(alignment: .leading) {
+                HStack{
                     Text("Account Number")
-                    CustomTextField(
-                        placeHolderText: "Account Number",
-                        text: $viewModel.account.accountnumber,
-                        isPasswordType: false,
-                        defaultStyle: true
+                    TextField(
+                        "Account Number",
+                        text: $viewModel.account.accountnumber
                     )
+                    .multilineTextAlignment(.trailing)
                 }
-
-                
             }
             .navigationTitle(viewModel.isEdit ? "Edit Account" : "New Account" )
             .navigationBarItems(

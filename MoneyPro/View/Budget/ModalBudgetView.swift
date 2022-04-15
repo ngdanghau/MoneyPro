@@ -51,10 +51,9 @@ struct ModalBudgetView: View {
                 
                 VStack(alignment: .leading) {
                     Text("Amount")
-                    CustomTextField(
+                    CustomNumberField(
                         placeHolderText: "Amount",
-                        text: $viewModel.budget.amount,
-                        isPasswordType: false,
+                        value: $viewModel.budget.amount,
                         defaultStyle: true
                     )
                     .keyboardType(.decimalPad)

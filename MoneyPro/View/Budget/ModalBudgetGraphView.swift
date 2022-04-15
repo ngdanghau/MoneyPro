@@ -21,13 +21,13 @@ struct ModalBudgetGraphView: View {
                 Text("Budget Remaining")
                     .font(.title)
                     .bold()
-                Text("\(viewModel.response?.currency ?? "$")\((getValueFromText(text: viewModel.budget.amount) - getValueFromOptinal(num: viewModel.response?.totalamount)).withCommas())")
+                Text("\(viewModel.state.appSettings?.currency ?? APIConfiguration.currency)\((viewModel.budget.amount - getValueFromOptinal(num: viewModel.response?.totalamount)).withCommas())")
                     .font(.system(size: 25))
                 Spacer()
                 PieChartView(
-                    values: [getValueFromText(text: viewModel.budget.amount), getValueFromOptinal(num: viewModel.response?.totalamount)],
+                    values: [viewModel.budget.amount, getValueFromOptinal(num: viewModel.response?.totalamount)],
                     names: ["Planned", "Actual"],
-                    formatter: {value in "\(viewModel.response?.currency ?? "$")\(value.withCommas())"},
+                    formatter: {value in "\(viewModel.state.appSettings?.currency ?? APIConfiguration.currency)\(value.withCommas())"},
                     widthFraction: 0.8
                 )
             }
@@ -58,11 +58,7 @@ struct ModalBudgetGraphView: View {
         }
     }
     
-    private func getValueFromText(text: String) ->Double{
-        return Double(text) ?? 0
-    }
-    
     private func getValueFromOptinal(num: Double?) -> Double {
-        return viewModel.response?.totalamount ?? 0
+        return num ?? 0
     }
 }

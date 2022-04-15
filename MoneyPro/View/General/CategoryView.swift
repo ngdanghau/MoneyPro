@@ -23,7 +23,7 @@ struct CategoryView: View {
 
     var body: some View {
         List {
-            Section(header: Text(selectedTab.description.capitalized)){
+            Section(header: Text(selectedTab.description)){
                 ForEach(viewModel.categories) { item in
                     Button(action: {
                         viewModel.setCategory(category: item)
@@ -165,10 +165,9 @@ struct CategoryRow: View {
             }
             Text(category.name)
             Spacer()
-            Rectangle()
+            RoundedRectangle(cornerRadius: 5)
                 .foregroundColor(Color(UIColor(hexString: category.color)))
                 .frame(width: 25, height: 25)
-                .cornerRadius(7)
         }
         
     }

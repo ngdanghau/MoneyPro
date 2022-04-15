@@ -28,7 +28,7 @@ struct GoalView: View {
     
     var body: some View {
         List {
-            Section(){
+            Section(header: Text("Filter by date")){
                 VStack{
                     DatePicker(selection: $viewModel.dateFrom, in: ...Date(), displayedComponents: .date) {
                         Text("Date From")
@@ -36,7 +36,9 @@ struct GoalView: View {
                     .onChange(of: viewModel.dateFrom) { newQuery in
                         viewModel.getListGoal()
                     }
-                    
+                }
+                
+                VStack{
                     DatePicker(selection: $viewModel.dateTo, in: ...Date(), displayedComponents: .date) {
                         Text("Date To")
                     }
@@ -220,9 +222,9 @@ struct GoalRow: View {
     init(goal: Goal, editMode: Binding<Bool>){
         self.goal = goal
         _editMode = editMode
-        balance = Double(goal.balance) ?? 0
-        amount = Double(goal.amount) ?? 0
-        deposit = Double(goal.deposit) ?? 0
+        balance = goal.balance
+        amount = goal.amount
+        deposit = goal.deposit
         
         totaldeposit = deposit + balance
         remaining = amount - totaldeposit;

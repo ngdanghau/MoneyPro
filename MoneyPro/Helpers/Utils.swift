@@ -33,3 +33,36 @@ struct NavigationUtil {
         return nil
     }
 }
+
+/**
+ * Convert size in byte to human readable text
+ *
+ * @param  integer  $size      size in bytes
+ * @param  integer $precision
+ * @return string|bool
+ */
+struct Helpers {
+    static func readableFileSize(number: Int) -> String {
+        var real_number: Double = Double(number)
+        if number < 0 {
+            real_number = 0
+        }
+        
+        let unit: [String] = ["", "k", "M", "G", "T", "P", "E"]
+        let step: Double = 1000
+        var i: Int = 0
+
+        let max = unit.count - 1
+        
+        while real_number > 999 {
+            real_number = real_number / step;
+            i += 1
+
+           if i > max {
+               break;
+           }
+        }
+        
+        return "\(round(real_number * 100) / 100)\(unit[i])"
+    }
+}

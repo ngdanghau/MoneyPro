@@ -16,25 +16,23 @@ struct ModalUserManagementView: View {
             List {
                 
                 Section(header: Text("Public Profile")){
-                    VStack(alignment: .leading) {
+                    HStack{
                         Text("First Name")
-                        CustomTextField(
-                            placeHolderText: "First Name",
-                            text: $viewModel.user.firstname,
-                            isPasswordType: false,
-                            defaultStyle: true
+                        TextField(
+                            "First name",
+                            text: $viewModel.user.firstname
                         )
-                    }
-                    VStack(alignment: .leading) {
-                        Text("Last Name")
-                        CustomTextField(
-                            placeHolderText: "Last Name",
-                            text: $viewModel.user.lastname,
-                            isPasswordType: false,
-                            defaultStyle: true
-                        )
+                        .multilineTextAlignment(.trailing)
                     }
                     
+                    HStack{
+                        Text("Last Name")
+                        TextField(
+                            "Last name",
+                            text: $viewModel.user.lastname
+                        )
+                        .multilineTextAlignment(.trailing)
+                    }
                 }
                 
                 Section(header: Text("Role")){
@@ -59,15 +57,15 @@ struct ModalUserManagementView: View {
                             Text(viewModel.user.email)
                         }
                     }else{
-                        VStack(alignment: .leading) {
+                        HStack{
                             Text("Email")
-                            CustomTextField(
-                                placeHolderText: "Email",
-                                text: $viewModel.user.email,
-                                isPasswordType: false,
-                                defaultStyle: true
+                            TextField(
+                                "Email",
+                                text: $viewModel.user.email
                             )
+                            .multilineTextAlignment(.trailing)
                             .autocapitalization(.none)
+                            
                         }
                     }
                 }

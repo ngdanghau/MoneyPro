@@ -11,15 +11,13 @@ struct MenuItem: View {
     var item: ListItem
     var body: some View {
         HStack{
-            ZStack {
-                Rectangle()
-                    .frame(width: 30, height: 30)
-                    .cornerRadius(7)
-                    .foregroundColor(item.color)
-                
-                Image(systemName: item.image)
-                    .foregroundColor(.white)
-            }
+            Image(systemName: item.image)
+                .frame(width: 27, height: 27)
+                .foregroundColor(.white)
+                .background(item.color)
+                .clipShape(
+                    RoundedRectangle(cornerRadius: 5)
+                )
             
             Text(item.name)
         }

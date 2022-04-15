@@ -147,7 +147,7 @@ struct BudgetRow: View {
             HStack{
                 Text(budget.category.name)
                 Spacer()
-                if budget.category.type == 1 {
+                if budget.category.type == .income {
                     Image(systemName: "arrow.up")
                         .foregroundColor(.green)
                 }else {

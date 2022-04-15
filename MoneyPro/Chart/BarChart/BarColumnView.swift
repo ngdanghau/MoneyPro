@@ -12,15 +12,18 @@ struct BarColumnView: View {
     var maxValue: Double
     var fullBarHeight: Double
     var width: Double
+    var color: Color
+
     @Binding var isActive: Int
     private let radius: Double = 5.0
     
-    init(data: ReportTotal, maxValue: Double, fullBarHeight: Double, width: Double, isActive: Binding<Int>){
+    init(data: ReportTotal, maxValue: Double, fullBarHeight: Double, width: Double, isActive: Binding<Int>, color: Color = .blue){
         self.data = data
         self.maxValue = maxValue
         self.fullBarHeight = fullBarHeight
         self.width = width
         self._isActive = isActive
+        self.color = color
     }
 
     var body: some View {
@@ -33,7 +36,7 @@ struct BarColumnView: View {
                     .frame(width: width, height: fullBarHeight)
                 
                 RoundedRectangle(cornerRadius: radius)
-                    .fill(.blue)
+                    .fill(color)
                     .frame(width: width, height: value)
 
             }

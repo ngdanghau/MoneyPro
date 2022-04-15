@@ -16,7 +16,6 @@ class ReportViewModel: ObservableObject {
     @Published var statusViewModel: StatusViewModel?
     @Published var state: AppState
     @Published var showingAlert: Bool = false
-    @Published var response: ReportTotalResponse?
 
     private var cancellableBag = Set<AnyCancellable>()
     private let authAPI: AuthAPI
@@ -29,9 +28,9 @@ class ReportViewModel: ObservableObject {
     }
     
     
-    func getData(type: String, date: BarChartDateType){
+    func getData(type: MoneyType, date: BarChartDateType){
         loading = .visible
-        authAPI.getDataIncomeVsExpense( type: type, date: date, accessToken: state.getAccessToken())
+        authAPI.getDataIncomeVsExpense( type: type.description.lowercased(), date: date, accessToken: state.getAccessToken())
             .receive(on: RunLoop.main)
             .map(resultMapper)
             .replaceError(with: StatusViewModel.errorStatus)
@@ -48,7 +47,6 @@ extension ReportViewModel {
         if resp?.result == 0 {
             return StatusViewModel.init(title: "Error", message: resp?.msg ?? StatusViewModel.errorDefault, resultType: .error)
         } else if resp?.result == 1 {
-            response = resp
             if let income = resp?.income{
                 values = income
             }

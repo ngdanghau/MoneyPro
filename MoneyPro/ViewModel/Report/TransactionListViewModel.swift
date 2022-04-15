@@ -8,15 +8,14 @@
 import SwiftUI
 import Foundation
 import Combine
-import SwiftUI
 
 class TransactionListViewModel: ObservableObject {
     @Published var transactions: [Transaction] = []
+    @Published var transactionsGroupByDate: [Date: [Transaction]] = [Date(): []]
     @Published var loading: LoadingState = .invisible
     @Published var statusViewModel: StatusViewModel?
     @Published var state: AppState
     @Published var showingAlert: Bool = false
-    @Published var isEdit: Bool = true
     @Published var transaction: Transaction = Transaction.initial()
     @Published var response: TransactionResponse?
 
@@ -33,20 +32,20 @@ class TransactionListViewModel: ObservableObject {
         self.state = state
     }
     
-    func getReportListTransaction(type: String, date: ReportDate, category: CategoryReportTotal) {
+    func getReportListTransaction(type: MoneyType, date: ReportDate, category: CategoryReportTotal) {
         recordsTotal = 0
         transactions = []
         start = 0
         getData(type: type, date: date, category: category)
     }
     
-    func getNextReportListTransaction(type: String, date: ReportDate, category: CategoryReportTotal) {
+    func getNextReportListTransaction(type: MoneyType, date: ReportDate, category: CategoryReportTotal) {
         start += length
         getData(type: type, date: date, category: category)
         
     }
     
-    private func getData(type: String, date: ReportDate, category: CategoryReportTotal){
+    private func getData(type: MoneyType, date: ReportDate, category: CategoryReportTotal){
         loading = .visible
         authAPI.getReportListTransaction( type: type, fromdate: date.from, todate: date.to, category: category.id, start: start, length: length, accessToken: state.getAccessToken())
             .receive(on: RunLoop.main)
@@ -58,7 +57,7 @@ class TransactionListViewModel: ObservableObject {
     
     func updateOrSaveTransaction(){
         loading = .visible
-        authAPI.updateOrSaveTransaction(transaction: transaction, accessToken: state.getAccessToken())
+        authAPI.updateOrSaveTransaction(type: transaction.type, transaction: transaction, accessToken: state.getAccessToken())
             .receive(on: RunLoop.main)
             .map(resultMapper)
             .replaceError(with: StatusViewModel.errorStatus)
@@ -69,6 +68,30 @@ class TransactionListViewModel: ObservableObject {
     func deleteTransaction(){
         loading = .visible
         authAPI.deleteTransaction(transaction: transaction, accessToken: state.getAccessToken())
+            .receive(on: RunLoop.main)
+            .map(resultMapper)
+            .replaceError(with: StatusViewModel.errorStatus)
+            .assign(to: \.statusViewModel, on: self)
+            .store(in: &cancellableBag)
+    }
+    
+    
+    func getLastedListTransaction(type: MoneyType) {
+        recordsTotal = 0
+        transactions = []
+        start = 0
+        getDataLasted(type: type)
+    }
+    
+    func getNextLastedListTransaction(type: MoneyType) {
+        start += length
+        getDataLasted(type: type)
+        
+    }
+    
+    private func getDataLasted(type: MoneyType){
+        loading = .visible
+        authAPI.getLatestListTransaction( type: type, start: start, length: length, accessToken: state.getAccessToken())
             .receive(on: RunLoop.main)
             .map(resultMapper)
             .replaceError(with: StatusViewModel.errorStatus)
@@ -100,7 +123,6 @@ extension TransactionListViewModel {
                 }else {
                     transactions.append(contentsOf: resp?.data ?? [])
                 }
-                
             }
             
             if let id = resp?.transaction {
@@ -120,6 +142,10 @@ extension TransactionListViewModel {
                    recordsTotal += 1
                    transactions.append(transaction)
                }
+            }
+            
+            if transactions.count > 0{
+                transactionsGroupByDate = Dictionary(grouping: transactions) { $0.transactiondate }
             }
             
             // cho hiện alert hay không, chỉ có GET là không, còn lại PUT, POST, DELETE là có hiện

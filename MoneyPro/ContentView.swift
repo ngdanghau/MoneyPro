@@ -75,6 +75,7 @@ struct ContentView: View {
             }
         }.onAppear{
             fetchDataUser()
+            fetchAppState()
         }
         
     }
@@ -129,6 +130,38 @@ struct ContentView: View {
                     self.pushView = true
                     self.indexView = 3
                     self.state.authUser = resp?.data
+                }
+            }
+        }.resume()
+    }
+    
+    private func fetchAppState() -> Void {
+        let url = APIConfiguration.url + "/settings/site"
+        guard let endpointUrl = URL(string: url) else {
+            self.loading = false
+            return
+        }
+        
+        var request = URLRequest(url: endpointUrl)
+        request.httpMethod = "GET"
+        request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            DispatchQueue.main.async {
+                self.loading = false
+                if error != nil || (response as! HTTPURLResponse).statusCode != 200 {
+                    return
+                } else if let data = data {
+                    let resp = try? JSONDecoder().decode(SiteSettingResponse.self, from: data)
+                    if resp?.result == 0 || resp?.data == nil {
+                        return
+                    }
+                    if resp == nil {
+                        if let returnData = String(data: data, encoding: .utf8) {
+                            print(returnData)
+                        }
+                    }
+                    self.state.appSettings = resp?.data
                 }
             }
         }.resume()
