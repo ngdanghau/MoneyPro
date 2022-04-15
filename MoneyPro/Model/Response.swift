@@ -36,6 +36,7 @@ struct Summary: Codable {
 enum MoneyType: String, CaseIterable, Identifiable, Codable{
     case income = "1"
     case expense = "2"
+    case none = "0"
     
     var id: String { self.rawValue }
     
@@ -57,6 +58,8 @@ enum MoneyType: String, CaseIterable, Identifiable, Codable{
                     return "Income"
                 case .expense:
                     return "Expense"
+                case .none:
+                    return "None"
             }
         }
     }
@@ -68,6 +71,8 @@ enum MoneyType: String, CaseIterable, Identifiable, Codable{
                     return "income"
                 case .expense:
                     return "expense"
+                case .none:
+                    return "none"
             }
         }
     }
@@ -78,6 +83,8 @@ enum MoneyType: String, CaseIterable, Identifiable, Codable{
             self = .expense
         case .expense:
             self = .income
+        case .none:
+            self = .none
         }
     }
 }
@@ -252,7 +259,12 @@ struct ReportDate: Codable {
     enum CodingKeys: CodingKey {
         case from
         case to
-   }
+    }
+    
+    static func initial() -> ReportDate{
+        return ReportDate(from: Date(), to: Date())
+    }
+    
 }
 /**
  Report
@@ -282,6 +294,10 @@ struct CategoryReportTotal: Identifiable, Codable {
     let color: String
     let amount: Double
     let total: Int
+    
+    static func initial() -> CategoryReportTotal{
+        return CategoryReportTotal(id: 0, name: "", color: "", amount: 0, total: 0)
+    }
 }
 
 struct CategoryReportTotalResponse: Codable {

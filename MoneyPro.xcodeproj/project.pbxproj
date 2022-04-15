@@ -12,6 +12,8 @@
 		C809716127F5DBA400D46ACE /* ModalCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C809716027F5DBA400D46ACE /* ModalCategoryView.swift */; };
 		C82D526A2807C2CD00148821 /* CustomNumberField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82D52692807C2CD00148821 /* CustomNumberField.swift */; };
 		C82D526D2808789B00148821 /* TransactionModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82D526C2808789B00148821 /* TransactionModalView.swift */; };
+		C82D527228097C9A00148821 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82D527128097C9A00148821 /* SearchView.swift */; };
+		C82D52762809C9DD00148821 /* StringExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82D52752809C9DD00148821 /* StringExt.swift */; };
 		C832C89F2805BBF1006FA80A /* TransactionListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C832C89E2805BBF1006FA80A /* TransactionListViewModel.swift */; };
 		C832C8A32805D70D006FA80A /* TransactionDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C832C8A22805D70D006FA80A /* TransactionDetailView.swift */; };
 		C83D08E127F6C0A3006CD28A /* ModalAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C83D08E027F6C0A3006CD28A /* ModalAccountView.swift */; };
@@ -108,6 +110,8 @@
 		C809716027F5DBA400D46ACE /* ModalCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalCategoryView.swift; sourceTree = "<group>"; };
 		C82D52692807C2CD00148821 /* CustomNumberField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNumberField.swift; sourceTree = "<group>"; };
 		C82D526C2808789B00148821 /* TransactionModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionModalView.swift; sourceTree = "<group>"; };
+		C82D527128097C9A00148821 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		C82D52752809C9DD00148821 /* StringExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExt.swift; sourceTree = "<group>"; };
 		C832C89E2805BBF1006FA80A /* TransactionListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionListViewModel.swift; sourceTree = "<group>"; };
 		C832C8A22805D70D006FA80A /* TransactionDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailView.swift; sourceTree = "<group>"; };
 		C83D08E027F6C0A3006CD28A /* ModalAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalAccountView.swift; sourceTree = "<group>"; };
@@ -224,6 +228,7 @@
 			children = (
 				C865E39427EE0D5A00332632 /* HomeView.swift */,
 				C82D526C2808789B00148821 /* TransactionModalView.swift */,
+				C82D527128097C9A00148821 /* SearchView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -409,6 +414,7 @@
 				C83D08EC27F9DC5C006CD28A /* UIApplicationExt.swift */,
 				C83D08EE27F9E258006CD28A /* DateExt.swift */,
 				C87D38D128046FA300AC07B5 /* NumberExt.swift */,
+				C82D52752809C9DD00148821 /* StringExt.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -693,6 +699,7 @@
 				C865E37A27EDBAB900332632 /* AppState.swift in Sources */,
 				C83D08E527F755E8006CD28A /* GoalView.swift in Sources */,
 				C84978AC2803542A00A77590 /* BarChartView.swift in Sources */,
+				C82D527228097C9A00148821 /* SearchView.swift in Sources */,
 				C8C2CA0427F3111F00921EAE /* ReportView.swift in Sources */,
 				C87D38D72805256E00AC07B5 /* TransactionReportViewModel.swift in Sources */,
 				C87D38D228046FA300AC07B5 /* NumberExt.swift in Sources */,
@@ -722,6 +729,7 @@
 				C849789E27FFC06C00A77590 /* PieSliceView.swift in Sources */,
 				C874C60727EF43AC00624143 /* DashboardView.swift in Sources */,
 				C82D526A2807C2CD00148821 /* CustomNumberField.swift in Sources */,
+				C82D52762809C9DD00148821 /* StringExt.swift in Sources */,
 				C849789B27FF4B8E00A77590 /* ModalBudgetGraphView.swift in Sources */,
 				C832C89F2805BBF1006FA80A /* TransactionListViewModel.swift in Sources */,
 				C83D08E927F75BAD006CD28A /* ModalGoalView.swift in Sources */,
@@ -901,7 +909,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -934,7 +942,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (

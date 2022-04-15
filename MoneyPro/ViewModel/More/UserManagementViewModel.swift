@@ -114,7 +114,7 @@ extension UserManagementViewModel {
                 }else {
                     users.append(contentsOf: resp?.data ?? [])
                 }
-                
+                recordsTotal = users.count
             }
             
             if let id = resp?.user {

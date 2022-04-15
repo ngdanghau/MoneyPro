@@ -79,7 +79,7 @@ struct CategoryView: View {
         }
         .overlay{
             if viewModel.loading == .visible {
-                ProgressView("Please wait...")
+                ProgressView("")
                   .progressViewStyle(CircularProgressViewStyle())
               }
         }
@@ -95,7 +95,9 @@ struct CategoryView: View {
                         label: Text("Picker"),
                         content: {
                             ForEach(MoneyType.allCases) { moneyType in
-                                Text(moneyType.description).tag(moneyType)
+                                if moneyType != .none {
+                                    Text(moneyType.description).tag(moneyType)
+                                }
                             }
                     })
                     .onChange (of: selectedTab, perform: { (value) in

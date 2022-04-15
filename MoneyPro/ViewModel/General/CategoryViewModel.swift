@@ -99,6 +99,7 @@ class CategoryViewModel: ObservableObject {
         switch selectedType {
         case .income: return "incomecategories"
         case .expense: return "expensecategories"
+        case .none: return "none"
         }
     }
 }

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct UserManagementView: View {
     @ObservedObject private var viewModel: UserManagementViewModel
-        
+
     @State private var editMode: Bool = false
     @State private var showingModalView = false
     
@@ -52,6 +52,8 @@ struct UserManagementView: View {
                 }
             }
             
+           
+            
             if viewModel.recordsTotal != viewModel.users.count  {
                 Section{
                     Button(action: {
@@ -68,9 +70,9 @@ struct UserManagementView: View {
         }
         .overlay{
             if viewModel.loading == .visible {
-                ProgressView("Please wait...")
+                ProgressView("")
                   .progressViewStyle(CircularProgressViewStyle())
-              }
+            }
         }
         .fullScreenCover(isPresented: $showingModalView) {
             ModalUserManagementView( viewModel: viewModel)

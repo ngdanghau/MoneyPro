@@ -77,9 +77,8 @@ struct TransactionDetailView: View {
                 HStack{
                     Text("Description")
                     TextEditor(
-                        text: $viewModel.transaction.description
-                    )
-                        .multilineTextAlignment(.trailing)
+                        text: $viewModel.transaction.description)
+                    .multilineTextAlignment(.trailing)
                 }
 
                 VStack(alignment: .leading)  {
@@ -115,7 +114,7 @@ struct TransactionDetailView: View {
         }
         .overlay{
             if viewModel.loading == .visible {
-                ProgressView("Please wait...")
+                ProgressView("")
                   .progressViewStyle(CircularProgressViewStyle())
               }
         }

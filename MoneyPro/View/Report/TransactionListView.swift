@@ -48,7 +48,7 @@ struct TransactionListView: View {
                     Section{
                         Button(action: {
                             print("fetch Data transaction load more")
-                            viewModel.getNextReportListTransaction(type: typeCurrent, date: date, category: category)
+                            viewModel.getNextReportListTransaction(date: date, category: category)
                         }){
                             Text("Load More")
                                 .foregroundColor(.black)
@@ -69,12 +69,12 @@ struct TransactionListView: View {
         .navigationTitle("\(category.name) - \(currency)\(category.amount.withCommas())")
         .overlay{
             if viewModel.loading == .visible {
-                ProgressView("Loading...")
+                ProgressView("")
                     .progressViewStyle(CircularProgressViewStyle())
             }
         }
         .onAppear(){
-            viewModel.getReportListTransaction(type: typeCurrent, date: date, category: category);
+            viewModel.getReportListTransaction(date: date, category: category);
         }
         .fullScreenCover(isPresented: $showingModalView) {
             TransactionDetailView(viewModel: viewModel)

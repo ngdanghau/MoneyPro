@@ -15,7 +15,6 @@ struct PickerCategoryView: View {
     @State private var showingModalView = false
     @Binding var category: Category
     
-    @State var selectedTab: MoneyType = .income
     var body: some View {
         List {
             Section{
@@ -38,7 +37,7 @@ struct PickerCategoryView: View {
         }
         .overlay{
             if viewModel.loading == .visible {
-                ProgressView("Please wait...")
+                ProgressView("")
                   .progressViewStyle(CircularProgressViewStyle())
               }
         }
@@ -46,15 +45,16 @@ struct PickerCategoryView: View {
             ToolbarItem(placement: .principal) {
                 HStack{
                     Picker(
-                        selection: $selectedTab,
+                        selection: $viewModel.selectedType,
                         label: Text("Picker"),
                         content: {
                             ForEach(MoneyType.allCases) { moneyType in
-                                Text(moneyType.description).tag(moneyType)
+                                if moneyType != .none {
+                                    Text(moneyType.description).tag(moneyType)
+                                }
                             }
                     })
-                    .onChange (of: selectedTab, perform: { (value) in
-                        viewModel.selectedType = selectedTab
+                    .onChange (of: viewModel.selectedType, perform: { (value) in
                         viewModel.getListCategory()
                     })
                     .pickerStyle(SegmentedPickerStyle())

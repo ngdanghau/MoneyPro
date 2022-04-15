@@ -11,11 +11,11 @@ struct HomeView: View {
     private let state: AppState
     @ObservedObject private var viewModel: TransactionListViewModel
     @ObservedObject private var viewModelTransactionReport: TransactionReportViewModel
-    @State private var currentType: MoneyType = .income
-    @State private var isShowModalTransaction: Bool = false
+    @State private var isShowModalDetail: Bool = false
+    @State private var isShowModalSearch: Bool = false
     private let formatter = DateFormatter()
 
-    
+
     init(state: AppState){
         self.state = state
         self.viewModel = TransactionListViewModel(authAPI: AuthService(), state: state)
@@ -27,7 +27,7 @@ struct HomeView: View {
         VStack{
             HStack{
                 Button(action: {
-                    print("clicj search")
+                    isShowModalSearch = true
                 }, label: {
                     Image(systemName: "magnifyingglass")
                 })
@@ -37,16 +37,18 @@ struct HomeView: View {
                 Spacer()
                 VStack{
                     Picker(
-                        selection: $currentType,
+                        selection: $viewModel.currentType,
                         label: Text("Picker"),
                         content: {
                             ForEach(MoneyType.allCases) { moneyType in
-                                Text(moneyType.description).tag(moneyType)
+                                if moneyType != .none {
+                                    Text(moneyType.description).tag(moneyType)
+                                }
                             }
                     })
-                    .onChange (of: currentType, perform: { (value) in
-                        viewModel.getLastedListTransaction(type: currentType)
-                        viewModelTransactionReport.getData(type: currentType, date: .week)
+                    .onChange (of: viewModel.currentType, perform: { (value) in
+                        viewModel.getLastedListTransaction()
+                        viewModelTransactionReport.getData(type: viewModel.currentType, date: .week)
                     })
                     .pickerStyle(SegmentedPickerStyle())
                 }
@@ -55,7 +57,7 @@ struct HomeView: View {
                 
                 Button(action: {
                     viewModel.transaction = Transaction.initial()
-                    isShowModalTransaction = true
+                    isShowModalDetail = true
                 }, label: {
                     Image(systemName: "plus.circle.fill")
                 })
@@ -66,7 +68,7 @@ struct HomeView: View {
             
             
             VStack{
-                Text("\(currentType == .income ? "Earned" : "Spent") this week")
+                Text("\(viewModel.currentType == .income ? "Earned" : "Spent") this week")
                     .foregroundColor(.gray)
                 
                 HStack{
@@ -86,7 +88,7 @@ struct HomeView: View {
             .padding(.vertical, 50)
             .overlay(){
                 if viewModelTransactionReport.loading == .visible {
-                    ProgressView("Loading...")
+                    ProgressView("")
                         .progressViewStyle(CircularProgressViewStyle())
                 }
             }
@@ -109,7 +111,7 @@ struct HomeView: View {
                                 ForEach(transactions, id: \.id){ transaction in
                                     Button(action: {
                                         viewModel.transaction = transaction
-                                        isShowModalTransaction = true
+                                        isShowModalDetail = true
                                     }, label: {
                                         TransactionRowHome(transaction: transaction, currency: state.appSettings?.currency ?? APIConfiguration.currency)
                                     })
@@ -131,7 +133,7 @@ struct HomeView: View {
                         Section{
                             Button(action: {
                                 print("fetch Data transaction load more")
-                                viewModel.getNextLastedListTransaction(type: currentType)
+                                viewModel.getNextLastedListTransaction()
                             }){
                                 Text("Load More")
                                     .foregroundColor(.black)
@@ -150,20 +152,25 @@ struct HomeView: View {
             .padding(.horizontal)
             .overlay{
                 if  viewModel.loading == .visible {
-                    ProgressView("Loading...")
+                    ProgressView("")
                         .progressViewStyle(CircularProgressViewStyle())
                 }
             }
             
             
+            
+            
             Spacer()
         }
         .onAppear(){
-            viewModel.getLastedListTransaction(type: currentType)
-            viewModelTransactionReport.getData(type: currentType, date: .week)
+            viewModel.getLastedListTransaction()
+            viewModelTransactionReport.getData(type: viewModel.currentType, date: .week)
         }
-        .fullScreenCover(isPresented: $isShowModalTransaction) {
+        .fullScreenCover(isPresented: $isShowModalDetail) {
             TransactionDetailView(viewModel: viewModel)
+        }
+        .sheet(isPresented: $isShowModalSearch) {
+            SearchView(state: state)
         }
         
     }

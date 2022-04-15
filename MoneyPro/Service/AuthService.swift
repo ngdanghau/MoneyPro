@@ -490,10 +490,15 @@ class AuthService: AuthAPI {
     func getListCategory(type: String, search: String, start: Int, length: Int, accessToken: String?) -> Future<CategoryResponse?, Never> {
         return Future<CategoryResponse?, Never> { promise in
             let url = APIConfiguration.url + "/\(type)"
-            let query = "start=\(start)&length=\(length)&search=\(search)"
-
-            print(query)
-            guard let endpointUrl = URL(string: "\(url)?\(query)") else {
+            let query = "start=\(start)&length=\(length)&search=\(search)".encodeUrl()
+            
+            guard let queryString = query else {
+                print("queryString is invalid")
+                promise(.success(nil))
+                return
+            }
+            
+            guard let endpointUrl = URL(string: "\(url)?\(queryString)") else {
                 promise(.success(nil))
                 return
             }
@@ -680,9 +685,15 @@ class AuthService: AuthAPI {
     func getListAccount(search: String, start: Int, length: Int, accessToken: String?) -> Future<AccountResponse?, Never> {
         return Future<AccountResponse?, Never> { promise in
             let url = APIConfiguration.url + "/accounts"
-            let query = "start=\(start)&length=\(length)&search=\(search)"
-
-            guard let endpointUrl = URL(string: "\(url)?\(query)") else {
+            let query = "start=\(start)&length=\(length)&search=\(search)".encodeUrl()
+            
+            guard let queryString = query else {
+                print("queryString is invalid")
+                promise(.success(nil))
+                return
+            }
+            
+            guard let endpointUrl = URL(string: "\(url)?\(queryString)") else {
                 promise(.success(nil))
                 return
             }
@@ -877,9 +888,15 @@ class AuthService: AuthAPI {
             
             
             let url = APIConfiguration.url + "/goals"
-            let query = "start=\(start)&length=\(length)&status=\(status)&order[column]=deadline&order[dir]=desc&search=\(search)&dateFrom=\(displayFormatter.string(from: dateFrom))&dateTo=\(displayFormatter.string(from: dateTo))"
-
-            guard let endpointUrl = URL(string: "\(url)?\(query)") else {
+            let query = "start=\(start)&length=\(length)&status=\(status)&order[column]=deadline&order[dir]=desc&search=\(search)&dateFrom=\(displayFormatter.string(from: dateFrom))&dateTo=\(displayFormatter.string(from: dateTo))".encodeUrl()
+            
+            guard let queryString = query else {
+                print("queryString is invalid")
+                promise(.success(nil))
+                return
+            }
+            
+            guard let endpointUrl = URL(string: "\(url)?\(queryString)") else {
                 promise(.success(nil))
                 return
             }
@@ -1137,9 +1154,15 @@ class AuthService: AuthAPI {
     func getListBudget(search: String, start: Int, length: Int, accessToken: String?) -> Future<BudgetResponse?, Never> {
         return Future<BudgetResponse?, Never> { promise in
             let url = APIConfiguration.url + "/budgets"
-            let query = "start=\(start)&length=\(length)&search=\(search)&order[column]=fromdate&order[dir]=desc"
-
-            guard let endpointUrl = URL(string: "\(url)?\(query)") else {
+            let query = "start=\(start)&length=\(length)&search=\(search)&order[column]=fromdate&order[dir]=desc".encodeUrl()
+            
+            guard let queryString = query else {
+                print("queryString is invalid")
+                promise(.success(nil))
+                return
+            }
+            
+            guard let endpointUrl = URL(string: "\(url)?\(queryString)") else {
                 promise(.success(nil))
                 return
             }
@@ -1394,9 +1417,15 @@ class AuthService: AuthAPI {
     func getListUser(search: String, start: Int, length: Int, accessToken: String?) -> Future<UserResponse?, Never> {
         return Future<UserResponse?, Never> { promise in
             let url = APIConfiguration.url + "/users"
-            let query = "start=\(start)&length=\(length)&search=\(search)"
-
-            guard let endpointUrl = URL(string: "\(url)?\(query)") else {
+            let query = "start=\(start)&length=\(length)&search=\(search)".encodeUrl()
+            
+            guard let queryString = query else {
+                print("queryString is invalid")
+                promise(.success(nil))
+                return
+            }
+            
+            guard let endpointUrl = URL(string: "\(url)?\(queryString)") else {
                 promise(.success(nil))
                 return
             }
@@ -1771,16 +1800,22 @@ class AuthService: AuthAPI {
     /**
     Transaction
      */
-    func getReportListTransaction(type: MoneyType, fromdate: Date, todate: Date, category: Int, start: Int, length: Int, accessToken: String?) -> Future<TransactionResponse?, Never>{
+    func getReportListTransaction(type: MoneyType, search: String, date: ReportDate, category: Int, start: Int, length: Int, accessToken: String?) -> Future<TransactionResponse?, Never>{
         return Future<TransactionResponse?, Never> { promise in
-            let url = APIConfiguration.url + "/report/transactions/\(type.value)"
+            let url = APIConfiguration.url + "/report/transactions"
             
             let formatter = DateFormatter()
             formatter.dateFormat = "yyyy-MM-dd"
             
-            let query = "order[column]=transactiondate&order[dir]=desc&fromdate=\(formatter.string(from: fromdate))&todate=\(formatter.string(from: todate))&category_id=\(category)&start=\(start)&length=\(length)"
+            let query = "search=\(search)&order[column]=transactiondate&order[dir]=desc&fromdate=\(formatter.string(from: date.from))&todate=\(formatter.string(from: date.to))&category_id=\(category)&start=\(start)&length=\(length)&type=\(type.id)".encodeUrl()
 
-            guard let endpointUrl = URL(string: "\(url)?\(query)") else {
+            guard let queryString = query else {
+                print("queryString is invalid")
+                promise(.success(nil))
+                return
+            }
+            
+            guard let endpointUrl = URL(string: "\(url)?\(queryString)") else {
                 print("endpointUrl is invalid")
                 promise(.success(nil))
                 return
@@ -1900,7 +1935,7 @@ class AuthService: AuthAPI {
     
     func updateOrSaveTransaction(type: MoneyType, transaction: Transaction, accessToken: String?) -> Future<TransactionResponse?, Never> {
         return Future<TransactionResponse?, Never> { promise in
-            var url = APIConfiguration.url + "/transactions/\(type.value)"
+            var url = APIConfiguration.url + "/transactions"
             var method = "POST"
             if transaction.id > 0 {
                 url += "/\(transaction.id)"

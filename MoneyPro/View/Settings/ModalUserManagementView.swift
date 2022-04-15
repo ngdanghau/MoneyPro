@@ -98,7 +98,7 @@ struct ModalUserManagementView: View {
         }
         .overlay{
             if viewModel.loading == .visible {
-                ProgressView("Please wait...")
+                ProgressView("")
                   .progressViewStyle(CircularProgressViewStyle())
               }
         }

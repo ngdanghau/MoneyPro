@@ -18,12 +18,16 @@ class TransactionListViewModel: ObservableObject {
     @Published var showingAlert: Bool = false
     @Published var transaction: Transaction = Transaction.initial()
     @Published var response: TransactionResponse?
-
+    
+    
+    @Published var currentType: MoneyType = .income
+    
     private var cancellableBag = Set<AnyCancellable>()
     private let authAPI: AuthAPI
     
     @Published var recordsTotal: Int = 0
     
+    @Published var search: String = ""
     private var start: Int = 0
     private let length: Int = 20
     
@@ -32,22 +36,22 @@ class TransactionListViewModel: ObservableObject {
         self.state = state
     }
     
-    func getReportListTransaction(type: MoneyType, date: ReportDate, category: CategoryReportTotal) {
+    func getReportListTransaction(date: ReportDate = ReportDate.initial(), category: CategoryReportTotal = CategoryReportTotal.initial()) {
         recordsTotal = 0
         transactions = []
         start = 0
-        getData(type: type, date: date, category: category)
+        getData(date: date, category: category)
     }
     
-    func getNextReportListTransaction(type: MoneyType, date: ReportDate, category: CategoryReportTotal) {
+    func getNextReportListTransaction(date: ReportDate = ReportDate.initial(), category: CategoryReportTotal = CategoryReportTotal.initial()) {
         start += length
-        getData(type: type, date: date, category: category)
+        getData(date: date, category: category)
         
     }
     
-    private func getData(type: MoneyType, date: ReportDate, category: CategoryReportTotal){
+    private func getData(date: ReportDate, category: CategoryReportTotal){
         loading = .visible
-        authAPI.getReportListTransaction( type: type, fromdate: date.from, todate: date.to, category: category.id, start: start, length: length, accessToken: state.getAccessToken())
+        authAPI.getReportListTransaction( type: currentType, search: search, date: date, category: category.id, start: start, length: length, accessToken: state.getAccessToken())
             .receive(on: RunLoop.main)
             .map(resultMapper)
             .replaceError(with: StatusViewModel.errorStatus)
@@ -76,22 +80,22 @@ class TransactionListViewModel: ObservableObject {
     }
     
     
-    func getLastedListTransaction(type: MoneyType) {
+    func getLastedListTransaction() {
         recordsTotal = 0
         transactions = []
         start = 0
-        getDataLasted(type: type)
+        getDataLasted()
     }
     
-    func getNextLastedListTransaction(type: MoneyType) {
+    func getNextLastedListTransaction() {
         start += length
-        getDataLasted(type: type)
+        getDataLasted()
         
     }
     
-    private func getDataLasted(type: MoneyType){
+    private func getDataLasted(){
         loading = .visible
-        authAPI.getLatestListTransaction( type: type, start: start, length: length, accessToken: state.getAccessToken())
+        authAPI.getLatestListTransaction( type: currentType, start: start, length: length, accessToken: state.getAccessToken())
             .receive(on: RunLoop.main)
             .map(resultMapper)
             .replaceError(with: StatusViewModel.errorStatus)
@@ -127,21 +131,24 @@ extension TransactionListViewModel {
             
             if let id = resp?.transaction {
                 transaction.id = id
-                // nếu không thì kiểm tra có account không => là put || post || DELETE mới có cái properties này
-                if let row = transactions.firstIndex(where: { $0.id == transaction.id }){
-                   // nếu là delete thì xoá
-                   if method == "DELETE" {
-                       recordsTotal -= 1
-                       transactions.remove(at: row)
+                if transaction.type == currentType {
+                    // nếu không thì kiểm tra có account không => là put || post || DELETE mới có cái properties này
+                    if let row = transactions.firstIndex(where: { $0.id == transaction.id }){
+                       // nếu là delete thì xoá
+                       if method == "DELETE" {
+                           recordsTotal -= 1
+                           transactions.remove(at: row)
+                       }
+                       // nếu là PUT là sửa
+                       else {
+                           transactions.replace(transactions[row], with: transaction)
+                       }
+                   }else{
+                       recordsTotal += 1
+                       transactions.append(transaction)
                    }
-                   // nếu là PUT là sửa
-                   else {
-                       transactions.replace(transactions[row], with: transaction)
-                   }
-               }else{
-                   recordsTotal += 1
-                   transactions.append(transaction)
-               }
+                }
+                
             }
             
             if transactions.count > 0{

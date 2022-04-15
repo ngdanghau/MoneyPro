@@ -85,8 +85,9 @@ protocol AuthAPI {
     /**
      Transaction
      */
-    func getReportListTransaction(type: MoneyType, fromdate: Date, todate: Date, category: Int, start: Int, length: Int, accessToken: String?) -> Future<TransactionResponse?, Never>
+    func getReportListTransaction(type: MoneyType, search: String, date: ReportDate, category: Int, start: Int, length: Int, accessToken: String?) -> Future<TransactionResponse?, Never>
     func getLatestListTransaction(type: MoneyType, start: Int, length: Int, accessToken: String?) -> Future<TransactionResponse?, Never>
+
     func updateOrSaveTransaction(type: MoneyType, transaction: Transaction, accessToken: String?) -> Future<TransactionResponse?, Never>
     func deleteTransaction(transaction: Transaction, accessToken: String?) -> Future<TransactionResponse?, Never>
 

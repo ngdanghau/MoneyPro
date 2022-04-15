@@ -74,7 +74,6 @@ struct ContentView: View {
                 }
             }
         }.onAppear{
-            fetchDataUser()
             fetchAppState()
         }
         
@@ -148,20 +147,23 @@ struct ContentView: View {
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             DispatchQueue.main.async {
-                self.loading = false
                 if error != nil || (response as! HTTPURLResponse).statusCode != 200 {
+                    self.loading = false
                     return
                 } else if let data = data {
                     let resp = try? JSONDecoder().decode(SiteSettingResponse.self, from: data)
                     if resp?.result == 0 || resp?.data == nil {
+                        self.loading = false
                         return
                     }
                     if resp == nil {
+                        self.loading = false
                         if let returnData = String(data: data, encoding: .utf8) {
                             print(returnData)
                         }
                     }
                     self.state.appSettings = resp?.data
+                    fetchDataUser()
                 }
             }
         }.resume()

@@ -35,15 +35,18 @@ struct ReportView: View {
                 Spacer()
                 Menu {
                     ForEach(MoneyType.allCases) { moneyType in
-                        Button(action: {
-                            currentType.toggle()
-                        }, label: {
-                            if currentType == moneyType {
-                                Label(moneyType.description, systemImage: "checkmark")
-                            }else{
-                                Text(moneyType.description)
-                            }
-                        }).tag(moneyType)
+                        if moneyType != .none {
+                            Button(action: {
+                                currentType.toggle()
+                            }, label: {
+                                if currentType == moneyType {
+                                    Label(moneyType.description, systemImage: "checkmark")
+                                }else{
+                                    Text(moneyType.description)
+                                }
+                            }).tag(moneyType)
+                        }
+                        
                     }
                     
                 } label: {
@@ -57,7 +60,7 @@ struct ReportView: View {
                 values: viewModelReport.values,
                 selection: $selection,
                 title: {
-                    if selection > -1 && viewModelReport.values.count < selection {
+                    if selection > -1 {
                         return "\(state.appSettings?.currency ?? APIConfiguration.currency)\(viewModelReport.values[selection].value.withCommas())"
                     }
                     else {
@@ -77,7 +80,7 @@ struct ReportView: View {
                 .frame(height: 230)
                 .overlay{
                     if viewModelReport.loading == .visible || viewModelTransactionReport.loading == .visible {
-                        ProgressView("Loading...")
+                        ProgressView("")
                             .progressViewStyle(CircularProgressViewStyle())
                     }
                 }
@@ -102,18 +105,20 @@ struct ReportView: View {
                 )
                 ScrollView(.vertical){
                     ForEach(viewModelCategoryReport.values, id: \.id){ category in
-                        CategoryRowReport(category: category, currency: state.appSettings?.currency ?? APIConfiguration.currency)
-                            .onTapGesture {
-                                categoryInfo = category
-                                isShowListTransaction = true
-                            }
+                        Button(action: {
+                            categoryInfo = category
+                            isShowListTransaction = true
+                        }, label: {
+                            CategoryRowReport(category: category, currency: state.appSettings?.currency ?? APIConfiguration.currency)
+                        })
+                        .foregroundColor(.black)
                     }
                 }
             }
             .padding(.horizontal)
             .overlay{
                 if  viewModelCategoryReport.loading == .visible {
-                    ProgressView("Loading...")
+                    ProgressView("")
                         .progressViewStyle(CircularProgressViewStyle())
                 }
             }
@@ -220,6 +225,7 @@ struct CategoryRowReport: View {
                 HStack{
                     Text(category.name)
                         .fontWeight(.medium)
+                        .multilineTextAlignment(.leading)
                     
                     Text("x\(category.total.withCommas())")
                         .foregroundColor(.gray)
