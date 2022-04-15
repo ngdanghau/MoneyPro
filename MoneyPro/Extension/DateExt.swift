@@ -8,6 +8,21 @@
 import Foundation
 import SwiftUI
 
+extension Calendar {
+    static let iso8601 = Calendar(identifier: .iso8601)
+    static let iso8601UTC: Calendar = {
+        var calendar = Calendar(identifier: .iso8601)
+        calendar.timeZone = TimeZone(identifier: "UTC")!
+        return calendar
+    }()
+    
+    static let gregorianUTC: Calendar = {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(identifier: "UTC")!
+        return calendar
+    }()
+}
+
 extension Date {
     func startOfMonth() -> Date {
         return Calendar.current.date(from: Calendar.current.dateComponents([.year, .month], from: Calendar.current.startOfDay(for: self)))!
@@ -29,13 +44,12 @@ extension Date {
         return dateFormatter.string(from: self)
     }
     
+    
     func startOfWeek() -> Date {
-       let date = Calendar.current.date(from: Calendar.current.dateComponents([.yearForWeekOfYear, .weekOfYear], from: self))!
-       let dslTimeOffset = NSTimeZone.local.daylightSavingTimeOffset(for: date)
-       return date.addingTimeInterval(dslTimeOffset)
+        return Calendar.gregorianUTC.date(from: Calendar.gregorianUTC.dateComponents([.calendar, .yearForWeekOfYear, .weekOfYear], from: Calendar.current.startOfDay(for: self)))!
     }
-
+    
     func endOfWeek() -> Date {
-       return Calendar.current.date(byAdding: .second, value: 604799, to: self.startOfWeek())!
+        return Calendar.gregorianUTC.date(byAdding: DateComponents(day: 6), to: self.startOfWeek())!
     }
 }

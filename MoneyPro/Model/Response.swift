@@ -406,7 +406,6 @@ extension Goal {
         
         // tạo một formatter theo đúng format của string Date
         let formatter = DateFormatter()
-        formatter.timeZone = NSTimeZone.system
         formatter.dateFormat = "yyyy-MM-dd"
         formatter.timeZone = TimeZone(abbreviation: "UTC")
           
@@ -439,7 +438,6 @@ extension ReportTotal {
         
         let dateString = try container.decode(String.self, forKey: .date)
         let formatter = DateFormatter()
-        formatter.timeZone = NSTimeZone.system
         formatter.dateFormat = "yyyy-MM-dd"
         formatter.timeZone = TimeZone(abbreviation: "UTC")
           
@@ -498,7 +496,6 @@ extension Transaction {
         
         let dateString = try container.decode(String.self, forKey: .transactiondate)
         let formatter = DateFormatter()
-        formatter.timeZone = NSTimeZone.system
         formatter.dateFormat = "yyyy-MM-dd"
         formatter.timeZone = TimeZone(abbreviation: "UTC")
           
