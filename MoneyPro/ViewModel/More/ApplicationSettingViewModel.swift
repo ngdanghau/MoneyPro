@@ -74,6 +74,10 @@ extension ApplicationSettingViewModel {
         if resp?.result == 0 {
             return StatusViewModel.init(title: "Error", message: resp?.msg ?? StatusViewModel.errorDefault, resultType: .error)
         } else if resp?.result == 1 {
+            guard let method = resp?.method else{
+                return StatusViewModel.errorStatus
+            }
+            
             state.appSettings = resp?.data
                                 
             site_name = resp?.data?.site_name ?? ""
@@ -85,7 +89,7 @@ extension ApplicationSettingViewModel {
             language = resp?.data?.language ?? .english
             currency = resp?.data?.currency ?? ""
             
-            isPresented = resp?.method == nil
+            isPresented = method != "GET"
             
             return StatusViewModel.init(title: "Successful", message: resp?.msg ?? StatusViewModel.successDefault, resultType: .success)
         } else {

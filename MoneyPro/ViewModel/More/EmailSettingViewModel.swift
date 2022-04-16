@@ -71,6 +71,9 @@ private func resultMapper(with resp: EmailSettingResponse?) -> StatusViewModel {
     if resp?.result == 0 {
         return StatusViewModel.init(title: "Error", message: resp?.msg ?? StatusViewModel.errorDefault, resultType: .error)
     } else if resp?.result == 1 {
+        guard let method = resp?.method else{
+            return StatusViewModel.errorStatus
+        }
         state.emailSettings = resp?.data
         
         host = resp?.data?.host ?? ""
@@ -81,8 +84,8 @@ private func resultMapper(with resp: EmailSettingResponse?) -> StatusViewModel {
         password = resp?.data?.password ?? ""
         encryption = resp?.data?.encryption ?? .none
         
-        isPresented = resp?.method == nil
-        
+        isPresented = method != "GET"
+
         return StatusViewModel.init(title: "Successful", message: resp?.msg ?? StatusViewModel.errorDefault, resultType: .success)
         
         

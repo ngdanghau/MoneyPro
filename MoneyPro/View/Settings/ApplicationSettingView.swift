@@ -117,14 +117,10 @@ struct ApplicationSettingView: View {
             
         }
         .alert(
-            isPresented: self.$viewModel.isPresented
+            isPresented: $viewModel.isPresented
         ){
             Alert(title: Text(viewModel.statusViewModel?.title ?? ""),
-                  message: Text(viewModel.statusViewModel?.message ?? ""),
-                  dismissButton: .default(Text("OK"), action: {
-                    presentationMode.wrappedValue.dismiss()
-                  })
-            )
+                  message: Text(viewModel.statusViewModel?.message ?? ""))
         }
         
     }
