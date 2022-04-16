@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SearchView: View {
     private let state: AppState
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
     @ObservedObject private var viewModel: TransactionListViewModel
     @State private var isShowModalDetail: Bool = false
     private let formatter = DateFormatter()
@@ -48,7 +49,7 @@ struct SearchView: View {
                                         }, label: {
                                             TransactionRowHome(transaction: transaction, currency: state.appSettings?.currency ?? APIConfiguration.currency)
                                         })
-                                        .foregroundColor(.black)
+                                        .foregroundColor(colorScheme == .light ? .black : .white)
                                     }
                                 }
                                
@@ -71,7 +72,7 @@ struct SearchView: View {
                                 viewModel.getNextReportListTransaction(date: date)
                             }){
                                 Text("Load More")
-                                    .foregroundColor(.black)
+                                    .foregroundColor(colorScheme == .light ? .black : .white)
                                     .padding(8)
                                     .background(
                                         ZStack{

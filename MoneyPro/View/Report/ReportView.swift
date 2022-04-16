@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct ReportView: View {
+    private let state: AppState
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
+    
     @ObservedObject private var viewModelReport: ReportViewModel
     @ObservedObject private var viewModelCategoryReport: CategoryReportViewModel
     @ObservedObject private var viewModelTransactionReport: TransactionReportViewModel
@@ -18,7 +21,6 @@ struct ReportView: View {
     @State private var selection: Int = -1
     @State private var isShowListTransaction: Bool = false
     @State private var currentType: MoneyType = .income
-    @State private var state: AppState = AppState()
     @State private var categoryInfo: CategoryReportTotal = CategoryReportTotal(id: 0, name: "", color: "", amount: 0, total: 0)
     private let formatter = DateFormatter()
 
@@ -53,7 +55,7 @@ struct ReportView: View {
                     Image(systemName: "ellipsis.circle")
                 }
                 .font(.system(size: 25))
-                .foregroundColor(.black)
+                .foregroundColor(colorScheme == .light ? .black : .white)
             }
             .padding(.horizontal)
             BarChartView(
@@ -111,7 +113,7 @@ struct ReportView: View {
                         }, label: {
                             CategoryRowReport(category: category, currency: state.appSettings?.currency ?? APIConfiguration.currency)
                         })
-                        .foregroundColor(.black)
+                        .foregroundColor(colorScheme == .light ? .black : .white)
                     }
                 }
             }
@@ -179,6 +181,8 @@ struct ReportView_Previews: PreviewProvider {
 
 
 struct TabButton: View {
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
+
     var currentType: BarChartDateType
     var animation: Namespace.ID
     
@@ -191,7 +195,7 @@ struct TabButton: View {
             }
         }label: {
             Text(currentType.rawValue.capitalized)
-                .foregroundColor(currentTab == currentType ? .black : .gray)
+                .foregroundColor(currentTab == currentType ? colorScheme == .light ? .black : .white : .gray)
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 8)
                 .background(
@@ -208,7 +212,8 @@ struct TabButton: View {
 }
 
 struct CategoryRowReport: View {
-    
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
+
     var category: CategoryReportTotal
     var currency: String
     
@@ -226,6 +231,7 @@ struct CategoryRowReport: View {
                     Text(category.name)
                         .fontWeight(.medium)
                         .multilineTextAlignment(.leading)
+                        .foregroundColor(colorScheme == .light ? .black : .white)
                     
                     Text("x\(category.total.withCommas())")
                         .foregroundColor(.gray)
@@ -233,6 +239,7 @@ struct CategoryRowReport: View {
                     Spacer()
                     
                     Text("\(currency)\(category.amount.withCommas())")
+                        .foregroundColor(colorScheme == .light ? .black : .white)
                     
                 }
                 Divider()

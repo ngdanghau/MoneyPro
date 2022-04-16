@@ -49,14 +49,15 @@ struct ModalBudgetView: View {
                }
                 
                 
-                VStack(alignment: .leading) {
+                HStack{
                     Text("Amount")
-                    CustomNumberField(
-                        placeHolderText: "Amount",
+                    TextField(
+                        "Amount",
                         value: $viewModel.budget.amount,
-                        defaultStyle: true
-                    )
+                        formatter: CustomNumberField.numberFormater)
+                    .multilineTextAlignment(.trailing)
                     .keyboardType(.decimalPad)
+                    
                 }
                 VStack(alignment: .leading) {
                     Text("Description")

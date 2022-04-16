@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct SignInView: View {
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
+
     @State var pushView: Bool = false
     @State var loading: Bool = false
     @ObservedObject private var viewModel: SignInViewModel
@@ -78,7 +80,7 @@ struct SignInView: View {
         Button(action: action) {
             Text(title)
                 .modifier(ButtonModifier(color: backgroundColor,
-                                         textColor: .white,
+                                         textColor: colorScheme == .light ? .black : .white,
                                          width: 275,
                                          height: 55))
         }

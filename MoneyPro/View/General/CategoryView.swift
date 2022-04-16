@@ -9,6 +9,8 @@ import SwiftUI
 
 
 struct CategoryView: View {
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
+
     @ObservedObject private var viewModel: CategoryViewModel
         
     @State private var editMode: Bool = false
@@ -35,7 +37,7 @@ struct CategoryView: View {
                     }){
                         CategoryRow(category: item, editMode: $editMode)
                     }
-                    .foregroundColor(.black)
+                    .foregroundColor(colorScheme == .light ? .black : .white)
                     .swipeActions{
                         if editMode {
                             EmptyView()

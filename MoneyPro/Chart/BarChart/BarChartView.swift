@@ -53,7 +53,8 @@ struct BarChartView: View {
                 .font(.largeTitle)
             Text(subTitle())
                 .font(.body)
-            
+                .foregroundColor(.gray)
+
             GeometryReader { geometry in
                 let fullBarHeight = geometry.size.height
                 let width = geometry.size.width * 0.055

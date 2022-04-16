@@ -9,6 +9,7 @@ import SwiftUI
 
 struct HomeView: View {
     private let state: AppState
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
     @ObservedObject private var viewModel: TransactionListViewModel
     @ObservedObject private var viewModelTransactionReport: TransactionReportViewModel
     @State private var isShowModalDetail: Bool = false
@@ -32,7 +33,7 @@ struct HomeView: View {
                     Image(systemName: "magnifyingglass")
                 })
                 .font(.system(size: 25))
-                .foregroundColor(.black)
+                .foregroundColor(colorScheme == .light ? .black : .white)
                 
                 Spacer()
                 VStack{
@@ -62,7 +63,7 @@ struct HomeView: View {
                     Image(systemName: "plus.circle.fill")
                 })
                 .font(.system(size: 25))
-                .foregroundColor(.black)
+                .foregroundColor(colorScheme == .light ? .black : .white)
             }
             .padding(.horizontal)
             
@@ -115,7 +116,7 @@ struct HomeView: View {
                                     }, label: {
                                         TransactionRowHome(transaction: transaction, currency: state.appSettings?.currency ?? APIConfiguration.currency)
                                     })
-                                    .foregroundColor(.black)
+                                    .foregroundColor(colorScheme == .light ? .black : .white)
                                 }
                             }else{
                                 TransactionRowHomeTitle(total: {
@@ -136,7 +137,7 @@ struct HomeView: View {
                                 viewModel.getNextLastedListTransaction()
                             }){
                                 Text("Load More")
-                                    .foregroundColor(.black)
+                                    .foregroundColor(colorScheme == .light ? .black : .white)
                                     .padding(8)
                                     .background(
                                         ZStack{
@@ -225,9 +226,6 @@ struct TransactionRowHomeTitle: View {
     var formatter: () -> String
     var body: some View {
         HStack{
-            Rectangle()
-                .foregroundColor(.white.opacity(1))
-                .frame(width: 25, height: 25)
             VStack{
                 HStack{
                     Text(formatter())
@@ -245,6 +243,7 @@ struct TransactionRowHomeTitle: View {
                 Divider()
             }
         }
+        .padding(.leading, 25)
         
     }
 }

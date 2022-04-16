@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct AccountView: View {
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
+
     @ObservedObject private var viewModel: AccountViewModel
         
     @State private var editMode: Bool = false
@@ -32,7 +34,7 @@ struct AccountView: View {
                 }){
                     AccountRow(account: item, editMode: $editMode)
                 }
-                .foregroundColor(.black)
+                .foregroundColor(colorScheme == .light ? .black : .white)
                 .swipeActions{
                     if editMode {
                         EmptyView()

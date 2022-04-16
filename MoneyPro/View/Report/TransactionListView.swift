@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct TransactionListView: View {
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
+
     @ObservedObject private var viewModel: TransactionListViewModel
 
     @State private var showingModalView: Bool = false
@@ -41,7 +43,7 @@ struct TransactionListView: View {
                             Text("\(currency)\(transaction.amount.withCommas())")
                         }
                     }
-                    .foregroundColor(.black)
+                    .foregroundColor(colorScheme == .light ? .black : .white)
                     Divider()
                 }
                 if viewModel.recordsTotal != viewModel.transactions.count  {
@@ -51,7 +53,7 @@ struct TransactionListView: View {
                             viewModel.getNextReportListTransaction(date: date, category: category)
                         }){
                             Text("Load More")
-                                .foregroundColor(.black)
+                                .foregroundColor(colorScheme == .light ? .black : .white)
                                 .padding(8)
                                 .background(
                                     ZStack{

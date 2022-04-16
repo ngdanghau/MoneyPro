@@ -9,6 +9,8 @@ import SwiftUI
 
 struct PickerAccountView: View {
     @Environment(\.presentationMode) var presentationMode
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
+
     @ObservedObject var viewModel: AccountViewModel
     
     @State private var showingModalView = false
@@ -31,7 +33,7 @@ struct PickerAccountView: View {
                             }
                         }
                     }
-                    .foregroundColor(.black)
+                    .foregroundColor(colorScheme == .light ? .black : .white)
                 }
             }
         }

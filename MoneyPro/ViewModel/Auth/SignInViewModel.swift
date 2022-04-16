@@ -9,8 +9,8 @@ import Foundation
 import Combine
 
 class SignInViewModel: ObservableObject {
-    @Published var email: String = "00xshen00@gmail.com"
-    @Published var password: String = "aIRLIkMax6yBC2"
+    @Published var email: String = ""
+    @Published var password: String = ""
     @Published var statusViewModel: StatusViewModel?
     @Published var state: AppState
     

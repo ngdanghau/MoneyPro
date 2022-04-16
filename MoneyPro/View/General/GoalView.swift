@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct GoalView: View {
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
+
     @ObservedObject private var viewModel: GoalViewModel
       
     @State private var editDeposit: Bool = false
@@ -71,7 +73,7 @@ struct GoalView: View {
                             editMode: $editMode
                         )
                     }
-                    .foregroundColor(.black)
+                    .foregroundColor(colorScheme == .light ? .black : .white)
                     .swipeActions(allowsFullSwipe: false){
                         if editMode {
                             EmptyView()

@@ -9,6 +9,8 @@ import SwiftUI
 import UIKit
 
 struct ContentView: View {
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
+
     @State var indexView: Int = 1
     @State var pushView: Bool = false
     @State var loading: Bool = true
@@ -60,7 +62,7 @@ struct ContentView: View {
                                 
                             }){
                                 Text("Sign Up")
-                                    .modifier(TextModifier(color: .black))
+                                    .modifier(TextModifier(color: colorScheme == .light ? .black : .white))
                                     .frame(width: 275, height: 55)
                                     .overlay(
                                         RoundedRectangle(cornerRadius: 25)

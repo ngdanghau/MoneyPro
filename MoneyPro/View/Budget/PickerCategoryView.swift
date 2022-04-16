@@ -9,6 +9,8 @@ import SwiftUI
 
 
 struct PickerCategoryView: View {
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
+
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var viewModel: CategoryViewModel
     
@@ -31,7 +33,7 @@ struct PickerCategoryView: View {
                             }
                         }
                     }
-                    .foregroundColor(.black)
+                    .foregroundColor(colorScheme == .light ? .black : .white)
                 }
             }
         }

@@ -8,6 +8,7 @@
 import SwiftUI
 
 public struct PieChartView: View {
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
     public let values: [Double]
     public let names: [String]
     public let formatter: (Double) -> String
@@ -98,7 +99,7 @@ public struct PieChartView: View {
                         Text(self.activeIndex == -1 ? "Total" : names[self.activeIndex])
                             .font(.title)
                             .bold()
-                            .foregroundColor(.black)
+                            .foregroundColor(colorScheme == .light ? .black : .white)
                         Text(self.formatter(self.activeIndex == -1 ? values.reduce(0, +) : values[self.activeIndex]))
                     }
                     
