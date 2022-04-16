@@ -90,7 +90,7 @@ struct BudgetView: View {
             viewModel.getListBudget()
         }
         .searchable(text: $viewModel.search)
-        .onSubmit(of: .search) {
+        .onChange(of: viewModel .search) { newValue in
             print("fetch Data budget on search")
             viewModel.getListBudget()
         }

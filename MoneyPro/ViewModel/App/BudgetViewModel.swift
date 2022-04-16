@@ -129,10 +129,10 @@ extension BudgetViewModel {
             
             if resp?.data != nil{
                 // kiểm tra nếu có data là array thì set vào list
-                if self.budgets.count == 0 {
-                    self.budgets = resp?.data ?? []
+                if start == 0 {
+                    budgets = resp?.data ?? []
                 }else {
-                    self.budgets.append(contentsOf: resp?.data ?? [])
+                    budgets.append(contentsOf: resp?.data ?? [])
                 }
             }
             

@@ -122,7 +122,7 @@ extension TransactionListViewModel {
             
             if resp?.data != nil{
                 // kiểm tra nếu có data là array thì set vào list
-                if transactions.count == 0 {
+                if start == 0 {
                     transactions = resp?.data ?? []
                 }else {
                     transactions.append(contentsOf: resp?.data ?? [])

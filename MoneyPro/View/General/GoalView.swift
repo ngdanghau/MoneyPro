@@ -122,7 +122,7 @@ struct GoalView: View {
               }
         }
         .searchable(text: $viewModel.search)
-        .onSubmit(of: .search) {
+        .onChange(of: viewModel .search) { newValue in
             viewModel.getListGoal()
         }
         .fullScreenCover(isPresented: $showingModalView) {

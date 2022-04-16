@@ -109,7 +109,7 @@ extension UserManagementViewModel {
             
             if resp?.data != nil{
                 // kiểm tra nếu có data là array thì set vào list
-                if users.count == 0 {
+                if start == 0 {
                     users = resp?.data ?? []
                 }else {
                     users.append(contentsOf: resp?.data ?? [])

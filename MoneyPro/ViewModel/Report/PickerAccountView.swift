@@ -54,7 +54,7 @@ struct PickerAccountView: View {
             viewModel.getListAccount()
         }
         .searchable(text: $viewModel.search)
-        .onSubmit(of: .search) {
+        .onChange(of: viewModel .search) { newValue in
             print("refetch Data account")
             viewModel.getListAccount()
         }

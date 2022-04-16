@@ -89,7 +89,7 @@ struct SearchView: View {
             .navigationTitle("Search")
         }
         .searchable(text: $viewModel.search)
-        .onChange(of: viewModel.search) { newQuery in
+        .onChange(of: viewModel .search) { newValue in
             viewModel.getReportListTransaction(date: date)
         }
         .overlay(){

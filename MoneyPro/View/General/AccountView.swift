@@ -87,7 +87,7 @@ struct AccountView: View {
             viewModel.getListAccount()
         }
         .searchable(text: $viewModel.search)
-        .onSubmit(of: .search) {
+        .onChange(of: viewModel .search) { newValue in
             print("fetch Data account on search")
             viewModel.getListAccount()
         }

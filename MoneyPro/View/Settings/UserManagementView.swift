@@ -89,7 +89,7 @@ struct UserManagementView: View {
             viewModel.getListUser()
         }
         .searchable(text: $viewModel.search)
-        .onSubmit(of: .search) {
+        .onChange(of: viewModel .search) { newValue in
             print("fetch Data user on search")
             viewModel.getListUser()
         }

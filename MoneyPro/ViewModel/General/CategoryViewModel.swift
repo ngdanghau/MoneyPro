@@ -122,7 +122,7 @@ extension CategoryViewModel {
             
             if resp?.data != nil{
                 // kiểm tra nếu có data là array thì set vào list
-                if categories.count == 0 {
+                if start == 0 {
                     categories = resp?.data ?? []
                 }else {
                     categories.append(contentsOf: resp?.data ?? [])

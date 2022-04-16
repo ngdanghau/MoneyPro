@@ -75,7 +75,7 @@ struct PickerCategoryView: View {
             viewModel.getListCategory()
         }
         .searchable(text: $viewModel.search)
-        .onSubmit(of: .search) {
+        .onChange(of: viewModel .search) { newValue in
             print("refetch Data category")
             viewModel.getListCategory()
         }

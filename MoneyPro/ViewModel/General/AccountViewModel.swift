@@ -109,12 +109,12 @@ extension AccountViewModel {
             
             if resp?.data != nil{
                 // kiểm tra nếu có data là array thì set vào list
-                if accounts.count == 0 {
+                if start == 0 {
                     accounts = resp?.data ?? []
-                }else {
+                }
+                else {
                     accounts.append(contentsOf: resp?.data ?? [])
                 }
-                
             }
             
             if let id = resp?.account {

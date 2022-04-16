@@ -129,7 +129,7 @@ extension GoalViewModel {
             
             if resp?.data != nil{
                 // kiểm tra nếu có data là array thì set vào list
-                if goals.count == 0 {
+                if start == 0 {
                     goals = resp?.data ?? []
                 }else {
                     goals.append(contentsOf: resp?.data ?? [])
