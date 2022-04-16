@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct PieSlice: View {
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
     var pieSliceData: PieSliceData
     
     var midRadians: Double {
@@ -49,6 +50,7 @@ struct PieSlice: View {
             }
         }
         .aspectRatio(1, contentMode: .fit)
+//        .background(colorScheme == .light ? .white : .black)
     }
 }
 

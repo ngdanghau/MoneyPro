@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct ModalBudgetGraphView: View {
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var viewModel: BudgetViewModel
     @ObservedObject var viewModelCategory: CategoryViewModel
@@ -28,6 +29,7 @@ struct ModalBudgetGraphView: View {
                     values: [viewModel.budget.amount, getValueFromOptinal(num: viewModel.response?.totalamount)],
                     names: ["Planned", "Actual"],
                     formatter: {value in "\(viewModel.state.appSettings?.currency ?? APIConfiguration.currency)\(value.withCommas())"},
+                    backgroundColor: colorScheme == .light ? .white : .black,
                     widthFraction: 0.8
                 )
             }
