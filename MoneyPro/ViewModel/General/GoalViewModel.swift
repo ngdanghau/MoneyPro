@@ -104,7 +104,7 @@ class GoalViewModel: ObservableObject {
         loading = .visible
         authAPI.addDeposit(goal: goal, accessToken: state.getAccessToken())
             .receive(on: RunLoop.main)
-            .map(resultMapper)
+            .map(resultMapperAddDeposit)
             .replaceError(with: StatusViewModel.errorStatus)
             .assign(to: \.statusViewModel, on: self)
             .store(in: &cancellableBag)
@@ -152,6 +152,33 @@ extension GoalViewModel {
                }else{
                    recordsTotal += 1
                    goals.append(goal)
+               }
+            }
+            
+            // cho hiện alert hay không, chỉ có GET là không, còn lại PUT, POST, DELETE là có hiện
+            showingAlert = method != "GET"
+            return StatusViewModel.init(title: "Successful", message: resp?.msg ?? StatusViewModel.successDefault, resultType: .success)
+        } else {
+            return StatusViewModel.errorStatus
+        }
+    }
+    
+    private func resultMapperAddDeposit(with resp: GoalResponse?) -> StatusViewModel {
+        showingAlert = true
+        loading = .invisible
+        if resp?.result == 0 {
+            return StatusViewModel.init(title: "Error", message: resp?.msg ?? StatusViewModel.errorDefault, resultType: .error)
+        } else if resp?.result == 1 {
+            guard let method = resp?.method else{
+                return StatusViewModel.errorStatus
+            }
+            
+            if let id = resp?.goal {
+                goal.id = id
+                if let row = goals.firstIndex(where: { $0.id == goal.id }){
+                    var entry: Goal = goals[row]
+                    entry.deposit += goal.deposit
+                    goals.replace(goals[row], with: entry)
                }
             }
             
