@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct BudgetView: View {
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
+
     @ObservedObject private var viewModel: BudgetViewModel
     @ObservedObject private var viewModelCategory: CategoryViewModel
         
@@ -31,15 +33,17 @@ struct BudgetView: View {
                     BudgetRowAdd()
                 }
                 ForEach(viewModel.budgets) { item in
-                    BudgetRow(
-                        budget: item,
-                        confirmationShown: $confirmationShown
-                    )
-                    .onTapGesture {
+                    
+                    Button(action: {
                         viewModel.setBudget(budget: item)
                         showGraph = true
                         showingModalView = true
+                    }){
+                        BudgetRow(
+                            budget: item,
+                            confirmationShown: $confirmationShown)
                     }
+                    .foregroundColor(colorScheme == .light ? .black : .white)
                     .swipeActions{
                         Button(
                             role: .destructive,
