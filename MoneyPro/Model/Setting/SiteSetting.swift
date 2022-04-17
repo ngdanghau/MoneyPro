@@ -16,6 +16,10 @@ struct SiteSetting: Codable {
     let logotype: String
     let site_slogan: String
     let language: Language?
+    
+    static func initial() -> SiteSetting{
+        return SiteSetting(site_name: "", site_description: "", site_keywords: "", currency: "", logomark: "", logotype: "", site_slogan: "", language: .english)
+    }
 }
 
 
