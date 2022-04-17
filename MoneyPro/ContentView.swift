@@ -10,6 +10,8 @@ import UIKit
 
 struct ContentView: View {
     @Environment(\.colorScheme) var colorScheme: ColorScheme
+    @AppStorage ("siteName") private var siteName: String = ""
+    @AppStorage ("accountType") private var accountType: AccountType = .member
 
     @State var indexView: Int = 1
     @State var pushView: Bool = false
@@ -95,14 +97,14 @@ struct ContentView: View {
     private func fetchDataUser() -> Void {
         let url = APIConfiguration.url + "/profile"
         guard let endpointUrl = URL(string: url) else {
-            self.loading = false
+            loading = false
             return
         }
         
         let accessToken = self.state.getAccessToken()
         guard let token = accessToken, !token.isEmpty else {
             print("Token not found")
-            self.loading = false
+            loading = false
             return
         }
         
@@ -113,13 +115,13 @@ struct ContentView: View {
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             DispatchQueue.main.async {
-                self.loading = false
+                loading = false
                 if error != nil || (response as! HTTPURLResponse).statusCode != 200 {
                     return
                 } else if let data = data {
                     let resp = try? JSONDecoder().decode(AuthResponse.self, from: data)
                     if resp?.result == 0 || resp?.data == nil {
-                        self.state.removeAccessToken()
+                        state.removeAccessToken()
                         return
                     }
                     if resp == nil {
@@ -128,9 +130,13 @@ struct ContentView: View {
                         }
                     }
                     
-                    self.pushView = true
-                    self.indexView = 3
-                    self.state.authUser = resp?.data
+                    if let user = resp?.data {
+                        pushView = true
+                        indexView = 3
+                        state.authUser = user
+                        accountType = user.account_type
+                    }
+                    
                 }
             }
         }.resume()
@@ -139,7 +145,7 @@ struct ContentView: View {
     private func fetchAppState() -> Void {
         let url = APIConfiguration.url + "/settings/site"
         guard let endpointUrl = URL(string: url) else {
-            self.loading = false
+            loading = false
             return
         }
         
@@ -150,22 +156,26 @@ struct ContentView: View {
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             DispatchQueue.main.async {
                 if error != nil || (response as! HTTPURLResponse).statusCode != 200 {
-                    self.loading = false
+                    loading = false
                     return
                 } else if let data = data {
                     let resp = try? JSONDecoder().decode(SiteSettingResponse.self, from: data)
                     if resp?.result == 0 || resp?.data == nil {
-                        self.loading = false
+                        loading = false
                         return
                     }
                     if resp == nil {
-                        self.loading = false
+                        loading = false
                         if let returnData = String(data: data, encoding: .utf8) {
                             print(returnData)
                         }
                     }
-                    self.state.appSettings = resp?.data
-                    fetchDataUser()
+                    if let settings = resp?.data {
+                        siteName = settings.site_name
+                        state.appSettings = settings
+                        fetchDataUser()
+                    }
+                    
                 }
             }
         }.resume()

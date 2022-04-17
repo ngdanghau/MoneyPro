@@ -9,7 +9,28 @@ import SwiftUI
 
 struct MoreView: View {
     @AppStorage ("colorSchemeApp") private var colorSchemeApp: SchemeSystem = .light
+    @AppStorage ("accountType") private var accountType: AccountType = .member
+    @AppStorage ("siteName") private var siteName: String = ""
+    
     private let state: AppState
+    
+    private let menuProfile: [ListItem] = [
+        ListItem(id: 1, name: "Account Details", image: "person.crop.circle", color: .indigo),
+        ListItem(id: 2, name: "Change Password", image: "key", color: .blue)
+    ]
+    
+    private let menuGeneral: [ListItem] = [
+        ListItem(id: 3, name: "Accounts", image: "creditcard", color: .orange),
+        ListItem(id: 4, name: "Categories", image: "list.bullet", color: .mint),
+        ListItem(id: 5, name: "Goals", image: "target", color: .red)
+    ]
+    
+    private let menuAdmin: [ListItem] = [
+        ListItem(id: 6, name: "Application Settings", image: "gear", color: .purple),
+        ListItem(id: 7, name: "Email Settings", image: "mail", color: .green),
+        ListItem(id: 8, name: "User Management", image: "person.2.fill", color: .pink)
+    ]
+    
     init(state: AppState) {
         self.state = state
     }
@@ -17,7 +38,7 @@ struct MoreView: View {
     var body: some View {
         List{
             Section(header: Text("Profile")){
-                ForEach(state.authUser?.getListItem() ?? [], id: \.id){
+                ForEach(menuProfile, id: \.id){
                     item in
                     NavigationLink(destination: destinationView(indexView: item.id, state: self.state)){
                         MenuItem(item: item)
@@ -45,7 +66,7 @@ struct MoreView: View {
             }
             
             Section(header: Text("General")){
-                ForEach(state.authUser?.getListItemGeneral() ?? [], id: \.id){
+                ForEach(menuGeneral, id: \.id){
                     item in
                     NavigationLink(destination: destinationView(indexView: item.id, state: self.state)){
                         MenuItem(item: item)
@@ -53,9 +74,9 @@ struct MoreView: View {
                 }
             }
             
-            if state.authUser?.getListItemAdmin().count ?? 0 > 0{
+            if accountType == .admin {
                 Section(header: Text("Admin")){
-                    ForEach(state.authUser?.getListItemAdmin() ?? [], id: \.id){
+                    ForEach(menuAdmin, id: \.id){
                         item in
                         NavigationLink(destination: destinationView(indexView: item.id, state: self.state)){
                             MenuItem(item: item)
@@ -84,6 +105,8 @@ struct MoreView: View {
             Section{
                 Button(action: {
                     state.removeAccessToken()
+                    accountType = .member
+                    siteName = ""
                     NavigationUtil.popToRootView()
                 }){
                     Text("Log Out")

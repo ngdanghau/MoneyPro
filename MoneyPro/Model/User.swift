@@ -46,34 +46,6 @@ struct User: Codable, Identifiable, Equatable {
         case date
    }
     
-    func isAdmin() -> Bool{
-        let role: [String] = ["developer", "admin"]
-        return role.contains(account_type.id)
-    }
-    
-    func getListItem() -> [ListItem] {
-        return [
-            ListItem(id: 1, name: "Account Details", image: "person.crop.circle", color: .indigo),
-            ListItem(id: 2, name: "Change Password", image: "key", color: .blue)
-        ]
-    }
-    
-    func getListItemAdmin() -> [ListItem] {
-        return [
-            ListItem(id: 6, name: "Application Settings", image: "gear", color: .purple),
-            ListItem(id: 7, name: "Email Settings", image: "mail", color: .green),
-            ListItem(id: 8, name: "User Management", image: "person.2.fill", color: .pink)
-        ]
-    }
-    
-    func getListItemGeneral() -> [ListItem] {
-        return [
-            ListItem(id: 3, name: "Accounts", image: "creditcard", color: .orange),
-            ListItem(id: 4, name: "Categories", image: "list.bullet", color: .mint),
-            ListItem(id: 5, name: "Goals", image: "target", color: .red)
-        ]
-    }
-    
     static func initial() -> User{
         return User(id: 0, account_type: .member, email: "", firstname: "", lastname: "", is_active: false, date: Date())
     }

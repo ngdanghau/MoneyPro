@@ -31,6 +31,7 @@ enum Tabs: String {
 
 struct DashboardView: View {
     @Environment(\.colorScheme) var colorScheme: ColorScheme
+    @AppStorage ("siteName") private var siteName: String = ""
     @State var pushView = false
     @ObservedObject private var viewModel: SignInViewModel
     @State var selectedTab: Tabs = .home
@@ -70,7 +71,7 @@ struct DashboardView: View {
         .accentColor(colorScheme == .light ? Color(UIConfiguration.tintColor) : .white)
         .navigationBarBackButtonHidden(true)
         .navigationBarTitleDisplayMode(.inline)
-        .navigationTitle(state.appSettings?.site_name ?? "")
+        .navigationTitle(state.appSettings?.site_name ?? siteName)
     }
 }
 

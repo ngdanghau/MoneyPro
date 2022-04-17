@@ -9,7 +9,7 @@ import SwiftUI
 
 @main
 struct MoneyProApp: App {
-    @AppStorage ("colorSchemeApp") private var colorSchemeApp: SchemeSystem = .light
+    @AppStorage ("colorSchemeApp") private var colorSchemeApp: SchemeSystem = .system
     @Environment(\.colorScheme) var colorSchemeEnv: ColorScheme
     
     var body: some Scene {
