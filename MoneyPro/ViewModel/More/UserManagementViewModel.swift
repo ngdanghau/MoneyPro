@@ -123,13 +123,9 @@ extension UserManagementViewModel {
                 if let row = users.firstIndex(where: { $0.id == user.id }){
                    // nếu là delete thì xoá
                    if method == "DELETE" {
-                       recordsTotal -= 1
-                       users.remove(at: row)
+                       user.is_active = false
                    }
-                   // nếu là PUT là sửa
-                   else {
-                       users.replace(users[row], with: user)
-                   }
+                    users.replace(users[row], with: user)
                }else{
                    recordsTotal += 1
                    users.append(user)

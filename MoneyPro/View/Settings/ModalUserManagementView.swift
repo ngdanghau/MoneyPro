@@ -56,6 +56,7 @@ struct ModalUserManagementView: View {
                             Text("Email")
                             Spacer()
                             Text(viewModel.user.email)
+                                .foregroundColor(.gray)
                         }
                     }else{
                         HStack{
@@ -66,7 +67,6 @@ struct ModalUserManagementView: View {
                             )
                             .multilineTextAlignment(.trailing)
                             .autocapitalization(.none)
-                            
                         }
                     }
                 }

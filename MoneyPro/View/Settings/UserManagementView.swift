@@ -12,9 +12,10 @@ struct UserManagementView: View {
 
     @State private var editMode: Bool = false
     @State private var showingModalView = false
-    
     @State var confirmationShown: Bool = false
-            
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
+
+    
     init(state: AppState){
         viewModel = UserManagementViewModel(authAPI: AuthService(), state: state)
     }
@@ -22,19 +23,22 @@ struct UserManagementView: View {
     var body: some View {
         List {
             ForEach(viewModel.users) { item in
-                UserRow(
-                    user: item,
-                    editMode: $editMode,
-                    confirmationShown: $confirmationShown
-                )
-                .onTapGesture {
+                
+                Button(action: {
                     viewModel.setUser(user: item)
                     if editMode {
                         confirmationShown = true
                     } else {
                         showingModalView = true
                     }
+                }){
+                    UserRow(
+                        user: item,
+                        editMode: $editMode,
+                        confirmationShown: $confirmationShown
+                    )
                 }
+                .foregroundColor(colorScheme == .light ? .black : .white)
                 .swipeActions{
                     if editMode {
                         EmptyView()

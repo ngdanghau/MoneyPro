@@ -43,6 +43,7 @@ struct AccountDetails: View {
                         Text("Email")
                         Spacer()
                         Text(viewModel.state.authUser?.email ?? "")
+                            .foregroundColor(.gray)
                     }
                     
                 }
