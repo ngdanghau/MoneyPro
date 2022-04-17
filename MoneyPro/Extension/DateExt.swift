@@ -46,10 +46,10 @@ extension Date {
     
     
     func startOfWeek() -> Date {
-        return Calendar.gregorianUTC.date(from: Calendar.gregorianUTC.dateComponents([.calendar, .yearForWeekOfYear, .weekOfYear], from: Calendar.current.startOfDay(for: self)))!
+        return Calendar.iso8601UTC.date(from: Calendar.iso8601UTC.dateComponents([.calendar, .yearForWeekOfYear, .weekOfYear], from: Calendar.current.startOfDay(for: self)))!
     }
     
     func endOfWeek() -> Date {
-        return Calendar.gregorianUTC.date(byAdding: DateComponents(day: 6), to: self.startOfWeek())!
+        return Calendar.iso8601UTC.date(byAdding: DateComponents(day: 6), to: self.startOfWeek())!
     }
 }
