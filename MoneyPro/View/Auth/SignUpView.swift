@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SignUpView: View {
-    @State var pushView = false
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
     @ObservedObject private var viewModel: SignUpViewModel
     
     init(state: AppState) {
@@ -19,7 +19,7 @@ struct SignUpView: View {
         LoadingView(isShowing: $viewModel.loading) {
             VStack{
                 NavigationLink(destination: DashboardView(state: viewModel.state),
-                               isActive: self.$pushView) {
+                               isActive: $viewModel.pushView) {
                   EmptyView()
                 }.hidden()
                 VStack(alignment: .leading, spacing: 30) {
@@ -81,7 +81,7 @@ struct SignUpView: View {
                       message: Text(status.message),
                       dismissButton: .default(Text("OK"), action: {
                         if status.resultType == .success {
-                            self.pushView = true
+                            viewModel.pushView = true
                         }
                       }))
             }
@@ -94,7 +94,7 @@ struct SignUpView: View {
         Button(action: action) {
             Text(title)
                 .modifier(ButtonModifier(color: backgroundColor,
-                                         textColor: .white,
+                                         textColor: colorScheme == .light ? .white : .black,
                                          width: 275,
                                          height: 45))
         }

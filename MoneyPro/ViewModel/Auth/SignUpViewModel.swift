@@ -17,6 +17,7 @@ class SignUpViewModel: ObservableObject {
     @Published var statusViewModel: StatusViewModel?
     @Published var state: AppState
     
+    @Published var pushView: Bool = false
     @Published var loading: Bool = false
 
     

@@ -80,7 +80,7 @@ struct SignInView: View {
         Button(action: action) {
             Text(title)
                 .modifier(ButtonModifier(color: backgroundColor,
-                                         textColor: colorScheme == .light ? .black : .white,
+                                         textColor: colorScheme == .light ? .white : .black,
                                          width: 275,
                                          height: 55))
         }
