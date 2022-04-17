@@ -33,6 +33,7 @@
 		C84978AA28031E1300A77590 /* BarColumnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84978A928031E1300A77590 /* BarColumnView.swift */; };
 		C84978AC2803542A00A77590 /* BarChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84978AB2803542A00A77590 /* BarChartView.swift */; };
 		C85C7A00280BD1E700E5D6AC /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85C79FF280BD1E700E5D6AC /* ThemeManager.swift */; };
+		C85C7A02280BFC9800E5D6AC /* ColorSchemePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85C7A01280BFC9800E5D6AC /* ColorSchemePickerView.swift */; };
 		C865E34727ED8D3600332632 /* MoneyProApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C865E34627ED8D3600332632 /* MoneyProApp.swift */; };
 		C865E34927ED8D3600332632 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C865E34827ED8D3600332632 /* ContentView.swift */; };
 		C865E34B27ED8D3800332632 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C865E34A27ED8D3800332632 /* Assets.xcassets */; };
@@ -132,6 +133,7 @@
 		C84978A928031E1300A77590 /* BarColumnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarColumnView.swift; sourceTree = "<group>"; };
 		C84978AB2803542A00A77590 /* BarChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartView.swift; sourceTree = "<group>"; };
 		C85C79FF280BD1E700E5D6AC /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
+		C85C7A01280BFC9800E5D6AC /* ColorSchemePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemePickerView.swift; sourceTree = "<group>"; };
 		C865E34327ED8D3600332632 /* MoneyPro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoneyPro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C865E34627ED8D3600332632 /* MoneyProApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyProApp.swift; sourceTree = "<group>"; };
 		C865E34827ED8D3600332632 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -530,6 +532,7 @@
 			isa = PBXGroup;
 			children = (
 				C874C61027EF7BAA00624143 /* MoreView.swift */,
+				C85C7A01280BFC9800E5D6AC /* ColorSchemePickerView.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -717,6 +720,7 @@
 				C83D08E727F7561E006CD28A /* GoalViewModel.swift in Sources */,
 				C84978A027FFCCD500A77590 /* PieChartView.swift in Sources */,
 				C874C60B27EF768700624143 /* CategoryView.swift in Sources */,
+				C85C7A02280BFC9800E5D6AC /* ColorSchemePickerView.swift in Sources */,
 				C87D38DA28052DC900AC07B5 /* TransactionListView.swift in Sources */,
 				C865E3DF27EEE23E00332632 /* SignUpViewModel.swift in Sources */,
 				C809715D27F59CC000D46ACE /* AccountViewModel.swift in Sources */,
@@ -833,7 +837,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -887,7 +891,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -905,7 +909,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.0.4;
+				CURRENT_PROJECT_VERSION = 1.0.5;
 				DEVELOPMENT_ASSET_PATHS = "\"MoneyPro/Preview Content\"";
 				DEVELOPMENT_TEAM = XURC38AJ5Z;
 				ENABLE_PREVIEWS = YES;
@@ -940,7 +944,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.0.4;
+				CURRENT_PROJECT_VERSION = 1.0.5;
 				DEVELOPMENT_ASSET_PATHS = "\"MoneyPro/Preview Content\"";
 				DEVELOPMENT_TEAM = XURC38AJ5Z;
 				ENABLE_PREVIEWS = YES;

@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct MoreView: View {
-    @AppStorage ("colorSchemeApp") private var colorSchemeApp: SchemeSystem = .light
     @AppStorage ("accountType") private var accountType: AccountType = .member
     @AppStorage ("siteName") private var siteName: String = ""
-    @Environment(\.colorScheme) var colorSchemeEnv: ColorScheme
+
+    @State private var colorSchemeApp: SchemeSystem
 
     private let state: AppState
     
@@ -34,6 +34,12 @@ struct MoreView: View {
     
     init(state: AppState) {
         self.state = state
+        if let color = state.getColorSheme() {
+            self.colorSchemeApp = color == "system" ? .system : ( color == "light" ? .light : .dark )
+        }else {
+            self.colorSchemeApp = .system
+        }
+        
     }
         
     var body: some View {
@@ -62,7 +68,9 @@ struct MoreView: View {
                             Text(colorScheme.description).tag(colorScheme)
                         }
                         .onChange(of: colorSchemeApp){ newValue in
-                            ThemeManager.shared.handleTheme(color: colorSchemeApp == .system ? colorSchemeEnv : ( colorSchemeApp == .light ? .light : .dark))
+                            state.setColorSheme(color: colorSchemeApp.id)
+                            ThemeManager.shared.handleTheme(darkMode: colorSchemeApp != .light, system: colorSchemeApp == .system)
+                            
                         }
                     }
                 }

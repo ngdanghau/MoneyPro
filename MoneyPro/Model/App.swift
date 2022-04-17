@@ -20,9 +20,9 @@ struct ListItem {
 }
 
 enum SchemeSystem: String, CaseIterable, Identifiable, Codable {
-    case light
-    case dark
-    case system
+    case light = "light"
+    case dark = "dark"
+    case system = "system"
     
     var id: String { self.rawValue }
 

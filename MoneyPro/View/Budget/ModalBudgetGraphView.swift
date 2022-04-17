@@ -57,7 +57,6 @@ struct ModalBudgetGraphView: View {
         }
         .onAppear(){
             viewModel.getTransactionByDate()
-            ThemeManager.shared.handleTheme(color: colorScheme)
         }
     }
     

@@ -103,9 +103,6 @@ struct ModalUserManagementView: View {
                   .progressViewStyle(CircularProgressViewStyle())
               }
         }
-        .onAppear(){
-            ThemeManager.shared.handleTheme(color: colorScheme)
-        }
     }
     
 }

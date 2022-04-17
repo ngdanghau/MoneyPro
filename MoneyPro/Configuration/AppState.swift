@@ -22,5 +22,13 @@ class AppState: ObservableObject{
     func removeAccessToken() -> Void {
         UserDefaults.standard.removeObject(forKey: "accessToken")
     }
+    
+    func setColorSheme(color: String) -> Void {
+        UserDefaults.standard.set(color, forKey: "colorScheme")
+    }
+    
+    func getColorSheme() -> String? {
+        return UserDefaults.standard.string(forKey: "colorScheme")
+    }
 }
 

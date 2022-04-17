@@ -8,15 +8,14 @@
 import SwiftUI
 
 @main
-struct MoneyProApp: App {
-    @AppStorage ("colorSchemeApp") private var colorSchemeApp: SchemeSystem = .system
-    @Environment(\.colorScheme) var colorSchemeEnv: ColorScheme
-    
+struct MoneyProApp: App {    
     var body: some Scene {
         WindowGroup {
             ContentView(state: AppState())
-                .onAppear(){
-                    ThemeManager.shared.handleTheme(color: colorSchemeApp == .system ? colorSchemeEnv : ( colorSchemeApp == .light ? .light : .dark))
+                .onAppear {
+                    if let colorScheme = UserDefaults.standard.string(forKey: "colorScheme") {
+                        ThemeManager.shared.handleTheme(darkMode: colorScheme != "light", system: colorScheme == "system")
+                    }
                 }
         }
     }

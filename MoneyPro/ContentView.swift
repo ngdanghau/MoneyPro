@@ -12,7 +12,10 @@ struct ContentView: View {
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     @AppStorage ("siteName") private var siteName: String = ""
     @AppStorage ("accountType") private var accountType: AccountType = .member
-
+    @AppStorage ("colorSchemeApp") private var colorSchemeApp: SchemeSystem = .system
+    @AppStorage ("colorSchemeSystem") private var colorSchemeSystem: SchemeSystem = .system
+    
+    
     @State var indexView: Int = 1
     @State var pushView: Bool = false
     @State var loading: Bool = true
@@ -77,10 +80,10 @@ struct ContentView: View {
                     Spacer()
                 }
             }
-        }.onAppear{
+        }
+        .onAppear{
             fetchAppState()
         }
-        
     }
     
     private func destinationView() -> AnyView {

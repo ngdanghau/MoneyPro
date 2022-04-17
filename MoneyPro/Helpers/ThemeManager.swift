@@ -14,12 +14,16 @@ class ThemeManager {
 
     private init () {}
 
-    func handleTheme(color: ColorScheme) {
-    
+    func handleTheme(darkMode: Bool, system: Bool) {
         let scenes = UIApplication.shared.connectedScenes
         let windowScene = scenes.first as? UIWindowScene
         
-        windowScene?.windows.first?.overrideUserInterfaceStyle = UIUserInterfaceStyle(color)
+        guard !system else {
+            windowScene?.windows.first?.overrideUserInterfaceStyle = .unspecified
+            return
+        }
+        
+        windowScene?.windows.first?.overrideUserInterfaceStyle = darkMode ? .dark : .light
     }
 
 }
