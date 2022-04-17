@@ -15,7 +15,9 @@ struct MoneyProApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView(state: AppState())
-                .environment(\.colorScheme, colorSchemeApp == .system ? colorSchemeEnv : ( colorSchemeApp == .light ? .light : .dark))
+                .onAppear(){
+                    ThemeManager.shared.handleTheme(color: colorSchemeApp == .system ? colorSchemeEnv : ( colorSchemeApp == .light ? .light : .dark))
+                }
         }
     }
 }

@@ -136,13 +136,13 @@ struct CategoryView: View {
             isPresented: $confirmationShown,
             titleVisibility: .visible
         ) {
-            Button("Yes") {
+            Button("Yes", role: .destructive) {
                 withAnimation {
                     viewModel.deleteCategory()
                     confirmationShown = false
                 }
             }
-            Button("No", role: .cancel) {
+            Button("Cancel", role: .cancel) {
                 confirmationShown = false
             }
         }

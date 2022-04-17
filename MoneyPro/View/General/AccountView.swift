@@ -103,13 +103,13 @@ struct AccountView: View {
             isPresented: $confirmationShown,
             titleVisibility: .visible
         ) {
-            Button("Yes") {
+            Button("Yes", role: .destructive) {
                 withAnimation {
                     viewModel.deleteAccount()
                     confirmationShown = false
                 }
             }
-            Button("No", role: .cancel) {
+            Button("Cancel", role: .cancel) {
                 confirmationShown = false
             }
         }

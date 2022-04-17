@@ -157,10 +157,6 @@ struct HomeView: View {
                         .progressViewStyle(CircularProgressViewStyle())
                 }
             }
-            
-            
-            
-            
             Spacer()
         }
         .onAppear(){

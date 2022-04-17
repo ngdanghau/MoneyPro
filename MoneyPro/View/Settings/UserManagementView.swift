@@ -105,13 +105,13 @@ struct UserManagementView: View {
             isPresented: $confirmationShown,
             titleVisibility: .visible
         ) {
-            Button("Yes") {
+            Button("Yes", role: .destructive) {
                 withAnimation {
                     viewModel.deleteUser()
                     confirmationShown = false
                 }
             }
-            Button("No", role: .cancel) {
+            Button("Cancel", role: .cancel) {
                 confirmationShown = false
             }
         }

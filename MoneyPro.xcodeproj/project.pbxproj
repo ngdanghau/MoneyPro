@@ -32,6 +32,7 @@
 		C84978A528029FE100A77590 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84978A428029FE100A77590 /* App.swift */; };
 		C84978AA28031E1300A77590 /* BarColumnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84978A928031E1300A77590 /* BarColumnView.swift */; };
 		C84978AC2803542A00A77590 /* BarChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84978AB2803542A00A77590 /* BarChartView.swift */; };
+		C85C7A00280BD1E700E5D6AC /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85C79FF280BD1E700E5D6AC /* ThemeManager.swift */; };
 		C865E34727ED8D3600332632 /* MoneyProApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C865E34627ED8D3600332632 /* MoneyProApp.swift */; };
 		C865E34927ED8D3600332632 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C865E34827ED8D3600332632 /* ContentView.swift */; };
 		C865E34B27ED8D3800332632 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C865E34A27ED8D3800332632 /* Assets.xcassets */; };
@@ -130,6 +131,7 @@
 		C84978A428029FE100A77590 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		C84978A928031E1300A77590 /* BarColumnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarColumnView.swift; sourceTree = "<group>"; };
 		C84978AB2803542A00A77590 /* BarChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartView.swift; sourceTree = "<group>"; };
+		C85C79FF280BD1E700E5D6AC /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		C865E34327ED8D3600332632 /* MoneyPro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoneyPro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C865E34627ED8D3600332632 /* MoneyProApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyProApp.swift; sourceTree = "<group>"; };
 		C865E34827ED8D3600332632 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -389,6 +391,7 @@
 			isa = PBXGroup;
 			children = (
 				C865E3D427EED74D00332632 /* Utils.swift */,
+				C85C79FF280BD1E700E5D6AC /* ThemeManager.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -699,6 +702,7 @@
 				C865E37A27EDBAB900332632 /* AppState.swift in Sources */,
 				C83D08E527F755E8006CD28A /* GoalView.swift in Sources */,
 				C84978AC2803542A00A77590 /* BarChartView.swift in Sources */,
+				C85C7A00280BD1E700E5D6AC /* ThemeManager.swift in Sources */,
 				C82D527228097C9A00148821 /* SearchView.swift in Sources */,
 				C8C2CA0427F3111F00921EAE /* ReportView.swift in Sources */,
 				C87D38D72805256E00AC07B5 /* TransactionReportViewModel.swift in Sources */,
@@ -901,7 +905,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.0.3;
+				CURRENT_PROJECT_VERSION = 1.0.4;
 				DEVELOPMENT_ASSET_PATHS = "\"MoneyPro/Preview Content\"";
 				DEVELOPMENT_TEAM = XURC38AJ5Z;
 				ENABLE_PREVIEWS = YES;
@@ -936,7 +940,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.0.3;
+				CURRENT_PROJECT_VERSION = 1.0.4;
 				DEVELOPMENT_ASSET_PATHS = "\"MoneyPro/Preview Content\"";
 				DEVELOPMENT_TEAM = XURC38AJ5Z;
 				ENABLE_PREVIEWS = YES;

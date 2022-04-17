@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ModalBudgetView: View {
     @Environment(\.presentationMode) var presentationMode
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
     @ObservedObject var viewModel: BudgetViewModel
     @ObservedObject var viewModelCategory: CategoryViewModel
 

@@ -11,7 +11,8 @@ struct MoreView: View {
     @AppStorage ("colorSchemeApp") private var colorSchemeApp: SchemeSystem = .light
     @AppStorage ("accountType") private var accountType: AccountType = .member
     @AppStorage ("siteName") private var siteName: String = ""
-    
+    @Environment(\.colorScheme) var colorSchemeEnv: ColorScheme
+
     private let state: AppState
     
     private let menuProfile: [ListItem] = [
@@ -59,6 +60,9 @@ struct MoreView: View {
                     Picker("Appeanrance", selection: $colorSchemeApp){
                         ForEach(SchemeSystem.allCases) { colorScheme in
                             Text(colorScheme.description).tag(colorScheme)
+                        }
+                        .onChange(of: colorSchemeApp){ newValue in
+                            ThemeManager.shared.handleTheme(color: colorSchemeApp == .system ? colorSchemeEnv : ( colorSchemeApp == .light ? .light : .dark))
                         }
                     }
                 }

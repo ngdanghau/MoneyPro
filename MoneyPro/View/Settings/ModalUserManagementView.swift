@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ModalUserManagementView: View {
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var viewModel: UserManagementViewModel
     
@@ -101,6 +102,9 @@ struct ModalUserManagementView: View {
                 ProgressView("")
                   .progressViewStyle(CircularProgressViewStyle())
               }
+        }
+        .onAppear(){
+            ThemeManager.shared.handleTheme(color: colorScheme)
         }
     }
     
