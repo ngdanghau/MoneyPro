@@ -1940,7 +1940,10 @@ class AuthService: AuthAPI {
             if transaction.id > 0 {
                 url += "/\(transaction.id)"
                 method = "PUT"
+            }else {
+                url += "/\(type.value)"
             }
+            
             guard let endpointUrl = URL(string: url) else {
                 print("endpointUrl is invalid")
                 promise(.success(nil))
