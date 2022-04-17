@@ -27,7 +27,7 @@ struct BarColumnView: View {
     }
 
     var body: some View {
-        let value = (Double(fullBarHeight) / maxValue) * data.value
+        let value = maxValue > 0 ? (Double(fullBarHeight) / maxValue) * data.value : 0
         
         VStack {
             ZStack(alignment: .bottom) {

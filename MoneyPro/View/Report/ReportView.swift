@@ -135,6 +135,9 @@ struct ReportView: View {
         .onChange(of: currentType) { newValue in
             loadData()
         }
+        .onDisappear(){
+            selection = -1
+        }
     }
     
     private func loadData() -> Void {
