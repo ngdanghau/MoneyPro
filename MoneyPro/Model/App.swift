@@ -18,3 +18,24 @@ struct ListItem {
     let image: String
     let color: Color
 }
+
+enum SchemeSystem: String, CaseIterable, Identifiable, Codable {
+    case light
+    case dark
+    case system
+    
+    var id: String { self.rawValue }
+
+    var description: String {
+        get {
+            switch self {
+                case .light:
+                    return "Light Mode"
+                case .dark:
+                    return "Dark Mode"
+                case .system:
+                    return "System"
+            }
+        }
+    }
+}

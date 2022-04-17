@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MoreView: View {
+    @AppStorage ("colorSchemeApp") private var colorSchemeApp: SchemeSystem = .light
     private let state: AppState
     init(state: AppState) {
         self.state = state
@@ -22,6 +23,25 @@ struct MoreView: View {
                         MenuItem(item: item)
                     }
                 }
+            }
+            
+            Section(header: Text("System")){
+                HStack{
+                    Image(systemName: "moon.fill")
+                        .frame(width: 27, height: 27)
+                        .foregroundColor(.white)
+                        .background(.gray)
+                        .clipShape(
+                            RoundedRectangle(cornerRadius: 5)
+                        )
+                    
+                    Picker("Appeanrance", selection: $colorSchemeApp){
+                        ForEach(SchemeSystem.allCases) { colorScheme in
+                            Text(colorScheme.description).tag(colorScheme)
+                        }
+                    }
+                }
+                
             }
             
             Section(header: Text("General")){
@@ -94,6 +114,7 @@ struct MoreView: View {
             return AnyView(EmailSettingView(state: state))
         case 8:
             return AnyView(UserManagementView(state: state))
+            
         default:
             actionSheet()
             return AnyView(EmptyView())

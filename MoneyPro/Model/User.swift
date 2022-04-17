@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import UIKit
+import SwiftUI
 
 enum AccountType: String, CaseIterable, Identifiable, Codable  {
     case admin = "Admin"
@@ -51,7 +53,7 @@ struct User: Codable, Identifiable, Equatable {
     
     func getListItem() -> [ListItem] {
         return [
-            ListItem(id: 1, name: "Account Details", image: "person.crop.circle", color: .gray),
+            ListItem(id: 1, name: "Account Details", image: "person.crop.circle", color: .indigo),
             ListItem(id: 2, name: "Change Password", image: "key", color: .blue)
         ]
     }
@@ -67,7 +69,7 @@ struct User: Codable, Identifiable, Equatable {
     func getListItemGeneral() -> [ListItem] {
         return [
             ListItem(id: 3, name: "Accounts", image: "creditcard", color: .orange),
-            ListItem(id: 4, name: "Categories", image: "list.bullet", color: .cyan),
+            ListItem(id: 4, name: "Categories", image: "list.bullet", color: .mint),
             ListItem(id: 5, name: "Goals", image: "target", color: .red)
         ]
     }
