@@ -119,7 +119,7 @@ struct HomeView: View {
                                         .foregroundColor(colorScheme == .light ? .black : .white)
                                     }
                                 }else{
-                                    Text("Add your first entry!")
+                                    Text("Add your first \(viewModel.currentType.value) entry!")
                                         .font(.title)
                                         .foregroundColor(.gray)
                                 }

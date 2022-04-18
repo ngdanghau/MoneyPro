@@ -151,8 +151,10 @@ extension TransactionListViewModel {
                 
             }
             
-            if transactions.count > 0{
+            if transactions.count > 0 {
                 transactionsGroupByDate = Dictionary(grouping: transactions) { $0.transactiondate }
+            }else{
+                transactionsGroupByDate = [Date(): []]
             }
             
             // cho hiện alert hay không, chỉ có GET là không, còn lại PUT, POST, DELETE là có hiện
