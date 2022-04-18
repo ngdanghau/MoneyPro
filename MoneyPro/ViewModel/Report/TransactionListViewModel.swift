@@ -120,12 +120,12 @@ extension TransactionListViewModel {
                 recordsTotal = resp?.summary?.total_count ?? 0
             }
             
-            if resp?.data != nil{
+            if let data = resp?.data {
                 // kiểm tra nếu có data là array thì set vào list
                 if start == 0 {
-                    transactions = resp?.data ?? []
+                    transactions = data
                 }else {
-                    transactions.append(contentsOf: resp?.data ?? [])
+                    transactions.append(contentsOf: data)
                 }
             }
             

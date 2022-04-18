@@ -102,22 +102,28 @@ struct HomeView: View {
                                 let totalAmountInDate: Double = transactions.reduce(0){ result, trans in
                                     return result + trans.amount
                                 }
-                                
-                                TransactionRowHomeTitle(total: {
-                                    return "\(state.appSettings?.currency ?? APIConfiguration.currency)\(totalAmountInDate.withCommas())"
-                                }, formatter: {
-                                    return formatter.string(from: key)
-                                })
-
-                                ForEach(transactions, id: \.id){ transaction in
-                                    Button(action: {
-                                        viewModel.transaction = transaction
-                                        isShowModalDetail = true
-                                    }, label: {
-                                        TransactionRowHome(transaction: transaction, currency: state.appSettings?.currency ?? APIConfiguration.currency)
+                                if totalAmountInDate > 0 {
+                                    TransactionRowHomeTitle(total: {
+                                        return "\(state.appSettings?.currency ?? APIConfiguration.currency)\(totalAmountInDate.withCommas())"
+                                    }, formatter: {
+                                        return formatter.string(from: key)
                                     })
-                                    .foregroundColor(colorScheme == .light ? .black : .white)
+
+                                    ForEach(transactions, id: \.id){ transaction in
+                                        Button(action: {
+                                            viewModel.transaction = transaction
+                                            isShowModalDetail = true
+                                        }, label: {
+                                            TransactionRowHome(transaction: transaction, currency: state.appSettings?.currency ?? APIConfiguration.currency)
+                                        })
+                                        .foregroundColor(colorScheme == .light ? .black : .white)
+                                    }
+                                }else{
+                                    Text("Add your first entry!")
+                                        .font(.title)
+                                        .foregroundColor(.gray)
                                 }
+                               
                             }else{
                                 TransactionRowHomeTitle(total: {
                                     return "\(state.appSettings?.currency ?? APIConfiguration.currency)0,00"
