@@ -18,7 +18,6 @@ struct ReportView: View {
     @State private var currentTab: BarChartDateType = .week
     @Namespace private var animation
     
-    @State private var selection: Int = -1
     @State private var isShowListTransaction: Bool = false
     @State private var currentType: MoneyType = .income
     @State private var categoryInfo: CategoryReportTotal = CategoryReportTotal(id: 0, name: "", color: "", amount: 0, total: 0)
@@ -60,25 +59,23 @@ struct ReportView: View {
             .padding(.horizontal)
             BarChartView(
                 values: viewModelReport.values,
-                selection: $selection,
-                title: {
-                    if selection > -1 {
+                title: { selection in
+                    if selection > -1 && selection < viewModelReport.values.count {
                         return "\(state.appSettings?.currency ?? APIConfiguration.currency)\(viewModelReport.values[selection].value.withCommas())"
                     }
                     else {
                         return "\(state.appSettings?.currency ?? APIConfiguration.currency)\(getTotalTransaction().withCommas())"
                     }
                 },
-                subTitle: {
-                    if selection > -1 {
+                subTitle: { selection in
+                    if selection > -1 && selection < viewModelReport.values.count {
                         return "\(currentType == .income ? "Earned" : "Spent") on \(getDateString(date: viewModelReport.values[selection].date))"
                     }
                     else {
                         return "Total \(currentType == .income ? "earned" : "spent") this \(currentTab.rawValue)"
                     }
                 },
-                color: currentType == .income ? .green : .blue
-            )
+                color: currentType == .income ? .green : .blue)
                 .frame(height: 230)
                 .overlay{
                     if viewModelReport.loading == .visible || viewModelTransactionReport.loading == .visible {
@@ -135,13 +132,9 @@ struct ReportView: View {
         .onChange(of: currentType) { newValue in
             loadData()
         }
-        .onDisappear(){
-            selection = -1
-        }
     }
     
     private func loadData() -> Void {
-        selection = -1
         viewModelReport.getData(type: currentType, date: currentTab)
         viewModelTransactionReport.getData(type: currentType, date: currentTab)
         viewModelCategoryReport.getData(type: currentType, date: currentTab)

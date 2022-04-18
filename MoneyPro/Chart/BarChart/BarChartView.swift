@@ -21,19 +21,18 @@ enum BarChartDateType: String, Identifiable, CaseIterable {
 
 struct BarChartView: View {
     private var values: [ReportTotal]
-    @Binding private var selection: Int
+    @State private var selection: Int = -1
     @State private var isActive: Int = 0
-    public let title: () -> String
-    public let subTitle: () -> String
+    public let title: (Int) -> String
+    public let subTitle: (Int) -> String
 
     var maxValue: Double = 0
     var color: Color
     
     init(
         values: [ReportTotal],
-        selection: Binding<Int>,
-        title: @escaping () -> String,
-        subTitle: @escaping () -> String,
+        title: @escaping (Int) -> String,
+        subTitle: @escaping (Int) -> String,
         color: Color = .blue
     ){
         self.values = values
@@ -42,16 +41,15 @@ struct BarChartView: View {
         }
         self.title = title
         self.subTitle = subTitle
-        self._selection = selection
         self.color = color
     }
     
     var body: some View {
         VStack(alignment: .leading){
-            Text(title())
+            Text(title(selection))
                 .bold()
                 .font(.largeTitle)
-            Text(subTitle())
+            Text(subTitle(selection))
                 .font(.body)
                 .foregroundColor(.gray)
 
@@ -111,11 +109,11 @@ struct BarChartView_Previews: PreviewProvider {
             ReportTotal(id: 8, date: Date(), name: "Sun", value: 100),
         ]
         BarChartView(
-            values: data, selection: .constant(Int(0)),
-            title: {
+            values: data,
+            title: { value in
                 return String("100")
             },
-            subTitle: {
+            subTitle: { value in
                 return String("")
             }
         )
