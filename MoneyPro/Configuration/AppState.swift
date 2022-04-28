@@ -7,28 +7,33 @@
 
 import SwiftUI
 class AppState: ObservableObject{
+    private static let accessTokenKey = "access_token"
+    private static let colorShemeKey = "color_sheme"
+
     var authUser: User?
     var appSettings: SiteSetting?
     var emailSettings: EmailSetting?
     
-    func setAccessToken(accessToken: String?) -> Void {
-        UserDefaults.standard.set(accessToken ?? "", forKey: "accessToken")
+    var accessToken: String? {
+        get {
+            // Read access token from UserDefaults
+            return UserDefaults.standard.string(forKey: AppState.accessTokenKey)
+        }
+        set {
+            // Save access token to UserDefaults
+            UserDefaults.standard.set(newValue, forKey: AppState.accessTokenKey)
+        }
     }
     
-    func getAccessToken() -> String? {
-        return UserDefaults.standard.string(forKey: "accessToken")
-    }
-    
-    func removeAccessToken() -> Void {
-        UserDefaults.standard.removeObject(forKey: "accessToken")
-    }
-    
-    func setColorSheme(color: String) -> Void {
-        UserDefaults.standard.set(color, forKey: "colorScheme")
-    }
-    
-    func getColorSheme() -> String? {
-        return UserDefaults.standard.string(forKey: "colorScheme")
+    var colorSheme: String? {
+        get {
+            // Read color scheme from UserDefaults
+            return UserDefaults.standard.string(forKey: AppState.colorShemeKey)
+        }
+        set {
+            // Save color scheme to UserDefaults
+            UserDefaults.standard.set(newValue, forKey: AppState.colorShemeKey)
+        }
     }
 }
 

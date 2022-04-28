@@ -51,7 +51,7 @@ class TransactionListViewModel: ObservableObject {
     
     private func getData(date: ReportDate, category: CategoryReportTotal){
         loading = .visible
-        authAPI.getReportListTransaction( type: currentType, search: search, date: date, category: category.id, start: start, length: length, accessToken: state.getAccessToken())
+        authAPI.getReportListTransaction( type: currentType, search: search, date: date, category: category.id, start: start, length: length, accessToken: state.accessToken)
             .receive(on: RunLoop.main)
             .map(resultMapper)
             .replaceError(with: StatusViewModel.errorStatus)
@@ -61,7 +61,7 @@ class TransactionListViewModel: ObservableObject {
     
     func updateOrSaveTransaction(){
         loading = .visible
-        authAPI.updateOrSaveTransaction(type: transaction.type, transaction: transaction, accessToken: state.getAccessToken())
+        authAPI.updateOrSaveTransaction(type: transaction.type, transaction: transaction, accessToken: state.accessToken)
             .receive(on: RunLoop.main)
             .map(resultMapper)
             .replaceError(with: StatusViewModel.errorStatus)
@@ -71,7 +71,7 @@ class TransactionListViewModel: ObservableObject {
     
     func deleteTransaction(){
         loading = .visible
-        authAPI.deleteTransaction(transaction: transaction, accessToken: state.getAccessToken())
+        authAPI.deleteTransaction(transaction: transaction, accessToken: state.accessToken)
             .receive(on: RunLoop.main)
             .map(resultMapper)
             .replaceError(with: StatusViewModel.errorStatus)
@@ -95,7 +95,7 @@ class TransactionListViewModel: ObservableObject {
     
     private func getDataLasted(){
         loading = .visible
-        authAPI.getLatestListTransaction( type: currentType, start: start, length: length, accessToken: state.getAccessToken())
+        authAPI.getLatestListTransaction( type: currentType, start: start, length: length, accessToken: state.accessToken)
             .receive(on: RunLoop.main)
             .map(resultMapper)
             .replaceError(with: StatusViewModel.errorStatus)

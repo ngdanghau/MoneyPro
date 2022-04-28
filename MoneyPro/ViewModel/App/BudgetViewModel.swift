@@ -71,7 +71,7 @@ class BudgetViewModel: ObservableObject {
     
     private func fetchDataBudget(){
         loading = .visible
-        authAPI.getListBudget( search: search, start: start, length: length, accessToken: state.getAccessToken())
+        authAPI.getListBudget( search: search, start: start, length: length, accessToken: state.accessToken)
             .receive(on: RunLoop.main)
             .map(resultMapper)
             .replaceError(with: StatusViewModel.errorStatus)
@@ -81,7 +81,7 @@ class BudgetViewModel: ObservableObject {
     
     func updateOrSaveBudget (){
         loading = .visible
-        authAPI.updateOrSaveBudget(budget: budget, month: month, year: year, accessToken: state.getAccessToken())
+        authAPI.updateOrSaveBudget(budget: budget, month: month, year: year, accessToken: state.accessToken)
             .receive(on: RunLoop.main)
             .map(resultMapper)
             .replaceError(with: StatusViewModel.errorStatus)
@@ -91,7 +91,7 @@ class BudgetViewModel: ObservableObject {
     
     func deleteBudget (){
         loading = .visible
-        authAPI.deleteBudget(budget: budget, accessToken: state.getAccessToken())
+        authAPI.deleteBudget(budget: budget, accessToken: state.accessToken)
             .receive(on: RunLoop.main)
             .map(resultMapper)
             .replaceError(with: StatusViewModel.errorStatus)
@@ -101,7 +101,7 @@ class BudgetViewModel: ObservableObject {
     
     func getTransactionByDate (){
         loading = .visible
-        authAPI.getTransactionByDate(budget: budget, accessToken: state.getAccessToken())
+        authAPI.getTransactionByDate(budget: budget, accessToken: state.accessToken)
             .receive(on: RunLoop.main)
             .map(resultMapper)
             .replaceError(with: StatusViewModel.errorStatus)

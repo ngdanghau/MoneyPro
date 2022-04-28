@@ -42,7 +42,7 @@ class EmailSettingViewModel: ObservableObject {
             username: username,
             password: password,
             from: from,
-            accessToken: state.getAccessToken()
+            accessToken: state.accessToken
         )
         .receive(on: RunLoop.main)
         .map(resultMapper)
@@ -53,7 +53,7 @@ class EmailSettingViewModel: ObservableObject {
     
     func getEmailSetting(){
         loading = .visible
-        authAPI.getEmailSetting(accessToken: state.getAccessToken())
+        authAPI.getEmailSetting(accessToken: state.accessToken)
         .receive(on: RunLoop.main)
         .map(resultMapper)
         .replaceError(with: StatusViewModel.errorStatus)

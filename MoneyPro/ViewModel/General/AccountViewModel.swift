@@ -62,7 +62,7 @@ class AccountViewModel: ObservableObject {
     
     private func fetchDataAccount(){
         loading = .visible
-        authAPI.getListAccount( search: search, start: start, length: length, accessToken: state.getAccessToken())
+        authAPI.getListAccount( search: search, start: start, length: length, accessToken: state.accessToken)
             .receive(on: RunLoop.main)
             .map(resultMapper)
             .replaceError(with: StatusViewModel.errorStatus)
@@ -72,7 +72,7 @@ class AccountViewModel: ObservableObject {
     
     func updateOrSaveAccount (){
         loading = .visible
-        authAPI.updateOrSaveAccount(account: account, accessToken: state.getAccessToken())
+        authAPI.updateOrSaveAccount(account: account, accessToken: state.accessToken)
             .receive(on: RunLoop.main)
             .map(resultMapper)
             .replaceError(with: StatusViewModel.errorStatus)
@@ -82,7 +82,7 @@ class AccountViewModel: ObservableObject {
     
     func deleteAccount (){
         loading = .visible
-        authAPI.deleteAccount(account: account, accessToken: state.getAccessToken())
+        authAPI.deleteAccount(account: account, accessToken: state.accessToken)
             .receive(on: RunLoop.main)
             .map(resultMapper)
             .replaceError(with: StatusViewModel.errorStatus)

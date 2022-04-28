@@ -62,7 +62,7 @@ class UserManagementViewModel: ObservableObject {
     
     private func fetchDataUser(){
         loading = .visible
-        authAPI.getListUser( search: search, start: start, length: length, accessToken: state.getAccessToken())
+        authAPI.getListUser( search: search, start: start, length: length, accessToken: state.accessToken)
             .receive(on: RunLoop.main)
             .map(resultMapper)
             .replaceError(with: StatusViewModel.errorStatus)
@@ -72,7 +72,7 @@ class UserManagementViewModel: ObservableObject {
     
     func updateOrSaveUser (){
         loading = .visible
-        authAPI.updateOrSaveUser(user: user, accessToken: state.getAccessToken())
+        authAPI.updateOrSaveUser(user: user, accessToken: state.accessToken)
             .receive(on: RunLoop.main)
             .map(resultMapper)
             .replaceError(with: StatusViewModel.errorStatus)
@@ -82,7 +82,7 @@ class UserManagementViewModel: ObservableObject {
     
     func deleteUser (){
         loading = .visible
-        authAPI.deleteUser(user: user, accessToken: state.getAccessToken())
+        authAPI.deleteUser(user: user, accessToken: state.accessToken)
             .receive(on: RunLoop.main)
             .map(resultMapper)
             .replaceError(with: StatusViewModel.errorStatus)

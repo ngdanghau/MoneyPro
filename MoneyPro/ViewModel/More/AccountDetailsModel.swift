@@ -32,7 +32,7 @@ class AccountDetailsModel: ObservableObject {
     
     func updateProfile() {
         loading = true
-        authAPI.updateProfile(firstname: firstname, lastname: lastname, accessToken: state.getAccessToken())
+        authAPI.updateProfile(firstname: firstname, lastname: lastname, accessToken: state.accessToken)
             .receive(on: RunLoop.main)
             .map(resultMapper)
             .replaceError(with: StatusViewModel.errorStatus)
@@ -42,7 +42,7 @@ class AccountDetailsModel: ObservableObject {
     
     func changePassword() {
         loading = true
-        authAPI.changePassword(current_password: current_password, password: password, password_confirm: password_confirm, accessToken: state.getAccessToken())
+        authAPI.changePassword(current_password: current_password, password: password, password_confirm: password_confirm, accessToken: state.accessToken)
             .receive(on: RunLoop.main)
             .map(resultMapper)
             .replaceError(with: StatusViewModel.errorStatus)
@@ -59,7 +59,7 @@ extension AccountDetailsModel {
             return StatusViewModel.init(title: "Error", message: resp?.msg ?? StatusViewModel.errorDefault, resultType: .error)
         } else if resp?.result == 1 {
             if resp?.accessToken != nil {
-                state.setAccessToken(accessToken: resp?.accessToken)
+                state.accessToken = resp?.accessToken ?? ""
             }
             state.authUser = resp?.data
             return StatusViewModel.init(title: "Successful", message: resp?.msg ?? StatusViewModel.successDefault, resultType: .success)

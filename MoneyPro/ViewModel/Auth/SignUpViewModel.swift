@@ -47,7 +47,7 @@ extension SignUpViewModel {
         if authLogin?.result == 0 {
             return StatusViewModel.init(title: "Error", message: authLogin?.msg ?? StatusViewModel.errorDefault, resultType: .error)
         } else if authLogin?.accessToken != nil {
-            state.setAccessToken(accessToken: authLogin?.accessToken ?? "")
+            state.accessToken = authLogin?.accessToken ?? ""
             state.authUser = authLogin?.data
             return StatusViewModel.init(title: "Successful", message: authLogin?.msg ?? StatusViewModel.successDefault, resultType: .success)
         } else {

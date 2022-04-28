@@ -47,7 +47,7 @@ struct ContentView: View {
                         
                         VStack(spacing: 25){
                             Button(action: {
-                                self.indexView = self.state.getAccessToken() != nil ? 3 : 1
+                                self.indexView = self.state.accessToken != nil ? 3 : 1
                                 self.pushView.toggle()
                             }){
                                 Text("Login")
@@ -62,7 +62,7 @@ struct ContentView: View {
                             }
                             
                             Button(action: {
-                                self.indexView = self.state.getAccessToken() != nil ? 3 : 2
+                                self.indexView = self.state.accessToken != nil ? 3 : 2
                                 self.pushView.toggle()
                                 
                             }){
@@ -104,7 +104,7 @@ struct ContentView: View {
             return
         }
         
-        let accessToken = self.state.getAccessToken()
+        let accessToken = self.state.accessToken
         guard let token = accessToken, !token.isEmpty else {
             print("Token not found")
             loading = false
@@ -124,7 +124,7 @@ struct ContentView: View {
                 } else if let data = data {
                     let resp = try? JSONDecoder().decode(AuthResponse.self, from: data)
                     if resp?.result == 0 || resp?.data == nil {
-                        state.removeAccessToken()
+                        state.accessToken = nil
                         return
                     }
                     if resp == nil {

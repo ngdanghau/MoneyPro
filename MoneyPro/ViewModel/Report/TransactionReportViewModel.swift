@@ -28,7 +28,7 @@ class TransactionReportViewModel: ObservableObject {
     
     func getData(type: MoneyType, date: BarChartDateType){
         loading = .visible
-        authAPI.getTotalTransaction( type: type, accessToken: state.getAccessToken())
+        authAPI.getTotalTransaction( type: type, accessToken: state.accessToken)
             .receive(on: RunLoop.main)
             .map(resultMapper)
             .replaceError(with: StatusViewModel.errorStatus)

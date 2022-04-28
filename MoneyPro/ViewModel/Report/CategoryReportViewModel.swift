@@ -31,7 +31,7 @@ class CategoryReportViewModel: ObservableObject {
     
     func getData(type: MoneyType, date: BarChartDateType){
         loading = .visible
-        authAPI.getListCategoryInTime( type: type, date: date, accessToken: state.getAccessToken())
+        authAPI.getListCategoryInTime( type: type, date: date, accessToken: state.accessToken)
             .receive(on: RunLoop.main)
             .map(resultMapper)
             .replaceError(with: StatusViewModel.errorStatus)

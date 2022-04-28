@@ -34,7 +34,7 @@ struct MoreView: View {
     
     init(state: AppState) {
         self.state = state
-        if let color = state.getColorSheme() {
+        if let color = state.colorSheme {
             self.colorSchemeApp = color == "system" ? .system : ( color == "light" ? .light : .dark )
         }else {
             self.colorSchemeApp = .system
@@ -68,7 +68,7 @@ struct MoreView: View {
                             Text(colorScheme.description).tag(colorScheme)
                         }
                         .onChange(of: colorSchemeApp){ newValue in
-                            state.setColorSheme(color: colorSchemeApp.id)
+                            state.colorSheme = colorSchemeApp.id
                             ThemeManager.shared.handleTheme(darkMode: colorSchemeApp != .light, system: colorSchemeApp == .system)
                             
                         }
@@ -116,7 +116,7 @@ struct MoreView: View {
             
             Section{
                 Button(action: {
-                    state.removeAccessToken()
+                    state.accessToken = nil
                     accountType = .member
                     siteName = ""
                     NavigationUtil.popToRootView()

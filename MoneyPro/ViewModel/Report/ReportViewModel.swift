@@ -30,7 +30,7 @@ class ReportViewModel: ObservableObject {
     
     func getData(type: MoneyType, date: BarChartDateType){
         loading = .visible
-        authAPI.getDataIncomeVsExpense( type: type.description.lowercased(), date: date, accessToken: state.getAccessToken())
+        authAPI.getDataIncomeVsExpense( type: type.description.lowercased(), date: date, accessToken: state.accessToken)
             .receive(on: RunLoop.main)
             .map(resultMapper)
             .replaceError(with: StatusViewModel.errorStatus)

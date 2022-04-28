@@ -65,7 +65,7 @@ class CategoryViewModel: ObservableObject {
     
     private func getDataCategory(){
         loading = .visible
-        authAPI.getListCategory(type: getRawType(), search: search, start: start, length: length, accessToken: state.getAccessToken())
+        authAPI.getListCategory(type: getRawType(), search: search, start: start, length: length, accessToken: state.accessToken)
             .receive(on: RunLoop.main)
             .map(resultMapper)
             .replaceError(with: StatusViewModel.errorStatus)
@@ -76,7 +76,7 @@ class CategoryViewModel: ObservableObject {
     func updateOrSaveCategory (){
         loading = .visible
         category.color = UIColor(color).toHexString()
-        authAPI.updateOrSaveCategory(type: getRawType(), category: category, accessToken: state.getAccessToken())
+        authAPI.updateOrSaveCategory(type: getRawType(), category: category, accessToken: state.accessToken)
             .receive(on: RunLoop.main)
             .map(resultMapper)
             .replaceError(with: StatusViewModel.errorStatus)
@@ -87,7 +87,7 @@ class CategoryViewModel: ObservableObject {
     func deleteCategory (){
         loading = .visible
         category.color = UIColor(color).toHexString()
-        authAPI.deleteCategory(type: getRawType(), category: category, accessToken: state.getAccessToken())
+        authAPI.deleteCategory(type: getRawType(), category: category, accessToken: state.accessToken)
             .receive(on: RunLoop.main)
             .map(resultMapper)
             .replaceError(with: StatusViewModel.errorStatus)

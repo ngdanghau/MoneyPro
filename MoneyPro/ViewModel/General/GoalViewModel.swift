@@ -72,7 +72,7 @@ class GoalViewModel: ObservableObject {
     
     private func fetchDataGoals(){
         loading = .visible
-        authAPI.getListGoal( status: selectedTab, search: search, start: start, length: length, dateFrom: dateFrom, dateTo: dateTo, accessToken: state.getAccessToken())
+        authAPI.getListGoal( status: selectedTab, search: search, start: start, length: length, dateFrom: dateFrom, dateTo: dateTo, accessToken: state.accessToken)
             .receive(on: RunLoop.main)
             .map(resultMapper)
             .replaceError(with: StatusViewModel.errorStatus)
@@ -82,7 +82,7 @@ class GoalViewModel: ObservableObject {
     
     func updateOrSaveGoal (){
         loading = .visible
-        authAPI.updateOrSaveGoal(goal: goal, accessToken: state.getAccessToken())
+        authAPI.updateOrSaveGoal(goal: goal, accessToken: state.accessToken)
             .receive(on: RunLoop.main)
             .map(resultMapper)
             .replaceError(with: StatusViewModel.errorStatus)
@@ -92,7 +92,7 @@ class GoalViewModel: ObservableObject {
     
     func deleteGoal (){
         loading = .visible
-        authAPI.deleteGoal(goal: goal, accessToken: state.getAccessToken())
+        authAPI.deleteGoal(goal: goal, accessToken: state.accessToken)
             .receive(on: RunLoop.main)
             .map(resultMapper)
             .replaceError(with: StatusViewModel.errorStatus)
@@ -102,7 +102,7 @@ class GoalViewModel: ObservableObject {
     
     func addDeposit (){
         loading = .visible
-        authAPI.addDeposit(goal: goal, accessToken: state.getAccessToken())
+        authAPI.addDeposit(goal: goal, accessToken: state.accessToken)
             .receive(on: RunLoop.main)
             .map(resultMapperAddDeposit)
             .replaceError(with: StatusViewModel.errorStatus)

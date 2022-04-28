@@ -45,7 +45,7 @@ class ApplicationSettingViewModel: ObservableObject {
             logomark: logomark,
             language: language.rawValue,
             currency: currency,
-            accessToken: state.getAccessToken()
+            accessToken: state.accessToken
         )
             .receive(on: RunLoop.main)
             .map(resultMapper)
@@ -56,7 +56,7 @@ class ApplicationSettingViewModel: ObservableObject {
     
     func getDataSetting (){
         loading = .visible
-        authAPI.getAppSetting(accessToken: state.getAccessToken())
+        authAPI.getAppSetting(accessToken: state.accessToken)
             .receive(on: RunLoop.main)
             .map(resultMapper)
             .replaceError(with: StatusViewModel.errorStatus)
