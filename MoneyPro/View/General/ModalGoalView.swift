@@ -21,7 +21,6 @@ struct ModalGoalView: View {
                         text: $viewModel.goal.name
                     )
                     .multilineTextAlignment(.trailing)
-                    .keyboardType(.decimalPad)
                 }
                 HStack{
                     Text("Amount")
